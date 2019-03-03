@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+</style>
+</head>
+<body>
+
+
+<form (submit)="onRegisterSubmit()">
+  <div class="container">
+  <h2>Login</h2>
+  <label for="uname"><b>Your Name</b></label>
+  <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="name" name="name" placeholder="Enter Name">
+  <label for="uname"><b>Email</b></label>
+  <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="email" email="email" placeholder="Enter Email">
+
+  <label for="psw"><b>Password</b></label>
+  <input type="password" [ngModelOptions]="{standalone: true}" [(ngModel)]="password" password="password" placeholder="Enter Password">
+
+  <label for="psw"><b>Re-enter Password</b></label>
+  <input type="password" [ngModelOptions]="{standalone: true}" [(ngModel)]="password2" password2="password2" placeholder="Re-enter Password">
+  <button type="submit" class="btn btn-primary">Register</button>
+  </div>
+</form>
+
+
+
+
+
+</body>
+</html>
