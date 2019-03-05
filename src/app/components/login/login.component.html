@@ -15,13 +15,12 @@
   <div class="container">
     <h2>Login</h2>
     <label for="uname"><b>Email</b></label>
-    <input type="text" placeholder="Email" name="uname" required>
-
+    <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="email" email="email" placeholder="Enter Email">
     <label for="psw"><b>Password</b></label>
+    <input type="password" [ngModelOptions]="{standalone: true}" [(ngModel)]="password" password="password" placeholder="Enter Password">
     <span class="psw">Forgot <a href="#">password?</a></span>
-    <input type="password" placeholder="Enter Password" name="psw" required>
 
-    <button type="submit" class="btn btn-primary">Login</button>
+    <button type="button" class="btn btn-primary">Login</button>
     <button type="button" class="btn btn-secondary" style="background-color:#D3D3D3" [routerLink] = "['/register']">Register</button>
     <label>
       <input type="checkbox" checked="checked" name="remember"> Remember me

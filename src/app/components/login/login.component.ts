@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
     email: this.email,
     password: this.password
   }
+  console.log(user);
 
   if(!this.validateService.validateLogin(user)){
     this.flashMessage.show('Please fill in all fields', {cssClass: 'alert-danger', timeout: 3000});
