@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style></style>
+  </head>
+  <body>
+    <form (submit)="onLoginSubmit()">
+      <div class="container">
+        <h2>Forgot your password?</h2>
+        <label for="uname"
+          ><b>Don't worry, we'll take care of that in a jiffy.</b></label
+        >
+        <input
+          type="text"
+          [ngModelOptions]="{ standalone: true }"
+          [(ngModel)]="email"
+          email="email"
+          placeholder="Please enter your email here..."
+        />
+
+        <button type="submit" class="btn btn-primary">SEND</button>
+      </div>
+    </form>
+  </body>
+</html>
