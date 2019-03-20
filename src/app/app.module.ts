@@ -16,6 +16,8 @@ import {FlashMessagesModule} from 'angular2-flash-messages';
 
 import { NavService } from './services/nav.service';
 import { ValidateService } from './services/validate.service';
+import { AuthService } from './services/auth.service';
+
 
 const appRoutes: Routes = [
   {path:'', component: HomeComponent},
@@ -50,7 +52,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     NavService,
-    ValidateService
+    ValidateService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
