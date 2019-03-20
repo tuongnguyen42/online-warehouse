@@ -1,7 +1,11 @@
 .jumbotron {
   margin-top: 50px;
   margin-bottom: 50px;
-  background-color: #f5f5f5;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #000;
+}
+.jumbotron h1,
+h3 {
   color: #000;
 }
 
