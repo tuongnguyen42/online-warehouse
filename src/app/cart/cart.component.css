@@ -1,0 +1,224 @@
+.page-top {
+  min-height: calc(100vh-70px);
+}
+.page-top h1 {
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+}
+
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  vertical-align: middle;
+}
+.actions .btn {
+  font-size: 1em;
+  padding: 2px;
+  border-radius: 2px;
+}
+.actions .btn-danger {
+  height: 40px;
+  width: 40px;
+}
+.actions .btn-info {
+  height: 40px;
+  width: 40px;
+  margin-right: 10px;
+}
+
+.img-responsive {
+  margin: 0;
+}
+.nomargin {
+  margin-left: 55px;
+}
+.col-sm-10 p {
+  float: left;
+  margin-left: 55px;
+}
+.text-center {
+  /* Quantity text form*/
+  width: 130%;
+}
+
+/* Footer */
+
+#footer {
+  height: 150px;
+  position: fixed;
+  left: 10%;
+  bottom: 0;
+  width: 80%;
+  background-color: #f5f5f5;
+  padding: 10px;
+}
+
+.container-top ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.container-top li {
+  float: left;
+}
+.container-top ul li a {
+  display: block;
+  padding: 14px 16px;
+  text-align: center;
+  text-decoration: none;
+  color: #000;
+}
+.container-top ul li a:hover {
+  text-decoration: underline;
+  color: #000;
+}
+.container-bottom {
+  margin-top: 50px;
+  padding-left: 16px;
+}
+
+/* End Footer */
+
+/* MEDIA QUERIES */
+
+@media screen and (max-width: 992px) {
+  table#cart tbody td .form-control {
+    width: 15%;
+    display: inline !important;
+  }
+  .actions .btn {
+    width: 100%;
+    height: 60px;
+    margin-left: 50px;
+  }
+  .actions .btn-info {
+    float: left;
+    margin-right: 10px;
+  }
+  .actions .btn-danger {
+    float: left;
+  }
+  table#cart thead {
+    display: none;
+  }
+  table#cart tbody td {
+    display: block;
+    padding: 0.6rem;
+    min-width: 320px;
+  }
+
+  table#cart tbody td:before {
+    content: attr(data-th);
+    font-weight: bold;
+    display: inline-block;
+    width: 8rem;
+  }
+  table#cart tfoot td {
+    display: block;
+  }
+  table#cart tfoot td .btn {
+    display: block;
+    margin-left: 150px;
+    width: 10%;
+  }
+}
+@media screen and (max-width: 992px) {
+  table#cart tbody td .form-control {
+    width: 20%;
+    display: inline !important;
+  }
+  .actions .btn {
+    width: 80%;
+    height: 60px;
+    margin-left: 40px;
+    font-size: 1.5em;
+  }
+  .actions .btn-info {
+    float: center;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+  .actions .btn-danger {
+    float: center;
+  }
+  table#cart thead {
+    display: none;
+  }
+
+  table#cart tbody tr td:first-child {
+    background: #333;
+    color: #fff;
+    height: 200px;
+  }
+
+  table#cart tfoot td {
+    display: block;
+  }
+  table#cart tfoot td .btn {
+    display: block;
+    margin-left: 20px;
+    width: 87%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  table#cart tbody td .form-control {
+    width: 30%;
+    display: inline !important;
+  }
+  .col-sm-2 {
+    margin-left: 130px;
+    min-width: 200px;
+  }
+  .col-sm-2 img {
+    height: 190px;
+  }
+  .col-sm-10 {
+    display: none;
+  }
+  .actions .btn {
+    width: 85%;
+    margin-bottom: 10px;
+  }
+  .actions .btn-info {
+    float: center;
+  }
+  .actions .btn-danger {
+    float: center;
+  }
+  table#cart thead {
+    display: none;
+  }
+  table#cart tbody td {
+    display: block;
+    padding: 0.6rem;
+    min-width: 320px;
+  }
+  table#cart tbody tr td:first-child {
+    background: #333;
+    color: #fff;
+    height: 250px;
+    margin-bottom: 20px;
+  }
+  table#cart tbody td:before {
+    content: attr(data-th);
+    font-weight: bold;
+    display: inline-block;
+    width: 8rem;
+  }
+  table#cart tfoot td {
+    display: block;
+  }
+  table#cart tfoot td .btn {
+    display: block;
+    margin-left: 30px;
+    width: 90%;
+    margin-bottom: 0;
+  }
+
+  #footer {
+    visibility: hidden;
+  }
+}
