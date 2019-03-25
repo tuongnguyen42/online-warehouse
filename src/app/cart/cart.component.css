@@ -45,8 +45,9 @@
 /* Footer */
 
 #footer {
-  height: 150px;
+  height: 80px;
   position: fixed;
+  margin-top: 200px;
   left: 10%;
   bottom: 0;
   width: 80%;
