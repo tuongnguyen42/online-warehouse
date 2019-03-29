@@ -52,6 +52,14 @@ def delete_item(name):
     cnx.close()
 
 
+def get_items_by_category(category):
+    cursor, cnx = cursor_connect()
+    cursor.execute("""SELECT * FROM inventory WHERE category LIKE %s""", (category,))
+    items = cursor.fetchall()
+    cursor.close()
+    cnx.close()
+    return items
+
 # tests
 print(add_item(cur, "gel pens", "pens", "uses gel ink", 3, 50))
 
