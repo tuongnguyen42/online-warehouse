@@ -5,9 +5,9 @@ import mysql.connector
 def cursor_connect():
     cnx = mysql.connector.connect(
     user='root',
-    password='Wowerin97!',
+    password='Chungu1234',
     host='localhost',
-    database='cs160_project'
+    database='onlinewarehouse'
     )
     cur = cnx.cursor(buffered=True)
     return cur, cnx
@@ -48,7 +48,7 @@ def forgot_password(email):
 
 
 # tests
-print(add_account(cur, 'foo11@gmail.com', "pword"))
-print(forgot_password(cur, "foo11@gmail.com"))
-
-print("done")
+# print(add_account(cur, 'foo11@gmail.com', "pword"))
+# print(forgot_password(cur, "foo11@gmail.com"))
+#
+# print("done")
