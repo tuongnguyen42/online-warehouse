@@ -12,7 +12,7 @@ import { NavbarComponent } from "./components/navbar/navbar.component";
 import { RegisterComponent } from "./components/register/register.component";
 import { OrdersComponent } from "./components/orders/orders.component";
 import { FlashMessagesModule } from "angular2-flash-messages";
-import { CartComponent } from "src/app/cart/cart.component";
+import { CartComponent } from "src/app/components/cart/cart.component";
 
 import { NavService } from "./services/nav.service";
 import { ValidateService } from "./services/validate.service";
