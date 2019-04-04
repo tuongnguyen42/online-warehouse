@@ -13,27 +13,34 @@ def cursor_connect():
     return cur, cnx
 
 
-def add_account(email, password):
+def add_account(name, email, password):
     cursor, cnx  = cursor_connect()
-    cursor.execute("SELECT count(*) FROM accounts")
-    accounts_size = cursor.fetchone()
 
     cursor.execute("""SELECT email FROM accounts WHERE email LIKE %s""", (email,))
-    print("first query successful\n")
+
+    # if email not found in database
     if not cursor.fetchall():
-        print("adding account...")
-        cursor.execute("""INSERT INTO accounts (account_id, email, accounts.password) VALUES (%s,%s,%s);""",
-                       (str(accounts_size[0]), email, password))
+        cursor.execute("""INSERT INTO accounts (name, email, accounts.password, type) VALUES (%s,%s,%s,%s);""",
+                       (name, email, password, "user"))
         cnx.commit()
-        print("executed")
+        # print("executed")
         return True
     else:
         # email account already exists in database
-        print("account already exists")
+        # print("account with that email already exists")
         return False
     cursor.close()
     cnx.close()
 
+
+def authenticate_user(email, password):
+    cursor, cnx  = cursor_connect()
+    cursor.execute("SELECT * FROM accounts WHERE email LIKE %s AND password LIKE %s", (email, password))
+
+    if not cursor.fetchall():
+        return False
+    else:
+        return True
 
 def forgot_password(email):
     cursor, cnx  = cursor_connect()
