@@ -18,6 +18,10 @@ import { NavService } from "./services/nav.service";
 import { ValidateService } from "./services/validate.service";
 import { AuthService } from "./services/auth.service";
 import { ResetpwdComponent } from "./components/resetpwd/resetpwd.component";
+import { AboutComponent } from './components/about/about.component';
+import { FaqComponent } from './components/faq/faq.component';
+import { ShippingComponent } from './components/shipping/shipping.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -42,7 +46,11 @@ const appRoutes: Routes = [
     RegisterComponent,
     CartComponent,
     OrdersComponent,
-    ResetpwdComponent
+    ResetpwdComponent,
+    AboutComponent,
+    FaqComponent,
+    ShippingComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
