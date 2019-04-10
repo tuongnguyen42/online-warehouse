@@ -6,7 +6,6 @@
 
 .page-top {
   margin-top: 2em;
-  width: 100%;
 }
 
 .page-top h1 {
@@ -35,16 +34,13 @@
 .li {
   list-style-type: disc;
 }
+/* Footer */
 
-/* FOOTER */
 #footer {
-  position: absolute;
-  width: 90%;
-  bottom: 0;
   height: 150px;
   background-color: #f5f5f5;
   padding: 10px;
-  margin-top: 80px;
+  margin-top: 57vh;
 }
 
 .container-top ul {
@@ -71,4 +67,13 @@
   margin-top: 50px;
   padding-left: 16px;
 }
-/* END FOOTER */
+/* End Footer */
+
+@media screen and (max-width: 1197px) {
+  #footer {
+    height: 150px;
+    background-color: #f5f5f5;
+    padding: 10px;
+    margin-top: 57vh;
+  }
+}
