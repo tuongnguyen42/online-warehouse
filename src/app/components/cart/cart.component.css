@@ -41,7 +41,7 @@
 }
 .text-center {
   /* Quantity text form*/
-  width: 130%;
+  width: 100%;
 }
 
 #totalweight_label {
@@ -186,14 +186,15 @@
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
   table#cart tbody td .form-control {
-    width: 30%;
+    width: 20%;
     display: inline !important;
   }
   .col-sm-2 {
-    margin-left: 130px;
-    min-width: 200px;
+    margin-left: 5px;
+    margin-right: 5px;
+    min-width: 33%;
   }
   .col-sm-2 img {
     height: 190px;
@@ -201,6 +202,14 @@
   .col-sm-10 {
     display: none;
   }
+
+  .text-center {
+    width: 100%;
+  }
+  #item_weight_label {
+    padding: 10px;
+  }
+
   .actions .btn .warning .btn-success {
     width: 70%;
     margin-bottom: 10px;
@@ -239,5 +248,10 @@
     margin-left: 30px;
     width: 90%;
     margin-bottom: 0;
+  }
+
+  #footer {
+    padding: 5px;
+    margin-top: 35vh;
   }
 }
