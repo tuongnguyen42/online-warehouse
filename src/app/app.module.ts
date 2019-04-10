@@ -17,11 +17,13 @@ import { CartComponent } from "src/app/components/cart/cart.component";
 import { NavService } from "./services/nav.service";
 import { ValidateService } from "./services/validate.service";
 import { AuthService } from "./services/auth.service";
+import { SearchService } from "./services/search.service";
 import { ResetpwdComponent } from "./components/resetpwd/resetpwd.component";
 import { AboutComponent } from './components/about/about.component';
 import { FaqComponent } from './components/faq/faq.component';
 import { ShippingComponent } from './components/shipping/shipping.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { SearchComponent } from './components/search/search.component';
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -30,10 +32,9 @@ const appRoutes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "cart", component: CartComponent },
   { path: "orders", component: OrdersComponent },
-  {
-    path: "resetpwd",
-    component: ResetpwdComponent
-  }
+  { path: "resetpwd",component: ResetpwdComponent},
+  { path: "search",component: SearchComponent}
+
 ];
 
 @NgModule({
@@ -50,7 +51,8 @@ const appRoutes: Routes = [
     AboutComponent,
     FaqComponent,
     ShippingComponent,
-    ContactComponent
+    ContactComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +62,7 @@ const appRoutes: Routes = [
     FlashMessagesModule.forRoot(),
     FormsModule
   ],
-  providers: [NavService, ValidateService, AuthService],
+  providers: [NavService, ValidateService, AuthService, SearchService],
 
   bootstrap: [AppComponent]
 })
