@@ -1,9 +1,11 @@
 import os
 import jwt
 import datetime
+import json
 from flask import Flask, request, make_response, jsonify
 from flask_cors import CORS, cross_origin
 from accounts import add_account, authenticate_user
+from inventory import get_items_by_category
 app = Flask(__name__)
 CORS(app)
 app.config['SECRET_KEY'] = 'tempsecretkey'
@@ -54,6 +56,25 @@ def login():
 			"msg": "login failed"
 		}
 		return make_response(jsonify(responseObject))
+
+
+@app.route('/search', methods = ['POST'])
+@cross_origin()
+def search():
+	data = request.get_json()
+	keyword = data.get('keyword')
+	items = get_items_by_category(keyword)
+	if not items:
+		responseObject = {
+			"success": False,
+			"msg": "no items in that category"
+		}
+	else:
+		responseObject = {
+			"success": True,
+			inventory: json.dumps(items)
+		}
+	return make_response(jsonify(responseObject))
 
 
 if __name__ == '__main__':
