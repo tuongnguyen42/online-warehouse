@@ -7,7 +7,8 @@ def cursor_connect():
     user='root',
     password='Chungu1234',
     host='localhost',
-    database='onlinewarehouse'
+    database='onlinewarehouse',
+    port='3000'
     )
     cur = cnx.cursor(buffered=True)
     return cur, cnx

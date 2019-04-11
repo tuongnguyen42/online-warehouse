@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
   }
 
 
-  console.log(user);
 
   if(!this.validateService.validateEmail(user.email)){
     this.flashMessage.show('Please use a valid email', {cssClass: 'alert-danger', timeout: 3000});
@@ -53,7 +52,7 @@ export class LoginComponent implements OnInit {
          cssClass: 'alert-success',
          timeout: 5000})
          this.router.navigate(['/dashboard']);
-  
+
      } else{
        this.flashMessage.show(data.msg,{
          cssClass: 'alert-danger',
@@ -61,7 +60,7 @@ export class LoginComponent implements OnInit {
        })
        this.router.navigate(['/login']);
      }
-  
+
    })
 }
 
