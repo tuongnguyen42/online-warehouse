@@ -13,8 +13,14 @@ app.config['SECRET_KEY'] = 'tempsecretkey'
 def worker():
 	# read json + reply
 	data = request.get_json()
+	print(data)
 
-	if add_account(data.name, data.email, data.password):
+	'''if add_account(data.name, data.email, data.password):
+		responseObject = {
+			"success": True,
+			"msg": "registered"
+		}'''
+	if add_account(data.get('name'), data.get('email'), data.get('password')):
 		responseObject = {
 			"success": True,
 			"msg": "registered"
@@ -30,9 +36,11 @@ def worker():
 @cross_origin()
 def login():
 	data = request.get_json()
+	email = data.get('email')
+	password = data.get('password')
 
-	if authenticate_user(data.email, data.password):
-		token = jwt.encode({'user': data.email, 'pass': data.password, 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours = 24)}, \
+	if authenticate_user(email, password):
+		token = jwt.encode({'user': email, 'pass': password, 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours = 24)}, \
 			app.config['SECRET_KEY'])
 
 		responseObject = {
@@ -46,6 +54,7 @@ def login():
 			"msg": "login failed"
 		}
 		return make_response(jsonify(responseObject))
+
 
 if __name__ == '__main__':
     app.run()
