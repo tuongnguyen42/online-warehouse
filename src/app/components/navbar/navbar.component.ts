@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavService } from '../../services/nav.service';
-import {SearchService} from '../../services/search.service';
+
+import {AuthService} from '../../services/auth.service';
+import {FlashMessagesService} from 'angular2-flash-messages';
+
 import {Router} from '@angular/router';
 
 @Component({
@@ -9,19 +12,24 @@ import {Router} from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  keyword:String;
+
   constructor(
     private nav:NavService,
-    private router:Router,
-    private search:SearchService
+    private authService:AuthService,
+    private router: Router,
+    private flashMessage: FlashMessagesService
   ) { }
 
   ngOnInit() {
   }
 
-  onSearchSubmit(){
-    this.search.storeKeyword(this.keyword);
-    this.router.navigate(['/search']);
-  }
 
+  onLogoutClick(){
+  this.authService.logout();
+  this.flashMessage.show('Logged out!', {
+    cssClass: 'alert-success',
+    timeout: 3000
+  });
+
+}
 }

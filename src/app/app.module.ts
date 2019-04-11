@@ -13,6 +13,8 @@ import { RegisterComponent } from "./components/register/register.component";
 import { OrdersComponent } from "./components/orders/orders.component";
 import { FlashMessagesModule } from "angular2-flash-messages";
 import { CartComponent } from "src/app/components/cart/cart.component";
+import {AuthGuard} from './guards/auth.guard';
+import {LoginGuard} from './guards/login.guard';
 
 import { NavService } from "./services/nav.service";
 import { ValidateService } from "./services/validate.service";
@@ -27,11 +29,11 @@ import { SearchComponent } from './components/search/search.component';
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
-  { path: "register", component: RegisterComponent },
+  { path: "register", component: RegisterComponent, canActivate:[LoginGuard]},
   { path: "dashboard", component: DashboardComponent },
-  { path: "login", component: LoginComponent },
+  { path: "login", component: LoginComponent, canActivate:[LoginGuard]},
   { path: "cart", component: CartComponent },
-  { path: "orders", component: OrdersComponent },
+  { path: "orders", component: OrdersComponent, canActivate:[AuthGuard] },
   { path: "resetpwd",component: ResetpwdComponent},
   { path: "search",component: SearchComponent}
 
@@ -62,7 +64,7 @@ const appRoutes: Routes = [
     FlashMessagesModule.forRoot(),
     FormsModule
   ],
-  providers: [NavService, ValidateService, AuthService, SearchService],
+  providers: [NavService, ValidateService, AuthService, AuthGuard, LoginGuard],
 
   bootstrap: [AppComponent]
 })
