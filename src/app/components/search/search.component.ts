@@ -16,7 +16,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(){
     this.keyword = this.search.getKeyword();
-    console.log(this.keyword);
+    this.search.searchKeyword(this.keyword);
 
   }
 
