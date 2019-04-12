@@ -15,7 +15,7 @@ app.config['SECRET_KEY'] = 'tempsecretkey'
 def worker():
 	# read json + reply
 	data = request.get_json()
-	print(data)
+#	print(data)
 
 	'''if add_account(data.name, data.email, data.password):
 		responseObject = {
@@ -72,7 +72,7 @@ def search():
 	else:
 		responseObject = {
 			"success": True,
-			inventory: json.dumps(items)
+			"inventory": json.dumps(items)
 		}
 	return make_response(jsonify(responseObject))
 

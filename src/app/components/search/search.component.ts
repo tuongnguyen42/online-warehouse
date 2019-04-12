@@ -11,14 +11,31 @@ export class SearchComponent implements OnInit {
 
 
   keyword:String = "";
+  searchResult:[Object];
 
-  constructor(private search:SearchService) { }
+
+
+  constructor(private searchService:SearchService) {
+
+   }
 
   ngOnInit(){
-    this.keyword = this.search.getKeyword();
-    this.search.searchKeyword(this.keyword);
+    this.searchService.keyword.subscribe(keyword => this.keyword = keyword);
 
+    const query = {
+      keyword:this.keyword
+    }
+    this.searchService.searchKeyword(query).subscribe(data =>{
+      this.searchResult = data.inventory;
+    })
+
+
+
+    console.log(this.searchResult);
   }
+
+
+
 
 
 

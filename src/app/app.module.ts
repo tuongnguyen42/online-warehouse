@@ -64,7 +64,7 @@ const appRoutes: Routes = [
     FlashMessagesModule.forRoot(),
     FormsModule
   ],
-  providers: [NavService, ValidateService, AuthService, AuthGuard, LoginGuard],
+  providers: [SearchService, NavService, ValidateService, AuthService, AuthGuard, LoginGuard, SearchComponent],
 
   bootstrap: [AppComponent]
 })
