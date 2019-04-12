@@ -19,6 +19,7 @@ import {LoginGuard} from './guards/login.guard';
 import { NavService } from "./services/nav.service";
 import { ValidateService } from "./services/validate.service";
 import { AuthService } from "./services/auth.service";
+import { SearchService } from "./services/search.service";
 import { ResetpwdComponent } from "./components/resetpwd/resetpwd.component";
 import { AboutComponent } from './components/about/about.component';
 import { FaqComponent } from './components/faq/faq.component';
@@ -33,10 +34,9 @@ const appRoutes: Routes = [
   { path: "login", component: LoginComponent, canActivate:[LoginGuard]},
   { path: "cart", component: CartComponent },
   { path: "orders", component: OrdersComponent, canActivate:[AuthGuard] },
-  {
-    path: "resetpwd",
-    component: ResetpwdComponent
-  }
+  { path: "resetpwd",component: ResetpwdComponent},
+  { path: "search",component: SearchComponent}
+
 ];
 
 @NgModule({
@@ -64,7 +64,7 @@ const appRoutes: Routes = [
     FlashMessagesModule.forRoot(),
     FormsModule
   ],
-  providers: [NavService, ValidateService, AuthService, AuthGuard, LoginGuard],
+  providers: [SearchService, NavService, ValidateService, AuthService, AuthGuard, LoginGuard, SearchComponent],
 
   bootstrap: [AppComponent]
 })
