@@ -24,6 +24,7 @@ import { AboutComponent } from './components/about/about.component';
 import { FaqComponent } from './components/faq/faq.component';
 import { ShippingComponent } from './components/shipping/shipping.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { SearchComponent } from './components/search/search.component';
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -52,7 +53,8 @@ const appRoutes: Routes = [
     AboutComponent,
     FaqComponent,
     ShippingComponent,
-    ContactComponent
+    ContactComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

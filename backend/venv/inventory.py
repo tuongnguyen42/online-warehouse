@@ -6,9 +6,10 @@ import mysql.connector
 def cursor_connect():
     cnx = mysql.connector.connect(
     user='root',
-    password='Wowerin97!',
+    password='Chungu1234',
     host='localhost',
-    database='cs160_project'
+    database='onlinewarehouse',
+    port='3000'
     )
     cur = cnx.cursor(buffered=True)
     return cur, cnx
@@ -20,10 +21,10 @@ def add_item(name, category, description, price, stock):
     cursor.execute("SELECT count(*) FROM inventory")
     inventory_size = cursor.fetchone()
 
-    cursor.execute("""SELECT * FROM inventory WHERE (item_name LIKE %s) 
+    cursor.execute("""SELECT * FROM inventory WHERE (item_name LIKE %s)
                               AND (category LIKE %s) AND (price = %s)""", (name, category, price))
     if not cursor.fetchall():
-        cursor.execute("""INSERT INTO inventory (inventory_id, item_name, category, description, price, stock) 
+        cursor.execute("""INSERT INTO inventory (inventory_id, item_name, category, description, price, stock)
                       VALUES (%s,%s,%s,%s,%s,%s)""", (str(inventory_size[0]), name, category, description, price, stock))
         cnx.commit()
         print("item added\n")
@@ -64,4 +65,3 @@ def get_items_by_category(category):
 print(add_item(cur, "gel pens", "pens", "uses gel ink", 3, 50))
 
 # print(delete_item(cur, "gel pens"))
-
