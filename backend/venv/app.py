@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 # URI format for mysql: 'mysql://username:password@server/db'
 # edit URI w/ your local credentials
-app.config['SQLALCHEMY_DATABASE_URI']='mysql://root:#R1k3rdf4t@localhost/onlinewarehouse'
+app.config['SQLALCHEMY_DATABASE_URI']='mysql://root:Wowerin97!@localhost/cs160-project'
 
 db = SQLAlchemy(app)
 
