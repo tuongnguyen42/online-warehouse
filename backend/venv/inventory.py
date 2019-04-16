@@ -54,21 +54,23 @@ def delete_item(name):
 
 def get_items_by_category(category):
     cursor, cnx = cursor_connect()
-    cursor.execute("""SELECT name, price, weight, description FROM inventory WHERE category LIKE %s""", (category,))
-    if not cursor.fetchall():
+    cursor.execute("""SELECT name, price, weight, description, stock FROM inventory WHERE category LIKE %s""", (category,))
+    '''if not cursor.fetchall():
         return None
-    else:
-        items = cursor.fetchall()
-        json_items = []
-        for item in items:
-            it = {"name": item[0], "price": item[1], "weight": item[2], "description": item[3]}
-            json_items.append(it)
+    else:'''
+    items = cursor.fetchall()
+    json_items = []
+    for item in items:
+        it = {"name": item[0], "price": item[1], "weight": item[2], "description": item[3], "stock": item[4]}
+        json_items.append(it)
     cursor.close()
     cnx.close()
+    for j in json_items:
+        print(j)
     return json_items
 
 def populateInventory():
-    categories =["Paper","Scissors","Staplers", "binders", "Pens", "Furniture"]
+    categories =["paper", "scissors", "staplers", "binders", "pens", "organizers", "furniture"]
     for i in range(100):
         price = round(random.uniform(0,999), 2)
         add_item("item " + str(i), categories[i%6], "description " + str(i), price, 10, random.randint(1,500))
@@ -80,6 +82,6 @@ def populateInventory():
 
 
 # tests
-#populateInventory()
+# populateInventory()
 # print(add_item(cur, "gel pens", "pens", "uses gel ink", 3, 50))
 # print(delete_item(cur, "gel pens"))
