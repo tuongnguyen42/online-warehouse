@@ -72,7 +72,7 @@ def search():
 	else:
 		responseObject = {
 			"success": True,
-			"inventory": json.dumps(items)
+			"inventory": items
 		}
 	return make_response(jsonify(responseObject))
 

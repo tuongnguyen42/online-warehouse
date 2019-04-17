@@ -1,3 +1,43 @@
-<p>
-  Keyword: {{keyword}}
-</p>
+<div class="wrapper">
+
+  <div class="page-middle">
+    <div class="card mb-3" *ngFor="let result of searchResult" [routerLink]="['/product', result.id]">
+      <a [routerLink]="['/product', result.id]"> <h3 class="card-header">{{result.name}}</h3> </a>
+      <div class="card-body">
+        <h6 class="card-title">{{result.description}}</h6>
+      </div>
+      <a [routerLink]="['/product', result.id]">
+        <img
+          style="height: 200px; width: 100%; display: block;"
+          src="../../../assets/img/blank.jpg"
+          alt="Card image"
+      /></a>
+      <div class="card-body">
+        <a href="#" class="card-link">${{result.price}} </a>
+        <p>Weight:{{result.weight}}</p>
+
+      </div>
+    </div>
+
+
+  </div>
+
+  <div id="page-bottom">
+    <div id="footer">
+      <div class="container-top">
+        <ul>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/shipping">Shipping</a></li>
+          <li><a href="/faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="container-bottom">
+        <p class="muted credit">
+          Courtesy <a href="https://unsplash.com/">Unsplash</a> and
+          <a href="https://www.pexels.com/">Pexels</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -25,16 +25,19 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.searchService.keyword.subscribe(keyword => this.keyword = keyword);
+    // this.searchService.keyword.subscribe(keyword => this.keyword = keyword);
   }
 
   onSearchSubmit(){
-    this.searchService.changeMessage(this.keyword);
+    // this.searchService.changeMessage(this.keyword);
+    // this.searchService.storeKeyword(this.keyword);
     if (this.keyword.length === 0){
       this.router.navigate(['/']);
     }else {
-      this.router.navigate(['/search']);
-      this.searchComp.ngOnInit();
+      this.router.navigate(['/search'], {queryParams:{keyword:this.keyword}});
+      // this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+      // this.router.navigate(['/search']));
+
     }
 
   }
