@@ -82,6 +82,7 @@ def populateInventory():
 
 
 # tests
-# populateInventory()
-# print(add_item(cur, "gel pens", "pens", "uses gel ink", 3, 50))
+cursor_connect()
+populateInventory()
+print(add_item(cur, "gel pens", "pens", "uses gel ink", 3, 50))
 # print(delete_item(cur, "gel pens"))
