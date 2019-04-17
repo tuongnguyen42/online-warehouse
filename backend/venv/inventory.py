@@ -54,7 +54,7 @@ def delete_item(name):
 
 def get_items_by_category(category):
     cursor, cnx = cursor_connect()
-    cursor.execute("""SELECT name, price, weight, description, stock FROM inventory WHERE category LIKE %s""", (category,))
+    cursor.execute("""SELECT name, price, weight, description, stock, category FROM inventory WHERE category LIKE %s""", (category,))
     '''if not cursor.fetchall():
         return None
     else:'''
@@ -65,8 +65,6 @@ def get_items_by_category(category):
         json_items.append(it)
     cursor.close()
     cnx.close()
-    for j in json_items:
-        print(j)
     return json_items
 
 def populateInventory():

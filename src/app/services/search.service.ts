@@ -9,20 +9,35 @@ import {BehaviorSubject} from 'rxjs';
 })
 export class SearchService {
 
-  private messageSource = new BehaviorSubject<String>("");
-  keyword = this.messageSource.asObservable();
+  // private messageSource = new BehaviorSubject<String>("");
+  // keyword = this.messageSource.asObservable();
+
+  keyword: String = "";
+
+
 
   constructor(private http:Http) { }
 
-  changeMessage(message: String){
-    this.messageSource.next(message);
-  }
+  // changeMessage(message: String){
+  //   this.messageSource.next(message);
+  // }
 
 
+  // storeKeyword(key){
+  //   this.keyword = key;
+  // }
+  //
+  // getKeyword(){
+  //   console.log(this.keyword);
+  //   return this.keyword;
+  //
+  // }
   searchKeyword(key){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post('http://localhost:5000/search', key,{headers: headers})
     .pipe(map(res => res.json()));
+
+
   }
 }

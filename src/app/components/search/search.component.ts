@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from "../navbar/navbar.component";
 import {SearchService} from '../../services/search.service';
+import {Router, ActivatedRoute, Params} from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -15,12 +16,25 @@ export class SearchComponent implements OnInit {
 
 
 
-  constructor(private searchService:SearchService) {
+  constructor(
+    private searchService:SearchService,
+    private route:Router,
+    private router:ActivatedRoute
+
+  ) {
 
    }
 
+
   ngOnInit(){
-    this.searchService.keyword.subscribe(keyword => this.keyword = keyword);
+
+    this.router.queryParams.subscribe(params => {
+    this.keyword = params['keyword'];
+    this.route.routeReuseStrategy.shouldReuseRoute = () => false;
+  });
+    // this.searchService.keyword.subscribe(keyword => this.keyword = keyword);
+    // this.keyword = this.searchService.getKeyword();
+
 
     const query = {
       keyword:this.keyword
@@ -31,7 +45,7 @@ export class SearchComponent implements OnInit {
 
 
 
-    console.log(this.searchResult);
+
   }
 
 
