@@ -46,7 +46,6 @@
         <li
           class="nav-item"
           [routerLinkActive]="['active']"
-          *ngIf = "!authService.loggedIn()"
           [routerLinkActiveOptions]="{ exact: true }"
         >
           <a class="nav-link" [routerLink]="['/cart']">Cart</a>
@@ -54,7 +53,7 @@
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="text" [ngModelOptions]="{ standalone: true }" [(ngModel)]="keyword" keyword="keyword" placeholder="Search" />
-        <button class="btn btn-secondary my-2 my-sm-0" type="button" (click)=onSearchSubmit()>
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit" (click)=onSearchSubmit()>
           Search
         </button>
       </form>

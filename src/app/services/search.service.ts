@@ -37,8 +37,6 @@ export class SearchService {
     headers.append('Content-Type', 'application/json');
     return this.http.post('http://localhost:5000/search', key,{headers: headers})
     .pipe(map(res => res.json()));
-
-
   }
 
   searchItem(id){
@@ -46,7 +44,5 @@ export class SearchService {
     headers.append('Content-Type', 'application/json');
     return this.http.post('http://localhost:5000/search/id', id,{headers: headers})
     .pipe(map(res => res.json()));
-
-
   }
 }

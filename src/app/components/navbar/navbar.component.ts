@@ -3,7 +3,6 @@ import { NavService } from '../../services/nav.service';
 import { SearchService } from '../../services/search.service';
 import {AuthService} from '../../services/auth.service';
 import {FlashMessagesService} from 'angular2-flash-messages';
-
 import {Router} from '@angular/router';
 import {SearchComponent} from '../search/search.component';
 

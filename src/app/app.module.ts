@@ -13,8 +13,8 @@ import { RegisterComponent } from "./components/register/register.component";
 import { OrdersComponent } from "./components/orders/orders.component";
 import { FlashMessagesModule } from "angular2-flash-messages";
 import { CartComponent } from "src/app/components/cart/cart.component";
-import {AuthGuard} from './guards/auth.guard';
-import {LoginGuard} from './guards/login.guard';
+import { AuthGuard } from './guards/auth.guard';
+import { LoginGuard } from './guards/login.guard';
 
 import { NavService } from "./services/nav.service";
 import { ValidateService } from "./services/validate.service";
@@ -26,6 +26,7 @@ import { FaqComponent } from './components/faq/faq.component';
 import { ShippingComponent } from './components/shipping/shipping.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { SearchComponent } from './components/search/search.component';
+import { BrowseComponent } from './components/browse/browse.component';
 import { ProductComponent } from './components/product/product.component';
 
 const appRoutes: Routes = [
@@ -37,8 +38,8 @@ const appRoutes: Routes = [
   { path: "orders", component: OrdersComponent, canActivate:[AuthGuard] },
   { path: "resetpwd",component: ResetpwdComponent},
   { path: "search",component: SearchComponent},
-  { path: "product",component: ProductComponent}
-
+  { path: "product",component: ProductComponent},
+  { path: "browse/:category", component: BrowseComponent }
 ];
 
 @NgModule({
@@ -57,6 +58,7 @@ const appRoutes: Routes = [
     ShippingComponent,
     ContactComponent,
     SearchComponent,
+    BrowseComponent,
     ProductComponent
   ],
   imports: [

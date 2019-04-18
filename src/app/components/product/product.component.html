@@ -1,1 +1,42 @@
-<h1>PRODUCTS</h1>
+<div class="page-top">
+  <h2>{{productResult.name}}</h2>
+</div>
+<div class="grid">
+  <div class="grid-item">
+    <img
+    style="width: 100%; display: block;"
+    src="../../../assets/img/materials.jpg"
+    />
+  </div>
+  <form (submit)="onAddClick()">
+    <div class="grid-item">
+      <p><b>Product #: </b>{{productResult.id}}</p>
+      <p><b>Weight: </b>12oz</p>
+      <header><h1>${{productResult.price}}</h1> <span><i>per unit</i></span></header>
+      <p><b>How to receive it:</b>
+        <br>Free pickup, or free 2-day delivery with qualifying $100 order.
+        For more information, please view our <a href="/shipping">shipping policy</a>.</p>
+        Qty <input type="text" name="qty" size="5" value="1" [ngModelOptions]="{ standalone: true }" [(ngModel)]="qty" qty="qty">
+        <button class="btn btn-primary" type="submit">Add to cart</button>
+      </div>
+    </form>
+  </div>
+  <h3>Description</h3>
+  <p>{{productResult.description}}</p>
+
+  <div id="footer">
+    <div class="container-top">
+      <ul>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/shipping">Shipping</a></li>
+        <li><a href="/faq">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="container-bottom">
+      <p class="muted credit">
+        Courtesy of <a href="https://unsplash.com/">Unsplash</a> and
+        <a href="https://www.pexels.com/">Pexels</a>.
+      </p>
+    </div>
+  </div>
