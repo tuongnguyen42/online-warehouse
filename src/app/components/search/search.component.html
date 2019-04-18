@@ -1,19 +1,19 @@
 <div class="wrapper">
 
   <div class="page-middle">
-    <div class="card mb-3" *ngFor="let result of searchResult" [routerLink]="['/product', result.id]">
-      <a [routerLink]="['/product', result.id]"> <h3 class="card-header">{{result.name}}</h3> </a>
+    <div class="card mb-3" *ngFor="let result of searchResult" [routerLink]="['/product']" [queryParams]="{ id: result.inventory_id}">
+      <a [routerLink]="['/product']" [routerLink]="['/product']" [queryParams]="{ id: result.inventory_id}"> <h3 class="card-header">{{result.name}}</h3> </a>
       <div class="card-body">
         <h6 class="card-title">{{result.description}}</h6>
       </div>
-      <a [routerLink]="['/product', result.id]">
+      <a [routerLink]="['/product']" [queryParams]="{ id: result.inventory_id}">
         <img
           style="height: 200px; width: 100%; display: block;"
           src="../../../assets/img/blank.jpg"
           alt="Card image"
       /></a>
       <div class="card-body">
-        <a href="#" class="card-link">${{result.price}} </a>
+        <a [routerLink]="['/product']" [queryParams]="{ id: result.inventory_id}">${{result.price}} </a>
         <p>Weight:{{result.weight}}</p>
 
       </div>

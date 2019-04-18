@@ -41,10 +41,8 @@ export class SearchComponent implements OnInit {
     }
     this.searchService.searchKeyword(query).subscribe(data =>{
       this.searchResult = data.inventory;
+      console.log(this.searchResult);
     })
-
-
-
 
   }
 

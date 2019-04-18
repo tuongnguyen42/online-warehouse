@@ -54,14 +54,14 @@ def delete_item(name):
 
 def get_items_by_category(category):
     cursor, cnx = cursor_connect()
-    cursor.execute("""SELECT name, price, weight, description, stock, category FROM inventory WHERE category LIKE %s""", (category,))
+    cursor.execute("""SELECT name, price, weight, description, stock, category, inventory_id FROM inventory WHERE category LIKE %s""", (category,))
     '''if not cursor.fetchall():
         return None
     else:'''
     items = cursor.fetchall()
     json_items = []
     for item in items:
-        it = {"name": item[0], "price": item[1], "weight": item[2], "description": item[3], "stock": item[4]}
+        it = {"name": item[0], "price": item[1], "weight": item[2], "description": item[3], "stock": item[4], "category":item[5], "inventory_id":item[6]}
         json_items.append(it)
     cursor.close()
     cnx.close()

@@ -26,6 +26,7 @@ import { FaqComponent } from './components/faq/faq.component';
 import { ShippingComponent } from './components/shipping/shipping.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { SearchComponent } from './components/search/search.component';
+import { ProductComponent } from './components/product/product.component';
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -35,7 +36,8 @@ const appRoutes: Routes = [
   { path: "cart", component: CartComponent },
   { path: "orders", component: OrdersComponent, canActivate:[AuthGuard] },
   { path: "resetpwd",component: ResetpwdComponent},
-  { path: "search",component: SearchComponent}
+  { path: "search",component: SearchComponent},
+  { path: "product",component: ProductComponent}
 
 ];
 
@@ -54,7 +56,8 @@ const appRoutes: Routes = [
     FaqComponent,
     ShippingComponent,
     ContactComponent,
-    SearchComponent
+    SearchComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,
