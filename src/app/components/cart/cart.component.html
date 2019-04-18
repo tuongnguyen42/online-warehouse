@@ -38,7 +38,7 @@
               <td data-th="Price">${{item.price}}</td>
 
               <td data-th="Quantity">
-                <input type="number" min="1" max="{{item.stock}}" value="{{item.qty}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="qtyUpdate" name="qtyUpdate"/>
+                <input  id="qtyUpdate" type="number" min="1" max="{{item.stock}}" value="{{item.qty}}"/>
               </td>
 
               <td data-th="Weight">
