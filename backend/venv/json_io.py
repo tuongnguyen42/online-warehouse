@@ -5,7 +5,7 @@ import json
 from flask import Flask, request, make_response, jsonify
 from flask_cors import CORS, cross_origin
 from accounts import add_account, authenticate_user
-from inventory import get_items_by_category
+from inventory import get_items_by_category, get_item_by_id
 app = Flask(__name__)
 CORS(app)
 app.config['SECRET_KEY'] = 'tempsecretkey'
@@ -75,6 +75,29 @@ def search():
 			"inventory": items
 		}
 	return make_response(jsonify(responseObject))
+
+
+
+
+@app.route('/search/id', methods = ['POST'])
+@cross_origin()
+def searchId():
+    data = request.get_json()
+    pid = data.get('productId')
+    item = get_item_by_id(pid)
+    print(data)
+    print(item)
+    if not item:
+        responseObject = {
+            "success": False,
+            "msg": "no item found for that id"
+        }
+    else:
+        responseObject = {
+            "success": True,
+            "item": item
+        }
+    return make_response(jsonify(responseObject))
 
 
 if __name__ == '__main__':
