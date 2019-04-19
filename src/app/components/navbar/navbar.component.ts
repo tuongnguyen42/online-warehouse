@@ -13,6 +13,7 @@ import {SearchComponent} from '../search/search.component';
 })
 export class NavbarComponent implements OnInit {
   keyword:String = "";
+  cartCount:number;
 
   constructor(
     private nav:NavService,
@@ -25,6 +26,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     // this.searchService.keyword.subscribe(keyword => this.keyword = keyword);
+    this.cartCount = JSON.parse(localStorage.getItem('cart')).length;
   }
 
   onSearchSubmit(){

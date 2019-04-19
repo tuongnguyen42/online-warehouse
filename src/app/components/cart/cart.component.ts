@@ -10,7 +10,6 @@ export class CartComponent implements OnInit {
   cart:[Object];
   totalPrice:number = 0;
   totalWeight:number = 0;
-  qtyUpdate:number = 0;
 
   constructor() { }
 
@@ -35,8 +34,10 @@ export class CartComponent implements OnInit {
   }
 
   deleteItem(product){
+
     let temp = JSON.parse(localStorage.getItem('cart'));
-    let index = temp.findIndex(temp => temp.item_id === product.id);
+    let index = temp.findIndex(temp => temp.name === product.name);
+
     temp.splice(index, 1);
     localStorage.setItem('cart', JSON.stringify(temp));
     this.totalPrice = this.totalPrice - product.price;
@@ -46,8 +47,15 @@ export class CartComponent implements OnInit {
 
   updateItem(product){
     let temp = JSON.parse(localStorage.getItem('cart'));
-    let index = temp.findIndex(temp => temp.item_id === product.id);
-    temp[index].qty=this.qtyUpdate;
+    let index = temp.findIndex(temp => temp.name === product.name);
+    console.log(index);
+    let updatedQty =document.getElementById("qtyUpdate").value;
+    let updatedWeight = temp[index].weight/temp[index].qty*updatedQty;
+    let updatedPrice = temp[index].price/temp[index].qty*updatedQty;
+    temp[index].qty=updatedQty;
+    temp[index].price=updatedPrice.toFixed(2);
+    temp[index].weight=updatedWeight.toFixed(2);
+
     localStorage.setItem('cart', JSON.stringify(temp));
     location.reload();
   }
