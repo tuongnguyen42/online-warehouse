@@ -64,6 +64,7 @@ export class ProductComponent implements OnInit {
         cssClass: 'alert-success',
         timeout: 3000});
       this.cartService.addToCart(this.productResult, this.qty);
+      location.reload();
     }
 
 

@@ -48,7 +48,9 @@
           [routerLinkActive]="['active']"
           [routerLinkActiveOptions]="{ exact: true }"
         >
-          <a class="nav-link" [routerLink]="['/cart']">Cart</a>
+          <a class="nav-link" [routerLink]="['/cart']">Cart
+                <span class="badge badge-secondary">{{cartCount}}</span>
+          </a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">

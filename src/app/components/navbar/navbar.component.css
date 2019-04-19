@@ -4,3 +4,18 @@ font-size: 1.5rem;
 .navbar-toggler.toggler-example {
 cursor: pointer;
 }
+
+
+/* .notification {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+  position: relative;
+}
+*/
+
+.badge {
+  border-radius: 50%;
+  background: red;
+  color: white;
+}

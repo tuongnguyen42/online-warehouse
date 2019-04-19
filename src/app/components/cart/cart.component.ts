@@ -53,8 +53,8 @@ export class CartComponent implements OnInit {
     let updatedWeight = temp[index].weight/temp[index].qty*updatedQty;
     let updatedPrice = temp[index].price/temp[index].qty*updatedQty;
     temp[index].qty=updatedQty;
-    temp[index].price=updatedPrice;
-    temp[index].weight=updatedWeight;
+    temp[index].price=updatedPrice.toFixed(2);
+    temp[index].weight=updatedWeight.toFixed(2);
 
     localStorage.setItem('cart', JSON.stringify(temp));
     location.reload();

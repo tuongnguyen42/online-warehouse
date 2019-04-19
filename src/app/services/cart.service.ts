@@ -33,8 +33,8 @@ export class CartService {
       if(temp.some(temp => temp.item_id === product.id)){
         let index = temp.findIndex(temp => temp.item_id === product.id);
         let newQty = parseInt(temp[index].qty) + parseInt(qty);
-        let newPrice = product.price*newQty;
-        let newWeight = product.weight*newQty;
+        let newPrice = (product.price*newQty).toFixed(2);
+        let newWeight = (product.weight*newQty).toFixed(2);
         temp[index].qty = newQty;
         temp[index].price = newPrice;
         temp[index].weight = newWeight;
