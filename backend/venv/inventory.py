@@ -1,6 +1,7 @@
 import mysql.connector
 import random
 import decimal
+import math
 
 ## module for inventory ##
 # replace with current user's information
@@ -64,20 +65,46 @@ def get_item_by_id(inv_id):
     cnx.close()
     return it
 
-def get_items_by_category(category):
+def get_items_by_category(category, page):
+    cursor, cnx = cursor_connect()
+    # cursor.execute("""SELECT name, price, weight, description, stock, category, inventory_id FROM inventory WHERE category LIKE %s""", (category,))
+    # '''if not cursor.fetchall():
+    #     return None
+    # else:'''
+    insert_stmt = (
+        "SELECT name, price, weight, description, stock, category, inventory_id FROM inventory WHERE category LIKE %s LIMIT 20 OFFSET %s"
+
+    )
+    numPage = int(page);
+    if(numPage == 1):
+        offset = 0
+    if(numPage > 1 ):
+        offset = (numPage-1)*20+1
+
+    data = (category, offset)
+    cursor.execute(insert_stmt, data)
+    items = cursor.fetchall()
+    json_items = []
+    for item in items:
+        it = {"name": item[0], "price": item[1], "weight": item[2], "description": item[3], "stock": item[4], "category":item[5], "inventory_id":item[6]}
+        json_items.append(it)
+
+    cursor.close()
+    cnx.close()
+    return json_items
+
+def get_total_pages(category):
     cursor, cnx = cursor_connect()
     cursor.execute("""SELECT name, price, weight, description, stock, category, inventory_id FROM inventory WHERE category LIKE %s""", (category,))
     '''if not cursor.fetchall():
         return None
     else:'''
     items = cursor.fetchall()
-    json_items = []
-    for item in items:
-        it = {"name": item[0], "price": item[1], "weight": item[2], "description": item[3], "stock": item[4], "category":item[5], "inventory_id":item[6]}
-        json_items.append(it)
+
     cursor.close()
     cnx.close()
-    return json_items
+    totalPages = math.ceil(len(items)/20);
+    return totalPages
 
 def populateInventory():
     categories =["paper", "scissors", "staplers", "binders", "pens", "organizers", "furniture"]

@@ -5,7 +5,7 @@ import json
 from flask import Flask, request, make_response, jsonify
 from flask_cors import CORS, cross_origin
 from accounts import add_account, authenticate_user
-from inventory import get_items_by_category, get_item_by_id
+from inventory import get_items_by_category, get_item_by_id, get_total_pages
 app = Flask(__name__)
 CORS(app)
 app.config['SECRET_KEY'] = 'tempsecretkey'
@@ -63,7 +63,9 @@ def login():
 def search():
 	data = request.get_json()
 	keyword = data.get('keyword')
-	items = get_items_by_category(keyword)
+	page = data.get('page')
+	items = get_items_by_category(keyword, page)
+	totalPages = get_total_pages(keyword)
 	if not items:
 		responseObject = {
 			"success": False,
@@ -72,7 +74,8 @@ def search():
 	else:
 		responseObject = {
 			"success": True,
-			"inventory": items
+			"inventory": items,
+			"pages":totalPages
 		}
 	return make_response(jsonify(responseObject))
 
@@ -85,8 +88,6 @@ def searchId():
     data = request.get_json()
     pid = data.get('productId')
     item = get_item_by_id(pid)
-    print(data)
-    print(item)
     if not item:
         responseObject = {
             "success": False,

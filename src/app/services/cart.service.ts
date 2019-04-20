@@ -42,10 +42,10 @@ export class CartService {
 
 
       } else{
-        let price = product.price*qty;
-        price = price.toFixed(2);
+        let price = (product.price*qty);
+        price = parseFloat(price.toFixed(2));
         let weight = product.weight*qty;
-        weight = weight.toFixed(2);
+        weight = parseFloat(weight.toFixed(2));
         const item ={
           name:product.name,
           item_id: product.id,

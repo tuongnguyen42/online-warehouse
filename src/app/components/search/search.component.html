@@ -18,9 +18,24 @@
 
       </div>
     </div>
-
-
   </div>
+
+  <div class="center">
+  <ul class="pagination pagination-lg">
+    <li class="page-item">
+      <a class="page-link">&laquo;</a>
+    </li>
+    <li class="page-item" *ngFor="let page of totalPages; let i = index">
+      <a class="page-link"
+      [routerLink]="['/search']"
+      [queryParams]="{ page: i+1 }"
+      queryParamsHandling="merge">{{i + 1}}</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">&raquo;</a>
+    </li>
+  </ul>
+</div>
 
   <div id="page-bottom">
     <div id="footer">
