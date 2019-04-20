@@ -40,7 +40,8 @@ const appRoutes: Routes = [
   { path: "resetpwd",component: ResetpwdComponent},
   { path: "search",component: SearchComponent},
   { path: "product",component: ProductComponent},
-  { path: "browse/:category", component: BrowseComponent }
+  { path: "browse/:category", component: BrowseComponent },
+  { path: "checkout", component: CheckoutComponent, canActivate:[AuthGuard] }
 ];
 
 @NgModule({

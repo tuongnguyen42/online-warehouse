@@ -4,6 +4,7 @@ import { ValidateService } from '../../services/validate.service';
 import {Router} from '@angular/router';
 import {FlashMessagesService} from 'angular2-flash-messages';
 import {AuthService} from '../../services/auth.service';
+import {ActivatedRoute, Params} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,17 +15,23 @@ export class LoginComponent implements OnInit {
 
   email:String;
   password:String;
+  checkout:String;
 
   constructor(
     public nav: NavService,
     public validateService: ValidateService,
     public authService: AuthService,
     public router: Router,
+    public route: ActivatedRoute,
     public flashMessage: FlashMessagesService
   ) { }
 
   ngOnInit() {
     this.nav.hide();
+    this.route.queryParams.subscribe(params => {
+    this.checkout = params['checkout'];
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  });
   }
 
   onLoginSubmit(){
@@ -51,7 +58,14 @@ export class LoginComponent implements OnInit {
        this.flashMessage.show("Logged in!",{
          cssClass: 'alert-success',
          timeout: 5000})
-         this.router.navigate(['/dashboard']);
+    if(this.checkout === 'true'){
+      this.router.navigate(['/checkout']);
+    }
+    else{
+      this.router.navigate(['/dashboard']);
+    }
+
+
 
      } else{
        this.flashMessage.show(data.msg,{

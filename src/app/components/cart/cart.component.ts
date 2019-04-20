@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import {FlashMessagesService} from 'angular2-flash-messages';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-cart',
@@ -12,7 +13,11 @@ export class CartComponent implements OnInit {
   totalPrice:number = 0;
   totalWeight:number = 0;
 
-  constructor(private flashMessage: FlashMessagesService) { }
+  constructor(
+    private flashMessage: FlashMessagesService,
+    private authService: AuthService
+
+  ) { }
 
   ngOnInit() {
     // localStorage.clear();
