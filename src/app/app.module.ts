@@ -29,6 +29,8 @@ import { SearchComponent } from './components/search/search.component';
 import { BrowseComponent } from './components/browse/browse.component';
 import { ProductComponent } from './components/product/product.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { ConfirmationComponent } from './components/confirmation/confirmation.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -62,7 +64,9 @@ const appRoutes: Routes = [
     SearchComponent,
     BrowseComponent,
     ProductComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    ConfirmationComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

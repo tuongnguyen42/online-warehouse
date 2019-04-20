@@ -1,0 +1,126 @@
+<div class="wrapper">
+  <div class="page-top">
+    <h1>Thank you for your order!</h1>
+    <h5>
+      Your order has been received and is now being processed. Your order
+      details are shown below for your reference:
+    </h5>
+
+    <label class="orderNumberLbl" for="orderNumber"
+      >Order: #{{ orderNumber }}</label
+    >
+
+    <!-- BEGIN CONFIRMATION TABLE -->
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th style="width:40%">Product</th>
+          <th style="width:15%">Quantity</th>
+          <th style="width:15%">Price</th>
+          <th style="width:15%">Weight</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of confirmation">
+          <td data-th="Product">
+            <div class="row">
+              <div class="col-sm-2 hidden-xs">
+                <img
+                  src="http://placehold.it/100x100"
+                  alt="..."
+                  class="img-responsive"
+                />
+              </div>
+              <div class="col-sm-10">
+                <h4 class="nomargin">{{ item.name }}</h4>
+                <p>{{ item.description }}</p>
+              </div>
+            </div>
+          </td>
+
+          <td data-th="Price">${{ item.price }}</td>
+
+          <td data-th="Quantity">
+            <input
+              id="qtyUpdate"
+              type="number"
+              min="1"
+              max="{{ ite.stock }}"
+              value="{{ item.qty }}"
+            />
+          </td>
+
+          <td data-th="Weight">{{ item.weight }} lbs</td>
+          <td class="actions" data-th=""></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr class="visible-xs">
+          <td class="text-left">
+            <h5>Total Price: ${{ totalPrice }}</h5>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+    <!-- END CONFIRMATION TABLE -->
+    <div class="custDetailsContainer">
+      <h1>Customer Details</h1>
+      <label class="custDetailsLbl" for="custName">Name: {{ custName }}</label
+      ><br />
+      <label class="custDetailsLbl" for="custEmail"
+        >E-mail: {{ custEmail }}</label
+      ><br />
+      <label class="custDetailsLbl" for="custShipMethod"
+        >Shipping method: {{ shippingMethod }}</label
+      ><br />
+      <label class="custDetailsLbl" for="paymentDetails"
+        >Payment Details: {{ paymentDetails }}</label
+      >
+    </div>
+    <div class="customerAddressesContainer">
+      <div class="billingAddressContainer">
+        <h4>Billing Address:</h4>
+        <label class="custBillingAddressLbl" for="custName"
+          >Name: {{ custName }}</label
+        ><br />
+        <label class="custBillingAddressLbl" for="custBillAddress"
+          >Address: {{ custBillAddress }}</label
+        ><br />
+        <label class="custBillingAddressLbl" for="custBillStateZip"
+          >State/ZIP: {{ custBillStateZip }}</label
+        >
+      </div>
+      <div class="shippingAddressContainer">
+        <h4>Shipping Address:</h4>
+        <label class="custShippingAddressLbl" for="custName"
+          >Name: {{ custName }}</label
+        ><br />
+        <label class="custShippingAddressLbl" for="custShipAddress"
+          >Address: {{ custShipAddress }}</label
+        ><br />
+        <label class="custShippingAddressLbl" for="custShipStateZip"
+          >State/ZIP: {{ custShipStateZip }}</label
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="page-bottom">
+    <div id="footer">
+      <div class="container-top">
+        <ul>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/shipping">Shipping</a></li>
+          <li><a href="/faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="container-bottom">
+        <p class="muted credit">
+          Courtesy <a href="https://unsplash.com/">Unsplash</a> and
+          <a href="https://www.pexels.com/">Pexels</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
