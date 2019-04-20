@@ -25,7 +25,11 @@
     <li class="page-item">
       <a class="page-link">&laquo;</a>
     </li>
-    <li class="page-item" *ngFor="let page of totalPages; let i = index">
+    <li class="page-item"
+    *ngFor="let page of totalPages; let i = index"
+    [routerLinkActive]="['active']"
+    [routerLinkActiveOptions]="{ exact: true }"
+    >
       <a class="page-link"
       [routerLink]="['/search']"
       [queryParams]="{ page: i+1 }"
