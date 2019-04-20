@@ -1,0 +1,137 @@
+<div class="wrapper">
+  <div class="page-top">
+    <h1>Checkout</h1>
+  </div>
+  <div class="page-middle">
+    <form>
+      <fieldset>
+        <div class="form-group">
+          <label for="inputName">Name</label>
+          <input
+            type="name"
+            class="form-control"
+            id="inputName1"
+            placeholder="Full Name"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Shipping Address</label>
+          <input
+            type="address"
+            class="form-control"
+            id="exampleInputAddress"
+            aria-describedby="shippingAddress"
+            placeholder="Full Address"
+          />
+        </div>
+
+        <div class="cardholder">
+          <div class="form-group-cardnumber">
+            <label for="inputName">Payment Information</label>
+            <input
+              type="payment"
+              class="form-control"
+              id="inputCardNumber"
+              placeholder="Card Number"
+            />
+          </div>
+          <div class="form-group-nameoncard">
+            <label for="inputName"></label>
+            <input
+              type="payment"
+              class="form-control"
+              id="inputCardName"
+              placeholder="Name on Card"
+            />
+          </div>
+          <div class="form-group-mmyy">
+            <label for="inputName"></label>
+            <input
+              type="payment"
+              class="form-control"
+              id="inputCardMMYY"
+              placeholder="MM/YY"
+            />
+          </div>
+          <div class="form-group-cvv">
+            <label for="inputName"></label>
+            <input
+              type="payment"
+              class="form-control"
+              id="inputCardCvv"
+              placeholder="CVV"
+            />
+          </div>
+        </div>
+
+        <div class="radio">
+          <fieldset>
+            <legend>Choose Delivery Option</legend>
+            <div class="form-group">
+              <div class="custom-control custom-radio">
+                <input
+                  type="radio"
+                  id="customRadio1"
+                  name="customRadio"
+                  class="custom-control-input"
+                  checked=""
+                />
+                <label class="custom-control-label" for="customRadio1"
+                  >Truck Delivery</label
+                >
+              </div>
+              <div class="custom-control custom-radio">
+                <input
+                  type="radio"
+                  id="customRadio2"
+                  name="customRadio"
+                  class="custom-control-input"
+                />
+                <label class="custom-control-label" for="customRadio2"
+                  >Drone Delivery</label
+                >
+              </div>
+              <div class="custom-control custom-radio">
+                <input
+                  type="radio"
+                  id="customRadio3"
+                  name="customRadio"
+                  class="custom-control-input"
+                  disabled=""
+                />
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <tr class="visible-xs-subtotal">
+          <td class="text-left">
+            <h5>Subtotal: ${{ totalWeight }}</h5>
+          </td>
+        </tr>
+      </fieldset>
+    </form>
+  </div>
+
+  <div class="page-bottom">
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+    <div id="footer">
+      <div class="container-top">
+        <ul>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/shipping">Shipping</a></li>
+          <li><a href="/faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="container-bottom">
+        <p class="muted credit">
+          Courtesy <a href="https://unsplash.com/">Unsplash</a> and
+          <a href="https://www.pexels.com/">Pexels</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

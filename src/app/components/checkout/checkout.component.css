@@ -1,0 +1,130 @@
+.wrapper {
+  height: 100%;
+  margin: 0;
+}
+
+.page-top {
+  margin-top: 40px;
+}
+
+h1 {
+  font-size: 2.5em;
+}
+
+.page-middle {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.radio {
+  margin-top: 40px;
+}
+
+.cardholder {
+  width: 55%;
+  height: 200px;
+  background-color: #e8e8e8;
+  margin-top: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 0;
+}
+
+.form-group-cardnumber {
+  width: 86%;
+}
+
+.form-group-nameoncard {
+  width: 40%;
+  float: left;
+  margin-right: 18px;
+}
+.form-group-mmyy {
+  width: 20%;
+  float: left;
+  margin-right: 17px;
+}
+.form-group-cvv {
+  width: 20%;
+  float: left;
+}
+
+.visible-xs-subtotal {
+  margin: 20px;
+}
+
+/* Footer */
+#footer {
+  height: 150px;
+  background-color: #f5f5f5;
+  padding: 10px;
+  margin-top: 26vh;
+}
+
+.container-top ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.container-top li {
+  float: left;
+}
+.container-top ul li a {
+  display: block;
+  padding: 14px 16px;
+  text-align: center;
+  text-decoration: none;
+  color: #000;
+}
+.container-top ul li a:hover {
+  text-decoration: underline;
+  color: #000;
+}
+.container-bottom {
+  margin-top: 50px;
+  padding-left: 16px;
+}
+/* End Footer */
+
+/* Media Queries */
+@media screen and (max-width: 1198px) {
+  .cardholder {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .cardholder {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 770px) {
+  .cardholder {
+    height: 320px;
+    padding-left: 10px;
+  }
+  .form-group-cardnumber {
+    width: 90%;
+    margin-left: 10px;
+  }
+  .form-group-nameoncard {
+    width: 90%;
+    float: none;
+    margin-right: 0;
+    margin-left: 10px;
+  }
+  .form-group-mmyy {
+    width: 90%;
+    float: none;
+    margin-right: 0;
+    margin-left: 10px;
+  }
+  .form-group-cvv {
+    width: 90%;
+    float: none;
+    margin-right: 0;
+    margin-left: 10px;
+    padding-bottom: 10px;
+  }
+}
