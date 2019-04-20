@@ -13,6 +13,8 @@ export class SearchComponent implements OnInit {
 
   keyword:String = "";
   searchResult:[Object];
+  page:number = 1;
+  totalPages:number[];
 
 
 
@@ -30,6 +32,7 @@ export class SearchComponent implements OnInit {
 
     this.router.queryParams.subscribe(params => {
     this.keyword = params['keyword'];
+    this.page = params['page'];
     this.route.routeReuseStrategy.shouldReuseRoute = () => false;
   });
     // this.searchService.keyword.subscribe(keyword => this.keyword = keyword);
@@ -37,10 +40,12 @@ export class SearchComponent implements OnInit {
 
 
     const query = {
-      keyword:this.keyword
+      keyword:this.keyword,
+      page:this.page
     }
     this.searchService.searchKeyword(query).subscribe(data =>{
       this.searchResult = data.inventory;
+      this.totalPages = Array(data.pages);
     })
 
   }

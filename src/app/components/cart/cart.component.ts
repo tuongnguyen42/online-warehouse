@@ -16,8 +16,8 @@ export class CartComponent implements OnInit {
   ngOnInit() {
     // localStorage.clear();
     let cart = JSON.parse(localStorage.getItem('cart'));
-    let totalPrice = 0;
-    let totalWeight = 0;
+    let totalPrice:number = 0;
+    let totalWeight:number = 0;
     this.cart = cart;
     console.log(cart);
 
@@ -26,8 +26,9 @@ export class CartComponent implements OnInit {
       totalWeight += parseFloat(cart[i].weight);
     }
 
-    this.totalPrice = parseFloat(totalPrice).toFixed(2);
-    this.totalWeight = parseFloat(totalWeight).toFixed(2);
+
+    this.totalPrice = parseFloat(totalPrice.toFixed(2));
+    this.totalWeight = parseFloat(totalWeight.toFixed(2));
 
 
 
@@ -48,8 +49,7 @@ export class CartComponent implements OnInit {
   updateItem(product){
     let temp = JSON.parse(localStorage.getItem('cart'));
     let index = temp.findIndex(temp => temp.name === product.name);
-    console.log(index);
-    let updatedQty =document.getElementById("qtyUpdate").value;
+    let updatedQty = parseFloat((<HTMLInputElement>document.getElementById("qtyUpdate")).value);
     let updatedWeight = temp[index].weight/temp[index].qty*updatedQty;
     let updatedPrice = temp[index].price/temp[index].qty*updatedQty;
     temp[index].qty=updatedQty;

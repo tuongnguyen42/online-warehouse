@@ -99,4 +99,13 @@ h3 {
     margin-right: 10%;
     margin-bottom: 10px;
   }
+
+
+
+}
+
+.center {
+  margin: auto;
+  width: 50%;
+  padding-top: 5%;
 }
