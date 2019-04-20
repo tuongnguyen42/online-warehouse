@@ -75,7 +75,12 @@ def get_items_by_category(category, page):
         "SELECT name, price, weight, description, stock, category, inventory_id FROM inventory WHERE category LIKE %s LIMIT 20 OFFSET %s"
 
     )
-    numPage = int(page);
+    if page:
+        numPage = int(page)
+    else:
+        numPage = 1
+
+
     if(numPage == 1):
         offset = 0
     if(numPage > 1 ):

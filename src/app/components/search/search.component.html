@@ -22,10 +22,10 @@
 
   <div class="center">
   <ul class="pagination pagination-lg">
-    <li class="page-item">
+    <!-- <li class="page-item">
       <a class="page-link">&laquo;</a>
-    </li>
-    <li class="page-item"
+    </li> -->
+    <li class="page-item" id="currPage"
     *ngFor="let page of totalPages; let i = index"
     [routerLinkActive]="['active']"
     [routerLinkActiveOptions]="{ exact: true }"
@@ -35,9 +35,9 @@
       [queryParams]="{ page: i+1 }"
       queryParamsHandling="merge">{{i + 1}}</a>
     </li>
-    <li class="page-item">
+    <!-- <li class="page-item">
       <a class="page-link" href="#">&raquo;</a>
-    </li>
+    </li> -->
   </ul>
 </div>
 
