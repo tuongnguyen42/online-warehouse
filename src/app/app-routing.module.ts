@@ -13,7 +13,6 @@ const routes: Routes = [
   { path: "faq", component: FaqComponent },
   { path: "shipping", component: ShippingComponent },
   { path: "contact", component: ContactComponent },
-  { path: "checkout", component: CheckoutComponent },
   { path: "confirmation", component: ConfirmationComponent },
   { path: "admin", component: AdminComponent }
 ];

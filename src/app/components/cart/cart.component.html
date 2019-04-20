@@ -27,7 +27,8 @@
                   />
                 </div>
                 <div class="col-sm-10">
-                  <h4 class="nomargin">{{ item.name }}</h4>
+
+                  <a  [routerLink]="['/product']" [queryParams]="{ id: item.item_id}"><h4 class="nomargin">{{ item.name }}</h4></a>
                   <p>
                     {{ item.description }}
                   </p>
@@ -76,9 +77,14 @@
             <td class="hidden-xs text-center"><strong></strong></td>
             <!--END this line is a filler! dont remove-->
             <td>
-              <a href="/checkout" class="btn btn-success btn-block"
-                >Checkout <i class="fa fa-angle-right"></i
-              ></a>
+
+                <a  *ngIf="authService.loggedIn()" [routerLink]="['/login']" [queryParams]="{ checkout: 'true'}" class="btn btn-success btn-block"
+                  >Checkout <i class="fa fa-angle-right"></i
+                ></a>
+                <a  *ngIf="!authService.loggedIn()" [routerLink]="['/checkout']"  class="btn btn-success btn-block"
+                  >Checkout <i class="fa fa-angle-right"></i
+                ></a>
+
             </td>
           </tr>
         </tfoot>

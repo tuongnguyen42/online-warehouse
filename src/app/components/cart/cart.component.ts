@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
+import {FlashMessagesService} from 'angular2-flash-messages';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-cart',
@@ -11,7 +13,11 @@ export class CartComponent implements OnInit {
   totalPrice:number = 0;
   totalWeight:number = 0;
 
-  constructor() { }
+  constructor(
+    private flashMessage: FlashMessagesService,
+    private authService: AuthService
+
+  ) { }
 
   ngOnInit() {
     // localStorage.clear();
@@ -47,17 +53,29 @@ export class CartComponent implements OnInit {
   }
 
   updateItem(product){
+
+
     let temp = JSON.parse(localStorage.getItem('cart'));
     let index = temp.findIndex(temp => temp.name === product.name);
     let updatedQty = parseFloat((<HTMLInputElement>document.getElementById("qtyUpdate")).value);
-    let updatedWeight = temp[index].weight/temp[index].qty*updatedQty;
-    let updatedPrice = temp[index].price/temp[index].qty*updatedQty;
-    temp[index].qty=updatedQty;
-    temp[index].price=updatedPrice.toFixed(2);
-    temp[index].weight=updatedWeight.toFixed(2);
 
-    localStorage.setItem('cart', JSON.stringify(temp));
-    location.reload();
+    if (updatedQty > temp[index].stock){
+      this.flashMessage.show("Out of stock!  Only " + temp[index].stock + " available.",{
+        cssClass: 'alert-danger',
+        timeout: 3000});
+      // document.getElementById("qtyUpdate").innerHTML = temp[index].stock;
+      // location.reload();
+    } else{
+      let updatedWeight = temp[index].weight/temp[index].qty*updatedQty;
+      let updatedPrice = temp[index].price/temp[index].qty*updatedQty;
+      temp[index].qty=updatedQty;
+      temp[index].price=updatedPrice.toFixed(2);
+      temp[index].weight=updatedWeight.toFixed(2);
+
+      localStorage.setItem('cart', JSON.stringify(temp));
+      location.reload();
+    }
+
   }
 
 
