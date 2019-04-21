@@ -1,140 +1,4 @@
-<!-- <div class="wrapper">
-<div class="page-top">
-<h1>Checkout</h1>
-</div>
-<div class="page-middle">
-<form>
-<fieldset>
-<div class="form-group">
-<label for="inputName">Name</label>
-<input
-type="name"
-class="form-control"
-id="inputName1"
-placeholder="Full Name"
-/>
-</div>
 
-<div class="form-group">
-<label for="exampleInputEmail1">Shipping Address</label>
-<input
-type="address"
-class="form-control"
-id="exampleInputAddress"
-aria-describedby="shippingAddress"
-placeholder="Full Address"
-/>
-</div>
-
-<div class="cardholder">
-<div class="form-group-cardnumber">
-<label for="inputName">Payment Information</label>
-<input
-type="payment"
-class="form-control"
-id="inputCardNumber"
-placeholder="Card Number"
-/>
-</div>
-<div class="form-group-nameoncard">
-<label for="inputName"></label>
-<input
-type="payment"
-class="form-control"
-id="inputCardName"
-placeholder="Name on Card"
-/>
-</div>
-<div class="form-group-mmyy">
-<label for="inputName"></label>
-<input
-type="payment"
-class="form-control"
-id="inputCardMMYY"
-placeholder="MM/YY"
-/>
-</div>
-<div class="form-group-cvv">
-<label for="inputName"></label>
-<input
-type="payment"
-class="form-control"
-id="inputCardCvv"
-placeholder="CVV"
-/>
-</div>
-</div>
-
-<div class="radio">
-<fieldset>
-<legend>Choose Delivery Option</legend>
-<div class="form-group">
-<div class="custom-control custom-radio">
-<input
-type="radio"
-id="customRadio1"
-name="customRadio"
-class="custom-control-input"
-checked=""
-/>
-<label class="custom-control-label" for="customRadio1"
->Truck Delivery</label
->
-</div>
-<div class="custom-control custom-radio">
-<input
-type="radio"
-id="customRadio2"
-name="customRadio"
-class="custom-control-input"
-/>
-<label class="custom-control-label" for="customRadio2"
->Drone Delivery</label
->
-</div>
-<div class="custom-control custom-radio">
-<input
-type="radio"
-id="customRadio3"
-name="customRadio"
-class="custom-control-input"
-disabled=""
-/>
-</div>
-</div>
-</fieldset>
-</div>
-
-<tr class="visible-xs-subtotal">
-<td class="text-left">
-<h5>Subtotal: ${{ totalWeight }}</h5>
-</td>
-</tr>
-</fieldset>
-</form>
-</div>
-
-<div class="page-bottom">
-<button type="submit" class="btn btn-primary">Submit</button>
-
-<div id="footer">
-<div class="container-top">
-<ul>
-<li><a href="/about">About</a></li>
-<li><a href="/contact">Contact</a></li>
-<li><a href="/shipping">Shipping</a></li>
-<li><a href="/faq">FAQ</a></li>
-</ul>
-</div>
-<div class="container-bottom">
-<p class="muted credit">
-Courtesy <a href="https://unsplash.com/">Unsplash</a> and
-<a href="https://www.pexels.com/">Pexels</a>.
-</p>
-</div>
-</div>
-</div>
-</div> -->
 
 <!DOCTYPE html>
 <html>
@@ -144,173 +8,289 @@ Courtesy <a href="https://unsplash.com/">Unsplash</a> and
 </head>
 <body>
 
-  <h2>CHECK OUT</h2>
-  <div class="row">
-    <div class="col-50">
-      <div class="container">
-        <form action="">
+<div class=""   *ngIf="emptyCart">
+  <h1>CART IS EMPTY</h1>
 
-          <div class="row">
-            <div class="col-50">
-              <h3>Billing Address</h3>
-              <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-              <input type="text" id="fname" name="firstname" placeholder="John M. Doe">
-              <label for="email"><i class="fa fa-envelope"></i> Email</label>
-              <input type="text" id="email" name="email" placeholder="john@example.com">
-              <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-              <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
-              <label for="city"><i class="fa fa-institution"></i> City</label>
-              <input type="text" id="city" name="city" placeholder="New York">
+</div>
+  <div class="" *ngIf="!emptyCart">
+    <h2>CHECKOUT</h2>
+    <div class="row">
+      <div class="col-50">
+        <div class="container">
+          <form (submit)="onOrderPlace()">
 
-              <div class="row">
-                <div class="col-50">
-                  <label for="state">State</label>
-                  <input type="text" id="state" name="state" placeholder="NY">
-                </div>
-                <div class="col-50">
-                  <label for="zip">Zip</label>
-                  <input type="text" id="zip" name="zip" placeholder="10001">
+            <div class="row">
+              <div class="col-50">
+                <h3>Shipping Address</h3>
+                <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+                <input
+                type="text"
+                id="fname"
+                name="firstname"
+                [ngModelOptions]="{ standalone: true }"
+                [(ngModel)]="name"
+                placeholder="John M. Doe">
+                <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                <input
+                type="text"
+                id="email"
+                name="email"
+                [ngModelOptions]="{ standalone: true }"
+                [(ngModel)]="email"
+                placeholder="john@example.com">
+                <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+                <input
+                type="text"
+                id="adr"
+                name="address"
+                [ngModelOptions]="{ standalone: true }"
+                [(ngModel)]="address"
+                placeholder="542 W. 15th Street">
+                <label for="city"><i class="fa fa-institution"></i> City</label>
+                <input
+                type="text"
+                id="city"
+                name="city"
+                [ngModelOptions]="{ standalone: true }"
+                [(ngModel)]="city"
+                placeholder="New York">
+
+                <div class="row">
+                  <div class="col-50">
+                    <label for="state">State</label>
+                    <input
+                    type="text"
+                    id="state"
+                    name="state"
+                    [ngModelOptions]="{ standalone: true }"
+                    [(ngModel)]="state"
+                    placeholder="NY">
+                  </div>
+                  <div class="col-50">
+                    <label for="zip">Zip</label>
+                    <input
+                    type="text"
+                    id="zip"
+                    name="zip"
+                    [ngModelOptions]="{ standalone: true }"
+                    [(ngModel)]="zip"
+                    placeholder="10001">
+                  </div>
                 </div>
               </div>
+
+              <!-- <div class="col-50">
+                <h3>Payment</h3>
+                <label for="fname">Accepted Cards</label>
+                <div class="icon-container">
+                  <i class="fa fa-cc-visa" style="color:navy;"></i>
+                  <i class="fa fa-cc-amex" style="color:blue;"></i>
+                  <i class="fa fa-cc-mastercard" style="color:red;"></i>
+                  <i class="fa fa-cc-discover" style="color:orange;"></i>
+                </div>
+                <label for="cname">Name on Card</label>
+                <input
+                type="text"
+                id="cname"
+                name="cardname"
+                [ngModelOptions]="{ standalone: true }"
+                [(ngModel)]="nameOnCard"
+                placeholder="John More Doe">
+                <label for="ccnum">Credit card number</label>
+                <input type="text"
+                id="ccnum"
+                name="cardnumber"
+                [ngModelOptions]="{ standalone: true }"
+                [(ngModel)]="cardNumber"
+                placeholder="1111-2222-3333-4444">
+                <label for="expmonth">Exp Month</label>
+                <input type="text"
+                id="expmonth"
+                name="expmonth"
+                [ngModelOptions]="{ standalone: true }"
+                [(ngModel)]="expMonth"
+                placeholder="September">
+                <div class="row">
+                  <div class="col-50">
+                    <label for="expyear">Exp Year</label>
+                    <input
+                    type="text"
+                    id="expyear"
+                    name="expyear"
+                    [ngModelOptions]="{ standalone: true }"
+                    [(ngModel)]="expYear"
+                    placeholder="2018">
+                  </div>
+                  <div class="col-50">
+                    <label for="cvv">CVV</label>
+                    <input
+                    type="text"
+                    id="cvv"
+                    ame="cvv"
+                    [ngModelOptions]="{ standalone: true }"
+                    [(ngModel)]="ccv"
+                    placeholder="352">
+                  </div>
+                </div>
+              </div> -->
+
             </div>
 
-            <div class="col-50">
-              <h3>Payment</h3>
-              <label for="fname">Accepted Cards</label>
-              <div class="icon-container">
-                <i class="fa fa-cc-visa" style="color:navy;"></i>
-                <i class="fa fa-cc-amex" style="color:blue;"></i>
-                <i class="fa fa-cc-mastercard" style="color:red;"></i>
-                <i class="fa fa-cc-discover" style="color:orange;"></i>
-              </div>
-              <label for="cname">Name on Card</label>
-              <input type="text" id="cname" name="cardname" placeholder="John More Doe">
-              <label for="ccnum">Credit card number</label>
-              <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
-              <label for="expmonth">Exp Month</label>
-              <input type="text" id="expmonth" name="expmonth" placeholder="September">
-              <div class="row">
-                <div class="col-50">
-                  <label for="expyear">Exp Year</label>
-                  <input type="text" id="expyear" name="expyear" placeholder="2018">
-                </div>
-                <div class="col-50">
-                  <label for="cvv">CVV</label>
-                  <input type="text" id="cvv" name="cvv" placeholder="352">
-                </div>
-              </div>
-            </div>
+            <input type="checkbox" name="pickup" [(ngModel)]="pickup" (change)="pickupCheck($event)"> Pickup <br>
+             <br>
+             <div class="" *ngIf="!pickup">
 
-          </div>
-          <div class="">
-            <div class="custom-control custom-radio">
-              <input
-              type="radio"
-              id="customRadio1"
-              name="customRadio"
-              class="custom-control-input"
-              checked=""
-              />
-              <label class="custom-control-label" for="customRadio1"
-              >Truck Delivery</label
-              >
+
+            <!-- <div class="" *ngIf="!truckDelivery">
+              <div class="custom-control custom-radio">
+                <input
+                type="radio"
+                id="customRadio1"
+                name="customRadio"
+                class="custom-control-input"
+                checked=""
+                />
+                <label class="custom-control-label" for="customRadio1"
+                >Truck Delivery</label
+                >
+              </div>
+              <div class="custom-control custom-radio">
+                <input
+                type="radio"
+                id="customRadio2"
+                name="customRadio"
+                class="custom-control-input"
+                />
+                <label class="custom-control-label" for="customRadio2"
+                >Drone Delivery</label
+                >
+              </div>
+            </div> -->
+            <div class="" *ngIf="showDeliveryOptions()">
+              <br><label>-----Delivery Speed-----</label>
+              <div class="custom-control custom-radio">
+                <input
+                type="radio"
+                id="regular"
+                name="deliverySpeed"
+                class="custom-control-input"
+                [value]="false"
+                [(ngModel)]="sameDayDelivery"
+                (change)="shippingSpeed($event)"
+                checked="true"
+                />
+                <label class="custom-control-label" for="regular"
+                >Regular (2 Business days)</label
+                >
+              </div>
+              <div class="custom-control custom-radio">
+                <input
+                type="radio"
+                id="sameday"
+                name="deliverySpeed"
+                class="custom-control-input"
+                [value]="true"
+                [(ngModel)]="sameDayDelivery"
+                (change)="shippingSpeed($event)"
+                />
+                <label class="custom-control-label" for="sameday"
+                >Expidited (Same day) </label
+                >
+              </div>
+
             </div>
-            <div class="custom-control custom-radio">
-              <input
-              type="radio"
-              id="customRadio2"
-              name="customRadio"
-              class="custom-control-input"
-              />
-              <label class="custom-control-label" for="customRadio2"
-              >Drone Delivery</label
-              >
-            </div>
-            <div class="custom-control custom-radio">
-              <input
-              type="radio"
-              id="customRadio3"
-              name="customRadio"
-              class="custom-control-input"
-              disabled=""
-              />
-            </div>
-          </div>
-          <label>
-            <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
-          </label>
-            <button type="submit" class="btn btn-primary">Place your order</button>
-        </form>
+             </div>
+            <button type="submit" class="btn btn-primary">Continue</button>
+          </form>
+        </div>
+      </div>
+      <div class="col-30">
+        <div class="container">
+          <h4>Order Summary <span class="price" style="color:black"></span></h4>
+          <hr>
+          <tbody>
+            <tr data-testid="" class="order-summary-unidenfitied-style">
+              <td class="a-text-left">
+                Items:
+              </td>
+              <td class="a-text-right a-align-bottom aok-nowrap">
+                ${{price}}
+              </td>
+            </tr>
+
+
+            <tr data-testid="" class="order-summary-unidenfitied-style">
+              <td class="a-text-left">
+                Shipping &amp; handling:
+              </td>
+              <td class="a-text-right a-align-bottom aok-nowrap">
+                ${{shippingCost}}
+              </td>
+            </tr>
+
+
+            <tr data-testid="" class="order-summary-separator">
+              <td></td>
+              <td class="a-span3 cell-separator"><hr class="a-spacing-none a-divider-normal"></td>
+            </tr>
+
+
+            <tr data-testid="" class="order-summary-unidenfitied-style">
+              <td class="a-text-left">
+                Total before tax:
+              </td>
+              <td class="a-text-right a-align-bottom aok-nowrap">
+                ${{totalBeforeTax}}
+              </td>
+            </tr>
+
+
+            <tr data-testid="" class="order-summary-unidenfitied-style">
+              <td class="a-text-left">
+                Tax (7%):
+              </td>
+              <td class="a-text-right a-align-bottom aok-nowrap">
+                ${{tax}}
+              </td>
+            </tr>
+
+
+            <tr class="order-summary-grand-total">
+              <td colspan="2" class="cell-separator"><hr class="a-spacing-mini a-divider-normal"></td>
+            </tr>
+            <tr data-testid="">
+              <td class="a-color-price a-size-medium a-text-left a-text-bold">
+                <b>Order total:</b>
+              </td>
+              <td class="a-color-price a-size-medium a-text-right a-align-bottom aok-nowrap grand-total-price a-text-bold">
+                ${{total}}
+              </td>
+            </tr>
+          </tbody>
+        </div>
       </div>
     </div>
-    <div class="col-30">
-      <div class="container">
-        <h4>Order Summary <span class="price" style="color:black"></span></h4>
-        <hr>
-        <tbody>
-          <tr data-testid="" class="order-summary-unidenfitied-style">
-            <td class="a-text-left">
-              Items:
-            </td>
-            <td class="a-text-right a-align-bottom aok-nowrap">
-              $24.67
-            </td>
-          </tr>
 
-
-          <tr data-testid="" class="order-summary-unidenfitied-style">
-            <td class="a-text-left">
-              Shipping &amp; handling:
-            </td>
-            <td class="a-text-right a-align-bottom aok-nowrap">
-              $0.00
-            </td>
-          </tr>
-
-
-          <tr data-testid="" class="order-summary-separator">
-            <td></td>
-            <td class="a-span3 cell-separator"><hr class="a-spacing-none a-divider-normal"></td>
-          </tr>
-
-
-          <tr data-testid="" class="order-summary-unidenfitied-style">
-            <td class="a-text-left">
-              Total before tax:
-            </td>
-            <td class="a-text-right a-align-bottom aok-nowrap">
-              $24.67
-            </td>
-          </tr>
-
-
-          <tr data-testid="" class="order-summary-unidenfitied-style">
-            <td class="a-text-left">
-              Estimated tax to be collected:
-            </td>
-            <td class="a-text-right a-align-bottom aok-nowrap">
-              $2.28
-            </td>
-          </tr>
-
-
-          <tr class="order-summary-grand-total">
-            <td colspan="2" class="cell-separator"><hr class="a-spacing-mini a-divider-normal"></td>
-          </tr>
-          <tr data-testid="">
-            <td class="a-color-price a-size-medium a-text-left a-text-bold">
-              Order total:
-            </td>
-            <td class="a-color-price a-size-medium a-text-right a-align-bottom aok-nowrap grand-total-price a-text-bold">
-              $26.95
-            </td>
-          </tr>
-        </tbody>
-        <p></p>
-        <p>Total <span class="price" style="color:black"><b>$30</b></span></p>
+    <!-- <div class="page-bottom">
+      <div id="footer">
+        <div class="container-top">
+          <ul>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/shipping">Shipping</a></li>
+            <li><a href="/faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="container-bottom">
+          <p class="muted credit">
+            Courtesy <a href="https://unsplash.com/">Unsplash</a> and
+            <a href="https://www.pexels.com/">Pexels</a>.
+          </p>
+        </div>
       </div>
-    </div>
+    </div> -->
   </div>
+
 
 
 </body>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import {FlashMessagesService} from 'angular2-flash-messages';
 import {AuthService} from '../../services/auth.service';
+import {CartService} from '../../services/cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -10,17 +11,20 @@ import {AuthService} from '../../services/auth.service';
 })
 export class CartComponent implements OnInit {
   cart:[Object];
-  totalPrice:number = 0;
-  totalWeight:number = 0;
+  totalPrice:any;
+  totalWeight:any;
+  emptyCart:any;
 
   constructor(
     private flashMessage: FlashMessagesService,
-    private authService: AuthService
+    private authService: AuthService,
+    private cartService: CartService
 
   ) { }
 
   ngOnInit() {
     // localStorage.clear();
+    this.emptyCart = (JSON.parse(localStorage.getItem('cart')).length === 0);
     let cart = JSON.parse(localStorage.getItem('cart'));
     let totalPrice:number = 0;
     let totalWeight:number = 0;
@@ -36,6 +40,11 @@ export class CartComponent implements OnInit {
     this.totalPrice = parseFloat(totalPrice.toFixed(2));
     this.totalWeight = parseFloat(totalWeight.toFixed(2));
 
+    this.cartService.setTotalPrice(this.totalPrice);
+    this.cartService.setTotalWeight(this.totalWeight);
+
+
+
 
 
   }
@@ -49,12 +58,12 @@ export class CartComponent implements OnInit {
     localStorage.setItem('cart', JSON.stringify(temp));
     this.totalPrice = this.totalPrice - product.price;
     this.totalWeight = this.totalWeight - product.weight;
+    this.cartService.setTotalPrice(this.totalPrice);
+    this.cartService.setTotalWeight(this.totalWeight);
     location.reload();
   }
 
   updateItem(product){
-
-
     let temp = JSON.parse(localStorage.getItem('cart'));
     let index = temp.findIndex(temp => temp.name === product.name);
     let updatedQty = parseFloat((<HTMLInputElement>document.getElementById("qtyUpdate")).value);
@@ -71,6 +80,10 @@ export class CartComponent implements OnInit {
       temp[index].qty=updatedQty;
       temp[index].price=updatedPrice.toFixed(2);
       temp[index].weight=updatedWeight.toFixed(2);
+      this.totalPrice = updatedPrice.toFixed(2);
+      this.totalWeight = updatedWeight.toFixed(2);
+      this.cartService.setTotalPrice(this.totalPrice);
+      this.cartService.setTotalWeight(this.totalWeight);
 
       localStorage.setItem('cart', JSON.stringify(temp));
       location.reload();

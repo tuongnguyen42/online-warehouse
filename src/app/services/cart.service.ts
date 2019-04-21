@@ -5,7 +5,24 @@ import { Injectable } from '@angular/core';
 })
 export class CartService {
 
+
   constructor() { }
+
+
+  setTotalWeight(weight){
+    localStorage.setItem('weight', weight);
+  }
+
+  getTotalWeight(){
+    return parseFloat(localStorage.getItem('weight'));
+  }
+
+  setTotalPrice(price){
+    localStorage.setItem('price', price);
+  }
+  getTotalPrice(){
+    return parseFloat(localStorage.getItem('price'));
+  }
 
 
   addToCart(product, qty){
@@ -21,7 +38,6 @@ export class CartService {
         stock:product.stock,
         qty:qty
       }]
-
 
       localStorage.setItem('cart', JSON.stringify(temp));
     }
@@ -59,8 +75,6 @@ export class CartService {
         localStorage.setItem('cart', JSON.stringify(temp));
       }
     }
-
-
   }
 
 
