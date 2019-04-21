@@ -1,5 +1,8 @@
 <div class="wrapper">
-  <div class="page-top">
+  <div class="" *ngIf="emptyCart">
+    <h1>YOUR CART IS EMPTY</h1>
+  </div>
+  <div class="page-top" *ngIf="!emptyCart">
     <h1>Shopping Cart</h1>
 
     <!--  MAIN CART AREA -->
@@ -84,6 +87,7 @@
                 <a  *ngIf="!authService.loggedIn()" [routerLink]="['/checkout']"  class="btn btn-success btn-block"
                   >Checkout <i class="fa fa-angle-right"></i
                 ></a>
+
 
             </td>
           </tr>
