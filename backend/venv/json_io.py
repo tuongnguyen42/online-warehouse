@@ -15,13 +15,7 @@ app.config['SECRET_KEY'] = 'tempsecretkey'
 def worker():
 	# read json + reply
 	data = request.get_json()
-#	print(data)
 
-	'''if add_account(data.name, data.email, data.password):
-		responseObject = {
-			"success": True,
-			"msg": "registered"
-		}'''
 	if add_account(data.get('name'), data.get('email'), data.get('password')):
 		responseObject = {
 			"success": True,
