@@ -1,11 +1,12 @@
 <div class="wrapper">
   <div class="page-top">
-    <h1> Your Orders </h1>
+    <h1>Your Orders</h1>
   </div>
   <div class="page-middle">
     <div class="card mb-3">
       <div class="card-body">
-        <h5 class="card-title">Placed on Apr 22, 2019</h5>
+        <h4 class="card-title">Order #123456789</h4>
+        <p><b>Placed on Apr 22, 2019</b></p>
       </div>
       <div class="grid">
         <div class="grid-item">
@@ -21,8 +22,12 @@
           <p>$32.10</p>
         </div>
         <div class="grid-item">
-          <button class="btn btn-primary" type="submit">Order details</button>
-          <button class="btn btn-primary" type="submit">Tracking</button>
+          <a href="/order-details">
+            <button class="btn btn-primary" type="submit">Order details</button>
+          </a>
+          <a href="/tracking">
+            <button class="btn btn-primary" type="submit">Tracking</button>
+          </a>
         </div>
         <div class="grid-item">
           <a href="#">
@@ -42,7 +47,8 @@
 
     <div class="card mb-3">
       <div class="card-body">
-        <h5 class="card-title">Placed on Apr 20, 2019</h5>
+        <h4 class="card-title">Order #123456789</h4>
+        <p><b>Placed on Apr 20, 2019</b></p>
       </div>
       <div class="grid">
         <div class="grid-item">
@@ -62,5 +68,22 @@
           <button class="btn btn-primary" type="submit">Tracking</button>
         </div>
       </div>
+  </div>
+
+  <div id="footer">
+    <div class="container-top">
+      <ul>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/shipping">Shipping</a></li>
+        <li><a href="/faq">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="container-bottom">
+      <p class="muted credit">
+        Courtesy of <a href="https://unsplash.com/">Unsplash</a> and
+        <a href="https://www.pexels.com/">Pexels</a>.
+      </p>
+    </div>
   </div>
 </div>
