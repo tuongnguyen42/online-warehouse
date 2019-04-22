@@ -54,7 +54,7 @@ def delete_item(name):
 
 def get_item_by_id(inv_id):
     cursor, cnx = cursor_connect()
-    cursor.execute("""SELECT inventory_id, name, price, weight, description, stock FROM inventory WHERE inventory_id=%s""", (inv_id,))
+    cursor.execute("""SELECT inventory_id, name, price, weight, description, stock FROM inventory WHERE name=%s""", (inv_id,))
 
     item = cursor.fetchall()
     if item:
@@ -67,19 +67,13 @@ def get_item_by_id(inv_id):
 
 def get_items_by_category(category, page):
     cursor, cnx = cursor_connect()
-    # cursor.execute("""SELECT name, price, weight, description, stock, category, inventory_id FROM inventory WHERE category LIKE %s""", (category,))
-    # '''if not cursor.fetchall():
-    #     return None
-    # else:'''
     insert_stmt = (
-        "SELECT name, price, weight, description, stock, category, inventory_id FROM inventory WHERE category LIKE %s LIMIT 20 OFFSET %s"
-
+        "SELECT inventory_id, name, price, weight, description, stock, category FROM inventory WHERE category LIKE %s LIMIT 20 OFFSET %s"
     )
     if page:
         numPage = int(page)
     else:
         numPage = 1
-
 
     if(numPage == 1):
         offset = 0
@@ -91,24 +85,30 @@ def get_items_by_category(category, page):
     items = cursor.fetchall()
     json_items = []
     for item in items:
-        it = {"name": item[0], "price": item[1], "weight": item[2], "description": item[3], "stock": item[4], "category":item[5], "inventory_id":item[6]}
+        it = {"inventory_id":item[1],
+              "name": item[1], 
+              "price": item[2], 
+              "weight": item[3], 
+              "description": item[4], 
+              "stock": item[5], 
+              "category":item[6], 
+              }
         json_items.append(it)
 
     cursor.close()
     cnx.close()
     return json_items
 
+
 def get_total_pages(category):
     cursor, cnx = cursor_connect()
-    cursor.execute("""SELECT name, price, weight, description, stock, category, inventory_id FROM inventory WHERE category LIKE %s""", (category,))
-    '''if not cursor.fetchall():
-        return None
-    else:'''
-    items = cursor.fetchall()
+    cursor.execute("""SELECT COUNT(*) FROM inventory WHERE category LIKE %s GROUP BY category""", (category,))
+
+    count = cursor.fetchall()[0][0]
 
     cursor.close()
     cnx.close()
-    totalPages = math.ceil(len(items)/20);
+    totalPages = math.ceil(count/20);
     return totalPages
 
 def populateInventory():
