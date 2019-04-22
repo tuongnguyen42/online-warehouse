@@ -33,6 +33,10 @@ h3 {
   color: #000;
 }
 
+h4 {
+  padding: 0px 0px 0px 0px;
+}
+
 .page-top {
   margin-top: 50px;
 }
@@ -45,6 +49,7 @@ h3 {
   width: 100%;
   height: 100%;
   margin-top: 30px;
+  padding: 30px;
 }
 
 .page-middle a {

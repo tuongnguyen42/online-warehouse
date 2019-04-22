@@ -31,6 +31,8 @@ import { ProductComponent } from './components/product/product.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { TrackingComponent } from './tracking/tracking.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -43,7 +45,9 @@ const appRoutes: Routes = [
   { path: "search",component: SearchComponent},
   { path: "product",component: ProductComponent},
   { path: "browse/:category", component: BrowseComponent },
-  { path: "checkout", component: CheckoutComponent, canActivate:[AuthGuard] }
+  { path: "checkout", component: CheckoutComponent, canActivate:[AuthGuard] },
+  { path: "tracking",component: TrackingComponent },
+  { path: "order-details",component: OrderDetailsComponent }
 ];
 
 @NgModule({
@@ -66,7 +70,9 @@ const appRoutes: Routes = [
     ProductComponent,
     CheckoutComponent,
     ConfirmationComponent,
-    AdminComponent
+    AdminComponent,
+    TrackingComponent,
+    OrderDetailsComponent
   ],
   imports: [
     BrowserModule,
