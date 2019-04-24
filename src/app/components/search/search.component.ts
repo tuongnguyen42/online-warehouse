@@ -9,14 +9,10 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-
-
   keyword:String = "";
   searchResult:[Object];
   page:number = 1;
   totalPages:number[];
-
-
 
   constructor(
     private searchService:SearchService,
@@ -27,9 +23,7 @@ export class SearchComponent implements OnInit {
 
    }
 
-
   ngOnInit(){
-
     this.router.queryParams.subscribe(params => {
     this.keyword = params['keyword'];
     this.page = params['page'];
@@ -38,22 +32,15 @@ export class SearchComponent implements OnInit {
     // this.searchService.keyword.subscribe(keyword => this.keyword = keyword);
     // this.keyword = this.searchService.getKeyword();
 
-
     const query = {
       keyword:this.keyword,
       page:this.page
     }
+
     this.searchService.searchKeyword(query).subscribe(data =>{
       this.searchResult = data.inventory;
       this.totalPages = Array(data.pages);
     })
-
   }
-
-
-
-
-
-
 
 }

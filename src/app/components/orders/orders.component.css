@@ -57,8 +57,8 @@ h3 {
   color: #000;
   text-decoration: underline;
 }
-/* Footer */
 
+/* Footer */
 #footer {
   height: 150px;
   background-color: #f5f5f5;
@@ -72,9 +72,11 @@ h3 {
   padding: 0;
   overflow: hidden;
 }
+
 .container-top li {
   float: left;
 }
+
 .container-top ul li a {
   display: block;
   padding: 14px 16px;
@@ -82,10 +84,12 @@ h3 {
   text-decoration: none;
   color: #000;
 }
+
 .container-top ul li a:hover {
   text-decoration: underline;
   color: #000;
 }
+
 .container-bottom {
   margin-top: 50px;
   padding-left: 16px;

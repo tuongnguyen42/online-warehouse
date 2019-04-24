@@ -1,45 +1,49 @@
 <div class="wrapper">
-
   <div class="page-middle">
-    <div class="card mb-3" *ngFor="let result of searchResult" [routerLink]="['/product']" [queryParams]="{ id: result.inventory_id}">
-      <a [routerLink]="['/product']" [routerLink]="['/product']" [queryParams]="{ id: result.inventory_id}"> <h3 class="card-header">{{result.name}}</h3> </a>
-      <div class="card-body">
-        <h6 class="card-title">{{result.description}}</h6>
-      </div>
+    <div class="card mb-3" *ngFor="let result of searchResult">
+      <a [routerLink]="['/product']" [routerLink]="['/product']" [queryParams]="{ id: result.inventory_id}">
+        <h3 class="card-header">{{result.name}}</h3>
+      </a>
       <a [routerLink]="['/product']" [queryParams]="{ id: result.inventory_id}">
         <img
           style="height: 200px; width: 100%; display: block;"
-          src="../../../assets/img/blank.jpg"
+          src="../../../assets/img/{{result.category}}.jpg"
           alt="Card image"
       /></a>
       <div class="card-body">
-        <a [routerLink]="['/product']" [queryParams]="{ id: result.inventory_id}">${{result.price}} </a>
-        <p>Weight:{{result.weight}}</p>
-
+        <h3>${{result.price}}</h3>
+        <p><b>Weight: {{result.weight}} oz</b></p>
+        <div class="grid">
+          <div class="grid-item">Qty <input type="text" name="qty" size="5" placeholder="1">
+          </div>
+          <div class="grid-item">
+            <a class="btn" href="#" role="button">Add to cart</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
   <div class="center">
-  <ul class="pagination pagination-lg">
-    <!-- <li class="page-item">
-      <a class="page-link">&laquo;</a>
-    </li> -->
-    <li class="page-item" id="currPage"
-    *ngFor="let page of totalPages; let i = index"
-    [routerLinkActive]="['active']"
-    [routerLinkActiveOptions]="{ exact: true }"
-    >
-      <a class="page-link"
-      [routerLink]="['/search']"
-      [queryParams]="{ page: i+1 }"
-      queryParamsHandling="merge">{{i + 1}}</a>
-    </li>
-    <!-- <li class="page-item">
-      <a class="page-link" href="#">&raquo;</a>
-    </li> -->
-  </ul>
-</div>
+    <ul class="pagination pagination-lg">
+      <!-- <li class="page-item">
+        <a class="page-link">&laquo;</a>
+      </li> -->
+      <li class="page-item" id="currPage"
+      *ngFor="let page of totalPages; let i = index"
+      [routerLinkActive]="['active']"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <a class="page-link"
+        [routerLink]="['/search']"
+        [queryParams]="{ page: i+1 }"
+        queryParamsHandling="merge">{{i + 1}}</a>
+      </li>
+      <!-- <li class="page-item">
+        <a class="page-link" href="#">&raquo;</a>
+      </li> -->
+    </ul>
+  </div>
 
   <div id="page-bottom">
     <div id="footer">
