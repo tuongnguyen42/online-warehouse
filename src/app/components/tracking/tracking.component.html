@@ -1,0 +1,29 @@
+<div class="page-top">
+  <h1>Tracking</h1>
+</div>
+
+<agm-map [latitude]='latitude'
+[longitude]='longitude'
+[mapTypeId]='mapType'
+[zoom]='12'>
+
+ <agm-marker [latitude]='latitude'
+ [longitude]='longitude'></agm-marker>
+ </agm-map>
+
+<div id="footer">
+ <div class="container-top">
+   <ul>
+     <li><a href="/about">About</a></li>
+     <li><a href="/contact">Contact</a></li>
+     <li><a href="/shipping">Shipping</a></li>
+     <li><a href="/faq">FAQ</a></li>
+   </ul>
+ </div>
+ <div class="container-bottom">
+   <p class="muted credit">
+     Courtesy of <a href="https://unsplash.com/">Unsplash</a> and
+     <a href="https://www.pexels.com/">Pexels</a>.
+   </p>
+ </div>
+</div>
