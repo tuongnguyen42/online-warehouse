@@ -1,5 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
+import { AgmCoreModule } from '@agm/core';
 import { HttpModule } from "@angular/http";
 import { FormsModule } from "@angular/forms";
 import { RouterModule, Routes } from "@angular/router";
@@ -31,8 +32,8 @@ import { ProductComponent } from './components/product/product.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 import { AdminComponent } from './components/admin/admin.component';
-import { TrackingComponent } from './tracking/tracking.component';
-import { OrderDetailsComponent } from './order-details/order-details.component';
+import { TrackingComponent } from './components/tracking/tracking.component';
+import { OrderDetailsComponent } from './components/order-details/order-details.component';
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -47,7 +48,7 @@ const appRoutes: Routes = [
   { path: "browse/:category", component: BrowseComponent },
   { path: "checkout", component: CheckoutComponent, canActivate:[AuthGuard] },
   { path: "tracking",component: TrackingComponent },
-  { path: "order-details",component: OrderDetailsComponent }
+  { path: "order-details", component: OrderDetailsComponent }
 ];
 
 @NgModule({
@@ -82,7 +83,10 @@ const appRoutes: Routes = [
     }),
     HttpModule,
     FlashMessagesModule.forRoot(),
-    FormsModule
+    FormsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyALPpI2grWR5poDZf4JMpHDLMcAHAwZ6R0'
+    })
   ],
   providers: [SearchService, NavService, ValidateService, AuthService, AuthGuard, LoginGuard, SearchComponent],
 
