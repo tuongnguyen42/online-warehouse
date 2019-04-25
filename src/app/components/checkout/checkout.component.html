@@ -17,7 +17,7 @@
     <div class="row">
       <div class="col-50">
         <div class="container">
-          <form (submit)="onOrderPlace()">
+          <form ngNativeValidate (submit)="onOrderPlace()">
 
             <div class="row">
               <div class="col-50">
@@ -34,7 +34,7 @@
                 [ngModelOptions]="{ standalone: true }"
                 [(ngModel)]="name"
                 placeholder="John M. Doe"
-                required />
+                required/>
 
                 <label for="email"><i class="fa fa-envelope"></i> Email</label>
                 <input
@@ -246,7 +246,7 @@
 
             </div>
              </div>
-            <button type="submit" class="btn btn-primary">Continue</button>
+            <button type="submit" class="btn btn-primary">PLACE ORDER</button>
           </form>
         </div>
       </div>

@@ -64,11 +64,11 @@ export class CheckoutComponent implements OnInit {
         this.city = shippingInfo.city;
         this.state = shippingInfo.state;
         this.zip = shippingInfo.zip;
-        this.nameOnCard = shippingInfo.nameOnCard;
-        this.cardNumber = shippingInfo.cardNumber;
-        this.expMonth = shippingInfo.expMonth;
-        this.expYear = shippingInfo.expYear;
-        this.ccv = shippingInfo.ccv;
+        // this.nameOnCard = shippingInfo.nameOnCard;
+        // this.cardNumber = shippingInfo.cardNumber;
+        // this.expMonth = shippingInfo.expMonth;
+        // this.expYear = shippingInfo.expYear;
+        // this.ccv = shippingInfo.ccv;
       }
       this.price = this.cartService.getTotalPrice();
       this.weight = this.cartService.getTotalWeight();
@@ -182,12 +182,12 @@ export class CheckoutComponent implements OnInit {
      address:this.address,
      city:this.city,
      state:this.state,
-     zip:this.zip,
-     nameOnCard:this.nameOnCard,
-     cardNumber:this.cardNumber,
-     expMonth:this.expMonth,
-     expYear:this.expYear,
-     ccv:this.ccv
+     zip:this.zip
+     // nameOnCard:this.nameOnCard,
+     // cardNumber:this.cardNumber,
+     // expMonth:this.expMonth,
+     // expYear:this.expYear,
+     // ccv:this.ccv
 
    }
 
