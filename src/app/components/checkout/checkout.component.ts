@@ -158,7 +158,8 @@ export class CheckoutComponent implements OnInit {
       pickup: this.pickup,
       truckDelivery:this.truckDelivery,
       sameDayDelivery:this.sameDayDelivery,
-      cart: items
+      cart: items,
+      user_id:localStorage.getItem('user_id')
 
     }
     this.cartService.placeOrder(paymentInfo).subscribe(data => {

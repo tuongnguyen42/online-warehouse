@@ -43,6 +43,16 @@ def authenticate_user(email, password):
     else:
         return True
 
+def get_id_by_email(email):
+    cursor, cnx  = cursor_connect()
+    cursor.execute("SELECT account_id FROM accounts WHERE email=%s", (email,))
+    id = cursor.fetchone()
+
+    if not id:
+        return False
+    else:
+        return id[0]
+
 def forgot_password(email):
     cursor, cnx  = cursor_connect()
     cursor.execute("""SELECT password FROM accounts WHERE email like %s""", (email,))

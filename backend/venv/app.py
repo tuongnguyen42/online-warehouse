@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 # URI format for mysql: 'mysql://username:password@server/db'
 # edit URI w/ your local credentials
-app.config['SQLALCHEMY_DATABASE_URI']='mysql://root:Wowerin97!@localhost/cs160-project'
+app.config['SQLALCHEMY_DATABASE_URI']='mysql://root:Chungu1234@localhost/onlinewarehouse'
 
 db = SQLAlchemy(app)
 
@@ -39,10 +39,11 @@ class Warehouse(db.Model):
   __tablename__ = 'warehouses'
   id = db.Column(db.Integer, primary_key=True, nullable=False)
   name = db.Column(db.String(45), nullable=False)
-  location = db.Column(db.String(200))
+  longitude = db.Column(db.Float, nullable=False)
+  latitude = db.Column(db.Float, nullable=False)
 
   def __repr__(self):
-    return f"Warehouse('{self.name}', '{self.location}')"
+    return f"Warehouse('{self.name}', '{self.longitude}', '{self.latitude}')"
 
 
 class Inventory(db.Model):

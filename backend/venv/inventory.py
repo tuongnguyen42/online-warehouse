@@ -18,14 +18,14 @@ def cursor_connect():
     return cur, cnx
 
 
-# adds an item, details include name, description, price, and items in stock
-def add_item(name, category, description, price, stock, weight):
+# adds an item, details include name, description, price, items in stock, and warehouse located
+def add_item(name, category, description, price, stock, weight, warehouse_id):
     cursor, cnx  = cursor_connect()
     cursor.execute("""SELECT * FROM inventory WHERE (name LIKE %s)
                               AND (category LIKE %s) AND (price = %s)""", (name, category, price))
     if not cursor.fetchall():
         cursor.execute("""INSERT INTO inventory (name, price, weight, description, category, stock, warehouse_id)
-                      VALUES (%s,%s,%s,%s,%s,%s, 1)""", (name, price, weight, description, category, stock))
+                      VALUES (%s,%s,%s,%s,%s,%s,%s)""", (name, price, weight, description, category, stock, warehouse_id))
         cnx.commit()
         print("item added\n")
         return True
@@ -52,6 +52,7 @@ def delete_item(name):
     cur.close()
     cnx.close()
 
+
 def get_item_by_id(inv_id):
     cursor, cnx = cursor_connect()
     cursor.execute("""SELECT inventory_id, name, price, weight, description, stock FROM inventory WHERE inventory_id=%s""", (inv_id,))
@@ -64,6 +65,7 @@ def get_item_by_id(inv_id):
     cursor.close()
     cnx.close()
     return it
+
 
 def update_qty(cart):
     cursor, cnx = cursor_connect()
@@ -81,7 +83,7 @@ def update_qty(cart):
         try:
             cursor.execute(insert_stmt, data)
             cnx.commit()
-        except cnx.IntegrityError:
+        except mysql.connector.DataError as err:
             return False
 
 
@@ -139,20 +141,23 @@ def get_total_pages(category):
     totalPages = math.ceil(count/20);
     return totalPages
 
+
 def populateInventory():
     categories =["paper", "scissors", "staplers", "binders", "pens", "organizers", "furniture"]
     for i in range(100):
         price = round(random.uniform(0,999), 2)
-        add_item("item " + str(i), categories[i%6], "description " + str(i), price, 10, random.randint(1,500))
-
-
-
-
-
+        add_item("item " + str(i),
+                 categories[i%6],
+                 "description " + str(i),
+                 price,
+                 10,
+                 random.randint(1,500),
+                 random.randint(1,2)
+         )
 
 
 # tests
 # cursor_connect()
 # populateInventory()
-# print(add_item(cur, "gel pens", "pens", "uses gel ink", 3, 50))
+# print(add_item(cur, "gel pens", "pens", "uses gel ink", 3, 50, 2))
 # print(delete_item(cur, "gel pens"))
