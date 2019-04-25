@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {CartService} from '../../services/cart.service';
+import {FlashMessagesService} from 'angular2-flash-messages';
 
 
 
@@ -11,6 +12,9 @@ import {CartService} from '../../services/cart.service';
 })
 export class CheckoutComponent implements OnInit {
 
+
+
+  //shipping info
   name:String;
   email:String;
   address: String;
@@ -18,7 +22,15 @@ export class CheckoutComponent implements OnInit {
   state: String;
   zip:String;
 
+  //paymentInfo
+  nameOnCard:String;
+  cardNumber:String;
+  expMonth:any;
+  expYear:any;
+  ccv:any;
 
+
+  //shipping options
   emptyCart:Boolean;
   pickup:Boolean = false;
   truckDelivery:Boolean = true;
@@ -35,11 +47,14 @@ export class CheckoutComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private cartService: CartService
+    private cartService: CartService,
+    private flashMessage:FlashMessagesService
   ) { }
 
   ngOnInit() {
     this.emptyCart = (JSON.parse(localStorage.getItem('cart')).length === 0);
+    console.log(localStorage.getItem('user'));
+
     if(!this.emptyCart){
       if(localStorage.getItem('shippingInfo')){
         let shippingInfo = JSON.parse(localStorage.getItem('shippingInfo'));
@@ -49,6 +64,11 @@ export class CheckoutComponent implements OnInit {
         this.city = shippingInfo.city;
         this.state = shippingInfo.state;
         this.zip = shippingInfo.zip;
+        // this.nameOnCard = shippingInfo.nameOnCard;
+        // this.cardNumber = shippingInfo.cardNumber;
+        // this.expMonth = shippingInfo.expMonth;
+        // this.expYear = shippingInfo.expYear;
+        // this.ccv = shippingInfo.ccv;
       }
       this.price = this.cartService.getTotalPrice();
       this.weight = this.cartService.getTotalWeight();
@@ -59,7 +79,10 @@ export class CheckoutComponent implements OnInit {
 
 
 
-
+      if(this.pickup){
+        this.sameDayDelivery = false;
+        this.truckDelivery = false;
+      }
       if(!this.pickup){
         //free delivery for orders over 100
         if(this.price > 100){
@@ -103,6 +126,51 @@ export class CheckoutComponent implements OnInit {
   }
   onOrderPlace(){
 
+    // let f = document.getElementsByTagName('form')[0];
+  //   if(f.checkValidity()) {
+  //   f.submit();
+  // }else {
+  //       this.flashMessage.show('Please fill in all fields', {cssClass: 'alert-danger', timeout: 3000});
+  // }
+    let cart = JSON.parse(localStorage.getItem('cart'));
+    let items: Object[] = [];
+
+    for (let i = 0; i < cart.length; i++){
+      items.push({
+        id:cart[i].item_id,
+        qty:cart[i].qty
+      });
+    }
+
+
+    const paymentInfo = {
+      name:this.name,
+      email:this.email,
+      address: this.address,
+      city: this.city,
+      state: this.state,
+      zip:this.zip,
+      nameOnCard:this.nameOnCard,
+      cardNumber:this.cardNumber,
+      expMonth:this.expMonth,
+      expYear:this.expYear,
+      ccv:this.ccv,
+      pickup: this.pickup,
+      truckDelivery:this.truckDelivery,
+      sameDayDelivery:this.sameDayDelivery,
+      cart: items,
+      user_id:localStorage.getItem('user_id')
+
+    }
+    this.cartService.placeOrder(paymentInfo).subscribe(data => {
+      if(data.success){
+        this.flashMessage.show('Order placed!', {cssClass: 'alert-success', timeout: 3000});
+      }
+      else {
+        this.flashMessage.show('Error processing your order', {cssClass: 'alert-danger', timeout: 3000});
+      }
+    });
+    console.log(paymentInfo);
   }
 
   pickupCheck(event: any){
@@ -115,6 +183,11 @@ export class CheckoutComponent implements OnInit {
      city:this.city,
      state:this.state,
      zip:this.zip
+     // nameOnCard:this.nameOnCard,
+     // cardNumber:this.cardNumber,
+     // expMonth:this.expMonth,
+     // expYear:this.expYear,
+     // ccv:this.ccv
 
    }
 
@@ -129,7 +202,12 @@ export class CheckoutComponent implements OnInit {
       address:this.address,
       city:this.city,
       state:this.state,
-      zip:this.zip
+      zip:this.zip,
+      nameOnCard:this.nameOnCard,
+      cardNumber:this.cardNumber,
+      expMonth:this.expMonth,
+      expYear:this.expYear,
+      ccv:this.ccv
 
     }
 
