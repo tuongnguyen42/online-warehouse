@@ -1,3 +1,190 @@
-<p>
-  admin works!
-</p>
+<div class="wrapper">
+  <div class="page-top">
+    <h1>Administration Console</h1>
+    <div class="form-group-dropdown">
+      <label for="exampleSelect1">Category:</label>
+      <select class="form-control" id="exampleSelect1">
+        <option>Pens</option>
+        <option>Paper</option>
+        <option>Scissors</option>
+        <option>Staplers</option>
+        <option>Binders</option>
+        <option>Organizers</option>
+        <option>Furniture</option>
+      </select>
+    </div>
+    <form id="search-form" class="form-inline my-2 my-lg-0">
+      <input
+        class="form-control mr-sm-2"
+        type="text"
+        placeholder="Search for items..."
+      />
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">
+        Search
+      </button>
+    </form>
+  </div>
+  <div class="page-middle">
+    <!-- BEGIN ITEMS CONTAINER -->
+    <div class="item-container">
+      <table id="stock" class="table table-hover table-condensed">
+        <thead>
+          <tr>
+            <th style="width:40%">Product</th>
+            <th style="width:10%">Price</th>
+            <th style="width:10%">Quantity</th>
+            <th style="width:10%">Weight</th>
+            <!-- <th style="width:10%" class="text-center">Subtotal</th>-->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of stock">
+            <td data-th="Product">
+              <div class="row">
+                <div class="col-sm-2 hidden-xs">
+                  <img
+                    src="http://placehold.it/100x100"
+                    alt="..."
+                    class="img-responsive"
+                  />
+                </div>
+                <div class="col-sm-10">
+                  <a
+                    [routerLink]="['/product']"
+                    [queryParams]="{ id: item.item_id }"
+                    ><h4 class="nomargin">{{ item.name }}</h4></a
+                  >
+                  <p>
+                    {{ item.description }}
+                  </p>
+                </div>
+              </div>
+            </td>
+
+            <td data-th="Price">${{ item.price }}</td>
+
+            <td data-th="Quantity">
+              <input
+                id="qtyUpdate"
+                type="number"
+                min="1"
+                max="{{ item.stock }}"
+                value="{{ item.qty }}"
+              />
+            </td>
+
+            <td data-th="Weight">{{ item.weight }} lbs</td>
+            <td class="actions" data-th="">
+              <button class="btn btn-info btn-sm" (click)="updateItem(item)">
+                <i class="fa fa-refresh"></i>
+              </button>
+              <button class="btn btn-danger btn-sm" (click)="deleteItem(item)">
+                <i class="fa fa-trash-o"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <!--
+          <tr class="visible-xs">
+            <td class="text-left">
+              <strong>Total Price: ${{ totalPrice }}</strong>
+            </td>
+          </tr> 
+          -->
+
+          <tr>
+            <!--
+            <td>
+              <a href="#" class="btn btn-warning"
+                ><i class="fa fa-angle-left"></i> Continue Shopping</a
+              >
+            </td>
+            -->
+            <td colspan="2" class="hidden-xs"></td>
+            <!--this line is a filler! dont remove-->
+            <td class="hidden-xs text-center"><strong></strong></td>
+            <!--END this line is a filler! dont remove-->
+            <td>
+              <a
+                *ngIf="authService.loggedIn()"
+                [routerLink]="['/login']"
+                [queryParams]="{ checkout: 'true' }"
+                class="btn btn-success btn-block"
+                >Checkout <i class="fa fa-angle-right"></i
+              ></a>
+              <a
+                *ngIf="!authService.loggedIn()"
+                [routerLink]="['/checkout']"
+                class="btn btn-success btn-block"
+                >Checkout <i class="fa fa-angle-right"></i
+              ></a>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <!-- END ITEMS CONTAINER -->
+
+    <div class="pagination-div">
+      <ul class="pagination pagination-sm">
+        <li class="page-item disabled">
+          <a class="page-link" href="#">&laquo;</a>
+        </li>
+        <li class="page-item active">
+          <a class="page-link" href="#">1</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">2</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">3</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">4</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">5</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">&raquo;</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="page-bottom">
+    <h4>Add New Product to Warehouse Stock</h4>
+    <div class="form-group name">
+      <label for="inputName">Product name:</label>
+      <input
+        type="Product"
+        class="form-control"
+        id="inputName"
+        placeholder="Name"
+      />
+    </div>
+    <div class="form-group price">
+      <label for="inputPrice">Price:</label>
+      <input
+        type="Price"
+        class="form-control"
+        id="inputPrice"
+        placeholder="Price"
+      />
+    </div>
+    <div class="form-group qty">
+      <label for="inputQty">Quantity:</label>
+      <input type="Qty" class="form-control" id="inputQty" placeholder="Qty" />
+    </div>
+    <div class="form-group weight">
+      <label for="inputWeight">Weight:</label>
+      <input
+        type="Weight"
+        class="form-control"
+        id="inputWeight"
+        placeholder="Weight"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Add Item</button>
+  </div>
+</div>
