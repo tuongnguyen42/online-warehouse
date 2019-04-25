@@ -12,6 +12,7 @@ def cursor_connect():
     password='Chungu1234',
     host='localhost',
     database='onlinewarehouse',
+    port='3000'
     )
     cur = cnx.cursor(buffered=True)
     return cur, cnx
@@ -54,7 +55,7 @@ def delete_item(name):
 
 def get_item_by_id(inv_id):
     cursor, cnx = cursor_connect()
-    cursor.execute("""SELECT inventory_id, name, price, weight, description, stock FROM inventory WHERE name=%s""", (inv_id,))
+    cursor.execute("""SELECT inventory_id, name, price, weight, description, stock FROM inventory WHERE inventory_id=%s""", (inv_id,))
 
     item = cursor.fetchall()
     if item:
@@ -64,6 +65,34 @@ def get_item_by_id(inv_id):
     cursor.close()
     cnx.close()
     return it
+
+
+def update_qty(cart):
+    cursor, cnx = cursor_connect()
+    for i in cart:
+        item_id = i['id']
+        item_qty = i['qty']
+        item = get_item_by_id(item_id)
+        current_stock = item['stock']
+        updated_stock = int(current_stock) - int(item_qty)
+
+        insert_stmt = (
+        "UPDATE inventory SET stock = %s WHERE inventory_id = %s"
+        )
+        data = (updated_stock, item_id)
+        try:
+            cursor.execute(insert_stmt, data)
+            cnx.commit()
+        except mysql.connector.DataError as err:
+            return False
+
+
+
+
+    cursor.close()
+    cnx.close()
+    return True
+
 
 
 def get_items_by_category(category, page):
@@ -86,13 +115,13 @@ def get_items_by_category(category, page):
     items = cursor.fetchall()
     json_items = []
     for item in items:
-        it = {"inventory_id":item[1],
-              "name": item[1], 
-              "price": item[2], 
-              "weight": item[3], 
-              "description": item[4], 
-              "stock": item[5], 
-              "category":item[6], 
+        it = {"inventory_id":item[0],
+              "name": item[1],
+              "price": item[2],
+              "weight": item[3],
+              "description": item[4],
+              "stock": item[5],
+              "category":item[6],
               }
         json_items.append(it)
 

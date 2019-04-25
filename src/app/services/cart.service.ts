@@ -1,4 +1,8 @@
 import { Injectable } from '@angular/core';
+import {Http, Headers} from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import {map} from 'rxjs/operators';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -6,7 +10,7 @@ import { Injectable } from '@angular/core';
 export class CartService {
 
 
-  constructor() { }
+  constructor(private http:Http) { }
 
 
   setTotalWeight(weight){
@@ -22,6 +26,14 @@ export class CartService {
   }
   getTotalPrice(){
     return parseFloat(localStorage.getItem('price'));
+  }
+
+
+  placeOrder(order){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:5000/payment', order,{headers: headers})
+    .pipe(map(res => res.json()));
   }
 
 
