@@ -55,10 +55,16 @@ export class ProductComponent implements OnInit {
 
   onAddClick(){
     if(this.qty > this.stock){
-      this.flashMessage.show("Out of stock!",{
+      this.flashMessage.show("Not enough stock!",{
         cssClass: 'alert-danger',
         timeout: 3000});
-    } else{
+    } 
+    else if(this.qty <= 0) {
+      this.flashMessage.show("You need at least 1 item to add to your cart!",{
+        cssClass: 'alert-danger',
+        timeout: 3000});
+    }
+    else{
       this.stock = this.stock-1;
       this.flashMessage.show("Added to cart!",{
         cssClass: 'alert-success',
@@ -66,14 +72,6 @@ export class ProductComponent implements OnInit {
       this.cartService.addToCart(this.productResult, this.qty);
       location.reload();
     }
-
-
-
-
-
   }
-
-
-
 
 }

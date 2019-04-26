@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/checkout']);
     }
     else{
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/']);
     }
 
 
