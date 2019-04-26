@@ -147,7 +147,7 @@ def populateInventory():
     for i in range(100):
         price = round(random.uniform(0,999), 2)
         add_item("item " + str(i),
-                 categories[i%6],
+                 categories[i%7],
                  "description " + str(i),
                  price,
                  10,
