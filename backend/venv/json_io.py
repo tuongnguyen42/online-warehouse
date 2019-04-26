@@ -4,8 +4,8 @@ import datetime
 import json
 from flask import Flask, request, make_response, jsonify
 from flask_cors import CORS, cross_origin
-from accounts import add_account, authenticate_user
-from inventory import get_items_by_category, get_item_by_id, get_total_pages
+from accounts import add_account, authenticate_user, get_id_by_email
+from inventory import get_items_by_category, get_item_by_id, get_total_pages, update_qty
 app = Flask(__name__)
 CORS(app)
 app.config['SECRET_KEY'] = 'tempsecretkey'
@@ -36,18 +36,19 @@ def login():
 	password = data.get('password')
 
 	if authenticate_user(email, password):
+		id = get_id_by_email(email)
 		token = jwt.encode({'user': email, 'pass': password, 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours = 24)}, \
 			app.config['SECRET_KEY'])
-
 		responseObject = {
 			"success": True,
-			"token": token.decode('UTF-8')
-		}
+			"token": token.decode('UTF-8'),
+			"user_id":id
+			}
 		return make_response(jsonify(responseObject))
 	else:
 		responseObject = {
 			"success": False,
-			"msg": "login failed"
+			"msg": "Incorrect password!"
 		}
 		return make_response(jsonify(responseObject))
 
@@ -71,6 +72,28 @@ def search():
 			"inventory": items,
 			"pages":totalPages
 		}
+	return make_response(jsonify(responseObject))
+
+@app.route('/payment', methods = ['POST'])
+@cross_origin()
+def processOrder():
+	data = request.get_json()
+	#cart contains qty and item_id
+	cart = data.get('cart')
+
+	#user_id used for adding to order history
+	user_id = data.get('user_id')
+	if update_qty(cart):
+		responseObject = {
+		"success":True,
+		"msg": "Order placed"
+		}
+	else:
+		responseObject = {
+		"success": False,
+		"msg": "Failed to place order"
+		}
+
 	return make_response(jsonify(responseObject))
 
 
