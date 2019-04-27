@@ -2,13 +2,14 @@
   <h1>Tracking</h1>
 </div>
 
-<agm-map [latitude]='latitude'
-[longitude]='longitude'
-[mapTypeId]='mapType'
-[zoom]='12'>
-
- <agm-marker [latitude]='latitude'
- [longitude]='longitude'></agm-marker>
+<agm-map [latitude]='lat'
+[longitude]='lng'>
+  <agm-direction [origin]="origin"
+  [destination]="destination"
+  [waypoints]="waypoints">
+  </agm-direction>
+ <!-- <agm-marker [latitude]='latitude'
+ [longitude]='longitude'></agm-marker> -->
  </agm-map>
 
 <div id="footer">
