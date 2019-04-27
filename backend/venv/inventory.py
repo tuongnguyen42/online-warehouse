@@ -9,10 +9,10 @@ import math
 def cursor_connect():
     cnx = mysql.connector.connect(
     user='root',
-    password='Chungu1234',
+    password='password',
     host='localhost',
     database='onlinewarehouse',
-    port='3000'
+    #port='3000'
     )
     cur = cnx.cursor(buffered=True)
     return cur, cnx
@@ -147,7 +147,7 @@ def populateInventory():
     for i in range(100):
         price = round(random.uniform(0,999), 2)
         add_item("item " + str(i),
-                 categories[i%6],
+                 categories[i%7],
                  "description " + str(i),
                  price,
                  10,
