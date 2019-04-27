@@ -18,6 +18,7 @@ def existing_order(order_number):
     cursor, cnx = cursor_connect()
     cursor.execute("""SELECT * FROM orders WHERE id = %s""", (order_number))
     if cursor.fetchall():
+        cursor
         return True
     else:
         return False
@@ -33,8 +34,11 @@ def new_order(a_id, items, quantity, tot_price, tot_weight):
 
     except Exception as e:
         print("order unable to be added:")
-        # print(e.message)
+        cursor.close()
+        cnx.close()
         return False
 
+    cursor.close()
+    cnx.close()
     return True
 
