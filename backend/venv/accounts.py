@@ -5,10 +5,10 @@ import mysql.connector
 def cursor_connect():
     cnx = mysql.connector.connect(
     user='root',
-    password='Chungu1234',
+    password='password',
     host='localhost',
     database='onlinewarehouse',
-    port='3000'
+    #port='3000'
     )
     cur = cnx.cursor(buffered=True)
     return cur, cnx
@@ -42,6 +42,16 @@ def authenticate_user(email, password):
         return False
     else:
         return True
+
+def get_id_by_email(email):
+    cursor, cnx  = cursor_connect()
+    cursor.execute("SELECT account_id FROM accounts WHERE email=%s", (email,))
+    id = cursor.fetchone()
+
+    if not id:
+        return False
+    else:
+        return id[0]
 
 def forgot_password(email):
     cursor, cnx  = cursor_connect()

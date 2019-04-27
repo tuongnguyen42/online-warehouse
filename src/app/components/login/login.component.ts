@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
 
    this.authService.authenticateUser(user).subscribe(data => {
      if(data.success){
-       this.authService.storeUserData(data.token, data.user);
+       this.authService.storeUserData(data.token, data.user_id);
        this.flashMessage.show("Logged in!",{
          cssClass: 'alert-success',
          timeout: 5000})
@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/checkout']);
     }
     else{
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/']);
     }
 
 

@@ -17,37 +17,53 @@
     <div class="row">
       <div class="col-50">
         <div class="container">
-          <form (submit)="onOrderPlace()">
+          <form ngNativeValidate (submit)="onOrderPlace()">
 
             <div class="row">
               <div class="col-50">
                 <h3>Shipping Address</h3>
+
                 <label for="fname"><i class="fa fa-user"></i> Full Name</label>
                 <input
+
+                autocomplete="on"
+                maxlength="45"
                 type="text"
                 id="fname"
                 name="firstname"
                 [ngModelOptions]="{ standalone: true }"
                 [(ngModel)]="name"
-                placeholder="John M. Doe">
+                placeholder="John M. Doe"
+                required/>
+
                 <label for="email"><i class="fa fa-envelope"></i> Email</label>
                 <input
+                required="required"
+                autocomplete="on"
                 type="text"
                 id="email"
                 name="email"
                 [ngModelOptions]="{ standalone: true }"
                 [(ngModel)]="email"
                 placeholder="john@example.com">
+
                 <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
                 <input
+                required="required"
+                autocomplete="on"
+                maxlength="45"
                 type="text"
                 id="adr"
                 name="address"
                 [ngModelOptions]="{ standalone: true }"
                 [(ngModel)]="address"
                 placeholder="542 W. 15th Street">
+
                 <label for="city"><i class="fa fa-institution"></i> City</label>
                 <input
+                required="required"
+                autocomplete="on"
+                maxlength="20"
                 type="text"
                 id="city"
                 name="city"
@@ -57,8 +73,12 @@
 
                 <div class="row">
                   <div class="col-50">
+
                     <label for="state">State</label>
                     <input
+                    required="required"
+                    autocomplete="on"
+                    maxlength="2"
                     type="text"
                     id="state"
                     name="state"
@@ -67,8 +87,13 @@
                     placeholder="NY">
                   </div>
                   <div class="col-50">
+
                     <label for="zip">Zip</label>
                     <input
+                    required="required"
+                    autocomplete="on"
+                    pattern="[0-9]*"
+                    maxlength="5"
                     type="text"
                     id="zip"
                     name="zip"
@@ -79,7 +104,7 @@
                 </div>
               </div>
 
-              <!-- <div class="col-50">
+              <div class="col-50">
                 <h3>Payment</h3>
                 <label for="fname">Accepted Cards</label>
                 <div class="icon-container">
@@ -88,32 +113,49 @@
                   <i class="fa fa-cc-mastercard" style="color:red;"></i>
                   <i class="fa fa-cc-discover" style="color:orange;"></i>
                 </div>
+
                 <label for="cname">Name on Card</label>
                 <input
+                required="required"
+                autocomplete="on"
                 type="text"
                 id="cname"
                 name="cardname"
                 [ngModelOptions]="{ standalone: true }"
                 [(ngModel)]="nameOnCard"
                 placeholder="John More Doe">
+
                 <label for="ccnum">Credit card number</label>
                 <input type="text"
+                required="required"
+                autocomplete="on"
+                pattern="[0-9]{13,16}"
+                maxlength="16"
                 id="ccnum"
                 name="cardnumber"
                 [ngModelOptions]="{ standalone: true }"
                 [(ngModel)]="cardNumber"
-                placeholder="1111-2222-3333-4444">
+                placeholder="1111222233334444">
+
                 <label for="expmonth">Exp Month</label>
                 <input type="text"
+                required="required"
+                autocomplete="on"
+                pattern="^(0?[1-9]|1[012])$"
+                maxlength="2"
                 id="expmonth"
                 name="expmonth"
                 [ngModelOptions]="{ standalone: true }"
                 [(ngModel)]="expMonth"
-                placeholder="September">
+                placeholder="09">
                 <div class="row">
                   <div class="col-50">
                     <label for="expyear">Exp Year</label>
                     <input
+                    required="required"
+                    autocomplete="on"
+                    pattern="^\d{4}$"
+                    maxlength="4"
                     type="text"
                     id="expyear"
                     name="expyear"
@@ -124,15 +166,19 @@
                   <div class="col-50">
                     <label for="cvv">CVV</label>
                     <input
+                    required="required"
+                    autocomplete="on"
+                    pattern="^\d{3}$"
+                    maxlength="3"
                     type="text"
                     id="cvv"
-                    ame="cvv"
+                    name="cvv"
                     [ngModelOptions]="{ standalone: true }"
                     [(ngModel)]="ccv"
                     placeholder="352">
                   </div>
                 </div>
-              </div> -->
+              </div>
 
             </div>
 
@@ -200,7 +246,7 @@
 
             </div>
              </div>
-            <button type="submit" class="btn btn-primary">Continue</button>
+            <button type="submit" class="btn btn-primary">PLACE ORDER</button>
           </form>
         </div>
       </div>
