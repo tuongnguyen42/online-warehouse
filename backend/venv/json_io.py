@@ -80,7 +80,7 @@ def processOrder():
 	data = request.get_json()
 	#cart contains qty and item_id
 	cart = data.get('cart')
-
+	print(cart)
 	#user_id used for adding to order history
 	user_id = data.get('user_id')
 	if update_qty(cart):

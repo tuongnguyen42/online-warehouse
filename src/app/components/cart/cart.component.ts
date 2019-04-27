@@ -74,7 +74,13 @@ export class CartComponent implements OnInit {
         timeout: 3000});
       // document.getElementById("qtyUpdate").innerHTML = temp[index].stock;
       // location.reload();
-    } else{
+    } 
+    else if(updatedQty < 0) {
+      this.flashMessage.show("Please enter a positive value!",{
+        cssClass: 'alert-danger',
+        timeout: 3000});
+    }
+    else{
       let updatedWeight = temp[index].weight/temp[index].qty*updatedQty;
       let updatedPrice = temp[index].price/temp[index].qty*updatedQty;
       temp[index].qty=updatedQty;
