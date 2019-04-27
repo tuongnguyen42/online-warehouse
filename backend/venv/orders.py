@@ -33,7 +33,7 @@ def new_order(o_id, a_id, items, quantity, tot_price, tot_weight):
 
     except Exception as e:
         print("order unable to be added:")
-        print(e.message)
+        # print(e.message)
         return False
 
     return True
