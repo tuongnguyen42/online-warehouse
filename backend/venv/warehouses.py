@@ -3,15 +3,16 @@ import random
 import decimal
 import math
 
-## module for inventory ##
+## module for warehouse table ##
 # replace with current user's information
 
 def cursor_connect():
     cnx = mysql.connector.connect(
     user='root',
-    password='#R1k3rdf4t',
+    password='Chungu1234',
     host='localhost',
-    database='onlinewarehouse'
+    database='onlinewarehouse',
+    port='3000'
     )
     cur = cnx.cursor(buffered=True)
     return cur, cnx

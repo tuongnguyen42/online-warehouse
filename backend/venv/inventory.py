@@ -9,10 +9,10 @@ import math
 def cursor_connect():
     cnx = mysql.connector.connect(
     user='root',
-    password='password',
+    password='Chungu1234',
     host='localhost',
     database='onlinewarehouse',
-    #port='3000'
+    port='3000'
     )
     cur = cnx.cursor(buffered=True)
     return cur, cnx
@@ -85,9 +85,6 @@ def update_qty(cart):
             cnx.commit()
         except mysql.connector.DataError as err:
             return False
-
-
-
 
     cursor.close()
     cnx.close()
