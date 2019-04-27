@@ -1,7 +1,7 @@
 import mysql.connector
 
-# module for accounts #
-# replace with current user's information
+# module for orders #
+# replace with database connection info current user's information
 def cursor_connect():
     cnx = mysql.connector.connect(
     user='root',
@@ -38,4 +38,3 @@ def new_order(a_id, items, quantity, tot_price, tot_weight):
 
     return True
 
-    

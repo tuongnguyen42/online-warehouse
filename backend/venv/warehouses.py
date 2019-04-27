@@ -3,7 +3,7 @@ import random
 import decimal
 import math
 
-## module for inventory ##
+## module for warehouse table ##
 # replace with current user's information
 
 def cursor_connect():
