@@ -8,7 +8,7 @@
     src="../../../assets/img/materials.jpg"
     />
   </div>
-  <form (submit)="onAddClick()">
+  <form ngNativeValidate (submit)="onAddClick()">
     <div class="grid-item">
       <p><b>Product #: </b>{{productResult.id}}</p>
       <p><b>Weight: </b>12oz</p>
@@ -16,7 +16,12 @@
       <p><b>How to receive it:</b>
         <br>Free pickup, or free 2-day delivery with qualifying $100 order.
         For more information, please view our <a href="/shipping">shipping policy</a>.</p>
-        Qty <input type="text" name="qty" size="5" value="1" [ngModelOptions]="{ standalone: true }" [(ngModel)]="qty" qty="qty">
+        Qty <input type="text" 
+                   name="qty" 
+                   size="5" 
+                   value="1" 
+                   pattern="[0-9]{1,2}"
+                   [ngModelOptions]="{ standalone: true }" [(ngModel)]="qty" qty="qty">
         <button class="btn btn-primary" type="submit">Add to cart</button>
       </div>
     </form>
