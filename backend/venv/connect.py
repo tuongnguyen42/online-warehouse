@@ -3,7 +3,7 @@ import mysql.connector
 def cursor_connect():
     cnx = mysql.connector.connect(
     user='root',
-    password='Wowerin97!',
+    password='Chungu1234',
     host='localhost',
     database='onlinewarehouse',
     port='3000'
