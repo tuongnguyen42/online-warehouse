@@ -12,13 +12,21 @@ def add_warehouse(name, latitude, longitude):
         cursor.execute("""INSERT INTO warehouses (name, latitude, longitude)
                       VALUES (%s,%s,%s)""", (name, latitude, longitude))
         cnx.commit()
+<<<<<<< HEAD
         # print("warehouse added\n")
+=======
+        print("warehouse added\n")
+>>>>>>> db
         cursor.close()
         cnx.close()
         return True
 
     else:
+<<<<<<< HEAD
         # print("warehouse already exists in warehouses\n")
+=======
+        print("warehouse already exists in warehouses\n")
+>>>>>>> db
         cursor.close()
         cnx.close()
         return False
