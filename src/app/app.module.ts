@@ -81,7 +81,7 @@ const appRoutes: Routes = [
     FormsModule,
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyALPpI2grWR5poDZf4JMpHDLMcAHAwZ6R0",
-      libraries: ['geometry']
+      libraries: ['geometry', 'places']
     }),
     AgmDirectionModule
   ],
