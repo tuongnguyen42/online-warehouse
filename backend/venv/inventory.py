@@ -9,7 +9,7 @@ import math
 def cursor_connect():
     cnx = mysql.connector.connect(
     user='root',
-    password='Chungu1234',
+    password='#Chungu1234',
     host='localhost',
     database='onlinewarehouse',
     port='3000'
@@ -27,14 +27,16 @@ def add_item(name, category, description, price, stock, weight, warehouse_id):
         cursor.execute("""INSERT INTO inventory (name, price, weight, description, category, stock, warehouse_id)
                       VALUES (%s,%s,%s,%s,%s,%s,%s)""", (name, price, weight, description, category, stock, warehouse_id))
         cnx.commit()
-        print("item added\n")
+        # print("item added\n")
+        cursor.close()
+        cnx.close()
         return True
-
     else:
-        print("item already exists in inventory\n")
+        # print("item already exists in inventory\n")
+        cursor.close()
+        cnx.close()
         return False
-    cursor.close()
-    cnx.close()
+    
 
 
 def delete_item(name):
@@ -61,6 +63,8 @@ def get_item_by_id(inv_id):
     if item:
         it = {"id": item[0][0], "name": item[0][1], "price": item[0][2], "weight": item[0][3], "description": item[0][4], "stock": item[0][5]}
     else:
+        cursor.close()
+        cnx.close()
         return None
     cursor.close()
     cnx.close()
@@ -84,6 +88,8 @@ def update_qty(cart):
             cursor.execute(insert_stmt, data)
             cnx.commit()
         except mysql.connector.DataError as err:
+            cursor.close()
+            cnx.close()
             return False
 
     cursor.close()
@@ -141,7 +147,7 @@ def get_total_pages(category):
 
 def populateInventory():
     categories =["paper", "scissors", "staplers", "binders", "pens", "organizers", "furniture"]
-    for i in range(100):
+    for i in range(500):
         price = round(random.uniform(0,999), 2)
         add_item("item " + str(i),
                  categories[i%7],
@@ -150,11 +156,7 @@ def populateInventory():
                  10,
                  random.randint(1,500),
                  random.randint(1,2)
-         )
+        )
 
 
-# tests
-# cursor_connect()
 # populateInventory()
-# print(add_item(cur, "gel pens", "pens", "uses gel ink", 3, 50, 2))
-# print(delete_item(cur, "gel pens"))

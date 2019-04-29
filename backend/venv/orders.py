@@ -23,18 +23,22 @@ def existing_order(order_number):
         return False
 
 ### order history
-def new_order(a_id, items, quantity, tot_price, tot_weight):
+def new_order(a_id, items, tot_price, tot_weight):
     cursor, cnx = cursor_connect()
     try:
         cursor.execute("""INSERT INTO orders (account_id, items, total_price, total_weight) VALUES (%s,%s,%s,%s)""", 
         (a_id, items, tot_price, tot_weight))
         cnx.commit()
-        print("new order added")
+        # print("new order added")
 
     except Exception as e:
         print("order unable to be added:")
         # print(e.message)
+        cursor.close()
+        cnx.close()
         return False
 
+    cursor.close()
+    cnx.close()
     return True
 
