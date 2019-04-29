@@ -74,10 +74,7 @@ def new_order(a_id, items, tot_price, tot_weight):
 
     except Exception as e:
         print("order unable to be added:")
-<<<<<<< HEAD
         # print(e.message)
-=======
->>>>>>> db
         cursor.close()
         cnx.close()
         return False
