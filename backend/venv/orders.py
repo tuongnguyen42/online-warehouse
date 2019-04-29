@@ -42,3 +42,23 @@ def new_order(a_id, items, tot_price, tot_weight):
     cnx.close()
     return True
 
+def get_order_by_account(a_id):
+    cursor, cnx = cursor_connect()
+    cursor.execute("""SELECT order_id, purchase_time, items, total_price, total_weight FROM orders WHERE account_id = %s ORDER BY purchase_time DESC""", (a_id,))
+    
+    orders = cursor.fetchall()
+    json_orders = []
+    
+    for order in orders:
+        o = {"order_id" : order[0],
+             "purchase_time" : order[1],
+             "items": order[2],
+             "total_price": order[3],
+             "total_weight": order[4]
+        }
+        json_orders.append(o)
+    
+    cursor.close()
+    cnx.close()
+    return json_orders
+
