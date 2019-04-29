@@ -28,12 +28,11 @@ export class OrdersService {
     .pipe(map(res => res.json()));
   }
 
-  // // Link to tracking via orderId
-  // searchOrder(id){
-  //   let headers = new Headers();
-  //   headers.append('Content-Type', 'application/json');
-  //   return this.http.post('http://localhost:5000/orders/id', id, {headers: headers})
-  //   .pipe(map(res => res.json()));
-  // }
-
+  // Searches tracking via orderId
+  searchOrder(id){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:5000/orders/id', id, {headers: headers})
+    .pipe(map(res => res.json()));
+  }
 }

@@ -6,7 +6,7 @@ from flask import Flask, request, make_response, jsonify
 from flask_cors import CORS, cross_origin
 from accounts import add_account, authenticate_user, get_id_by_email
 from inventory import get_items_by_category, get_item_by_id, get_total_pages, update_qty
-from orders import get_orders_by_user
+from orders import get_orders_by_user, get_tracking_by_order
 
 app = Flask(__name__)
 CORS(app)
@@ -119,8 +119,6 @@ def processOrder():
 	return make_response(jsonify(responseObject))
 
 
-
-
 @app.route('/search/id', methods = ['POST'])
 @cross_origin()
 def searchId():
@@ -130,12 +128,31 @@ def searchId():
     if not item:
         responseObject = {
             "success": False,
-            "msg": "no item found for that id"
+            "msg": "no item found for that user id"
         }
     else:
         responseObject = {
             "success": True,
             "item": item
+        }
+    return make_response(jsonify(responseObject))
+
+
+@app.route('/orders/id', methods = ['POST'])
+@cross_origin()
+def get_tracking():
+    data = request.get_json()
+    oid = data.get('orderId')
+    trackingResult = get_tracking_by_order(oid)
+    if not trackingResult:
+        responseObject = {
+            "success": False,
+            "msg": "no tracking found for that order id"
+        }
+    else:
+        responseObject = {
+            "success": True,
+            "trackingResult": trackingResult
         }
     return make_response(jsonify(responseObject))
 

@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AgmCoreModule, MapsAPILoader } from "@agm/core";
 import { TrackingService } from '../../services/tracking.service';
+import { OrdersService } from '../../services/orders.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
@@ -11,10 +12,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 
 export class TrackingComponent implements OnInit {
-  // order: Number = null;
-
-  mexicoCity = null
-  jacksonville = null
+  orderId:String = "";
+  trackingResult:Object[];
 
   // Warehouse 1 { lat: 37.3047208, lng: -121.862952 }
   // Warehouse 2 { lat: 37.3346377, lng: -121.9819636 }
@@ -31,8 +30,10 @@ export class TrackingComponent implements OnInit {
   ]
 
   constructor(private mapsAPILoader: MapsAPILoader,
+    private ordersService:OrdersService,
     private route:Router,
-    private router:ActivatedRoute) {
+    private router:ActivatedRoute,
+  ) {
     this.mapsAPILoader.load().then(() => {
       this.mexicoCity = new google.maps.LatLng(19.432608, -99.133209);
       this.jacksonville = new google.maps.LatLng(40.730610, -73.935242);
@@ -40,15 +41,16 @@ export class TrackingComponent implements OnInit {
   }
 
   ngOnInit() {
-  //   this.router.queryParams.subscribe(params => {
-  //   this.order = params['order'];
-  //   this.route.routeReuseStrategy.shouldReuseRoute = () => false;
-  // });
-  //
-  //   const query = {
-  //     order_id:this.order
-  //   }
-    // console.log(this.calculateDistance());
+    this.router.queryParams.subscribe(params => {
+    this.orderId = params['id'];
+  });
+    const query = {
+      orderId:this.orderId
+    }
+    this.ordersService.searchOrder(query).subscribe(data =>{
+      this.trackingResult = data.trackingResult;
+      console.log(this.trackingResult);
+    })
   }
 
   calculateDistance() {

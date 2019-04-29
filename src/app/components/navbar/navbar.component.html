@@ -41,7 +41,7 @@
           *ngIf = "!authService.loggedIn()"
           [routerLinkActiveOptions]="{ exact: true }"
         >
-          <a class="nav-link" [routerLink]="['/orders']">Orders</a>
+          <a class="nav-link" [routerLink]="['/orders']" [queryParams]="{ id: id }">Orders</a>
         </li>
         <li
           class="nav-item"

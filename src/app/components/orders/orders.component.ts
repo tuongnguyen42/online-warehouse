@@ -25,7 +25,7 @@ export class OrdersComponent implements OnInit {
 
     this.ordersService.searchUser().subscribe(data =>{
       this.searchResult = data.orders;
-      console.log(this.searchResult);
+      // console.log(this.searchResult);
     })
   }
 
