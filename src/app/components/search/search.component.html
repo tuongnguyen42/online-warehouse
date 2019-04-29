@@ -1,7 +1,7 @@
 <div class="wrapper">
   <div class="page-middle">
     <div class="card mb-3" *ngFor="let result of searchResult">
-      <a [routerLink]="['/product']" [routerLink]="['/product']" [queryParams]="{ id: result.inventory_id}">
+      <a [routerLink]="['/product']" [queryParams]="{ id: result.inventory_id}">
         <h3 class="card-header">{{result.name}}</h3>
       </a>
       <a [routerLink]="['/product']" [queryParams]="{ id: result.inventory_id}">

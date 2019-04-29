@@ -1,15 +1,16 @@
 <div class="page-top">
   <h1>Tracking</h1>
+  <h4 class="card-title">Order #{{ orderId }}</h4>
+  <!-- <p><b>Placed on {{result.purchase_time}}</b></p> -->
 </div>
 
-<agm-map [latitude]='latitude'
-[longitude]='longitude'
-[mapTypeId]='mapType'
-[zoom]='12'>
-
- <agm-marker [latitude]='latitude'
- [longitude]='longitude'></agm-marker>
- </agm-map>
+<agm-map [latitude]='lat'
+[longitude]='lng'>
+  <agm-direction [origin]="origin"
+  [destination]="destination"
+  [waypoints]="waypoints">
+  </agm-direction>
+</agm-map>
 
 <div id="footer">
  <div class="container-top">

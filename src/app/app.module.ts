@@ -1,6 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { AgmCoreModule } from "@agm/core";
+import { AgmCoreModule, MapsAPILoader } from "@agm/core";
+import { AgmDirectionModule } from 'agm-direction';
 import { HttpModule } from "@angular/http";
 import { FormsModule } from "@angular/forms";
 import { RouterModule, Routes } from "@angular/router";
@@ -85,8 +86,10 @@ const appRoutes: Routes = [
     FlashMessagesModule.forRoot(),
     FormsModule,
     AgmCoreModule.forRoot({
-      apiKey: "AIzaSyALPpI2grWR5poDZf4JMpHDLMcAHAwZ6R0"
-    })
+      apiKey: "AIzaSyALPpI2grWR5poDZf4JMpHDLMcAHAwZ6R0",
+      libraries: ['geometry']
+    }),
+    AgmDirectionModule
   ],
   providers: [
     SearchService,
