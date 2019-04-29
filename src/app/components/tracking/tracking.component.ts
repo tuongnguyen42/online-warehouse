@@ -1,6 +1,5 @@
-/// <reference path="./../../../../node_modules/@types/googlemaps/index.d.ts"/>
 import { Component, OnInit } from '@angular/core';
-import { AgmCoreModule, MapsAPILoader } from "@agm/core";
+import { AgmCoreModule } from "@agm/core";
 import { TrackingService } from '../../services/tracking.service';
 import { OrdersService } from '../../services/orders.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -29,15 +28,12 @@ export class TrackingComponent implements OnInit {
     },
   ]
 
-  constructor(private mapsAPILoader: MapsAPILoader,
+  constructor(
     private ordersService:OrdersService,
     private route:Router,
     private router:ActivatedRoute,
   ) {
-    this.mapsAPILoader.load().then(() => {
-      this.mexicoCity = new google.maps.LatLng(19.432608, -99.133209);
-      this.jacksonville = new google.maps.LatLng(40.730610, -73.935242);
-    });
+    
   }
 
   ngOnInit() {
@@ -51,10 +47,5 @@ export class TrackingComponent implements OnInit {
       this.trackingResult = data.trackingResult;
       console.log(this.trackingResult);
     })
-  }
-
-  calculateDistance() {
-    const distance = google.maps.geometry.spherical.computeDistanceBetween(this.mexicoCity, this.jacksonville);
-    return distance;
   }
 }
