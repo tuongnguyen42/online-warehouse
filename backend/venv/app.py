@@ -5,7 +5,7 @@ import json
 from flask import Flask, request, make_response, jsonify
 from flask_cors import CORS, cross_origin
 from accounts import add_account, authenticate_user, get_id_by_email
-from inventory import get_items_by_category, get_item_by_id, get_total_pages, update_qty
+from inventory import get_all_items, get_items_by_category, get_item_by_id, get_total_pages, update_qty, add_item
 from orders import get_orders_by_user, get_tracking_by_order, new_order
 
 app = Flask(__name__)
@@ -157,6 +157,57 @@ def get_tracking():
             "trackingResult": trackingResult
         }
     return make_response(jsonify(responseObject))
+
+
+@app.route('/admin', methods = ['POST'])
+@cross_origin()
+def get_all_inventory():
+	data = request.get_json()
+	inventory = get_all_items()
+
+	responseObject = {
+		"success" : True,
+		"inventory" : inventory
+	}
+	return make_response(jsonify(responseObject))
+
+
+@app.route('/admin/update', methods = ['POST'])
+@cross_origin()
+def update_inventory():
+	data = request.get_json()
+	inventory = data.get('inventory')
+	update_qty(inventory)
+	responseObject = {
+		"success" : True,
+		"inventory" : inventory
+	}
+	return make_response(jsonify(responseObject))
+
+
+@app.route('/admin/add', methods = ['POST'])
+@cross_origin()
+def add_to_inventory():
+	data = request.get_json()
+	print(data)
+	name = data.get('name')
+	category = data.get('category')
+	desc = data.get('description')
+	price = data.get('price')
+	stock = data.get('stock')
+	weight = data.get('weight')
+	w_id = data.get('warehouse_id')
+	if not add_item(name, category, desc, price, stock, weight, w_id):
+		responseObject = {
+			"success" : False,
+			"msg" : "could not add item"
+		}
+	else: 
+		responseObject = {
+			"success" : True,
+			"msg" : "added item"
+		}
+	return make_response(jsonify(responseObject))
 
 
 if __name__ == '__main__':

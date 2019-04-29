@@ -130,6 +130,24 @@ def get_total_pages(category):
     return totalPages
 
 
+def get_all_items():
+    cursor, cnx = cursor_connect()
+    cursor.execute("""SELECT inventory_id, name, price, stock, weight FROM inventory""")
+
+    inventory = cursor.fetchall()
+    inv = []
+    for item in inventory:
+        i = {"inventory_id" : item[0],
+             "name" : item[1],
+             "stock" : item[2]
+        }
+        inv.append(i)
+
+    cursor.close()
+    cnx.close()
+    return inv
+
+
 def populateInventory():
     categories =["paper", "scissors", "staplers", "binders", "pens", "organizers", "furniture"]
     for i in range(500):
@@ -144,4 +162,4 @@ def populateInventory():
         )
 
 
-populateInventory()
+# populateInventory()

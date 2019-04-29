@@ -18,20 +18,6 @@ export class SearchService {
 
   constructor(private http:Http) { }
 
-  // changeMessage(message: String){
-  //   this.messageSource.next(message);
-  // }
-
-
-  // storeKeyword(key){
-  //   this.keyword = key;
-  // }
-  //
-  // getKeyword(){
-  //   console.log(this.keyword);
-  //   return this.keyword;
-  //
-  // }
   searchKeyword(key){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -46,5 +32,11 @@ export class SearchService {
     .pipe(map(res => res.json()));
   }
 
-
+  searchAllItems(){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:5000/admin', {headers: headers})
+    .pipe(map(res => res.json()));
+  }
+  
 }
