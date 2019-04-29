@@ -6,7 +6,7 @@ from flask import Flask, request, make_response, jsonify
 from flask_cors import CORS, cross_origin
 from accounts import add_account, authenticate_user, get_id_by_email
 from inventory import get_items_by_category, get_item_by_id, get_total_pages, update_qty
-from orders import get_orders_by_user, get_tracking_by_order
+from orders import get_orders_by_user, get_tracking_by_order, new_order
 
 app = Flask(__name__)
 CORS(app)
@@ -102,10 +102,12 @@ def processOrder():
 	data = request.get_json()
 	#cart contains qty and item_id
 	cart = data.get('cart')
-
+	# print(cart)
 	#user_id used for adding to order history
 	user_id = data.get('user_id')
-	if update_qty(cart):
+	total = data.get('total')
+	weight = data.get('weight')
+	if update_qty(json.loads(cart)) and new_order(user_id, cart, total, weight):
 		responseObject = {
 		"success":True,
 		"msg": "Order placed"

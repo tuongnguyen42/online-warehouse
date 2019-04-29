@@ -3,15 +3,16 @@ import random
 import decimal
 import math
 
-## module for inventory ##
+## module for warehouse table ##
 # replace with current user's information
 
 def cursor_connect():
     cnx = mysql.connector.connect(
     user='root',
-    password='#R1k3rdf4t',
+    password='Chungu1234',
     host='localhost',
-    database='onlinewarehouse'
+    database='onlinewarehouse',
+    port='3000'
     )
     cur = cnx.cursor(buffered=True)
     return cur, cnx
@@ -26,14 +27,16 @@ def add_warehouse(name, latitude, longitude):
         cursor.execute("""INSERT INTO warehouses (name, latitude, longitude)
                       VALUES (%s,%s,%s)""", (name, latitude, longitude))
         cnx.commit()
-        print("warehouse added\n")
+        # print("warehouse added\n")
+        cursor.close()
+        cnx.close()
         return True
 
     else:
-        print("warehouse already exists in warehouses\n")
+        # print("warehouse already exists in warehouses\n")
+        cursor.close()
+        cnx.close()
         return False
-    cursor.close()
-    cnx.close()
 
 
 def populateWarehouses():
