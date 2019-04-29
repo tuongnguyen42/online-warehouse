@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {CartService} from '../../services/cart.service';
 import {FlashMessagesService} from 'angular2-flash-messages';
-import { totalmem } from 'os';
+//import { totalmem } from 'os';
 
 
 
