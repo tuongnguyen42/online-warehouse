@@ -1,6 +1,8 @@
 /// <reference path="./../../../../node_modules/@types/googlemaps/index.d.ts"/>
 import { Component, OnInit } from '@angular/core';
 import { AgmCoreModule, MapsAPILoader } from "@agm/core";
+import { TrackingService } from '../../services/tracking.service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-tracking',
@@ -9,6 +11,8 @@ import { AgmCoreModule, MapsAPILoader } from "@agm/core";
 })
 
 export class TrackingComponent implements OnInit {
+  // order: Number = null;
+
   mexicoCity = null
   jacksonville = null
 
@@ -26,7 +30,9 @@ export class TrackingComponent implements OnInit {
     },
   ]
 
-  constructor(private mapsAPILoader: MapsAPILoader) {
+  constructor(private mapsAPILoader: MapsAPILoader,
+    private route:Router,
+    private router:ActivatedRoute) {
     this.mapsAPILoader.load().then(() => {
       this.mexicoCity = new google.maps.LatLng(19.432608, -99.133209);
       this.jacksonville = new google.maps.LatLng(40.730610, -73.935242);
@@ -34,7 +40,15 @@ export class TrackingComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.calculateDistance());
+  //   this.router.queryParams.subscribe(params => {
+  //   this.order = params['order'];
+  //   this.route.routeReuseStrategy.shouldReuseRoute = () => false;
+  // });
+  //
+  //   const query = {
+  //     order_id:this.order
+  //   }
+    // console.log(this.calculateDistance());
   }
 
   calculateDistance() {

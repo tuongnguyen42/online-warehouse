@@ -3,7 +3,7 @@
     <h1>Your Orders</h1>
   </div>
   <div class="page-middle">
-    <div class="card mb-3">
+    <!-- <div class="card mb-3">
       <div class="card-body">
         <h4 class="card-title">Order #123456789</h4>
         <p><b>Placed on Apr 22, 2019</b></p>
@@ -43,12 +43,12 @@
         </div>
         <div class="grid-item"></div>
       </div>
-    </div>
+    </div> -->
 
-    <div class="card mb-3">
+    <div class="card mb-3" *ngFor="let result of searchResult">
       <div class="card-body">
-        <h4 class="card-title">Order #123456789</h4>
-        <p><b>Placed on Apr 20, 2019</b></p>
+        <h4 class="card-title">Order #{{result.order_id}}</h4>
+        <p><b>Placed on </b></p>
       </div>
       <div class="grid">
         <div class="grid-item">
