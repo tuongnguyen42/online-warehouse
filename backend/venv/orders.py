@@ -55,8 +55,12 @@ def existing_order(order_number):
     cursor, cnx = cursor_connect()
     cursor.execute("""SELECT * FROM orders WHERE id = %s""", (order_number))
     if cursor.fetchall():
+        cursor.close()
+        cnx.close()
         return True
     else:
+        cursor.close()
+        cnx.close()
         return False
 
 ### order history
