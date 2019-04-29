@@ -13,16 +13,16 @@
           <a href="#">
             <img
               style="height: 100px; display: block; margin: 0px 0px 20px 20px;"
-              src="../../../assets/img/paper.jpg"
+              src="../../../assets/img/materials.jpg"
               alt="Card image"
           /></a>
         </div>
         <div class="grid-item">
-          <p><b>Name of Product</b></p>
-          <p>$32.10</p>
+          <p><b>Total price: </b> ${{result.total_price}}</p>
+          <p><b>Total weight: </b> {{result.total_weight}} lbs</p>
         </div>
         <div class="grid-item">
-          <a [routerLink]="['/tracking']" [queryParams]="{ id: result.order_id}"> 
+          <a [routerLink]="['/tracking']" [queryParams]="{ id: result.order_id}">
             <button class="btn btn-primary" type="submit">Tracking</button>
           </a>
         </div>
