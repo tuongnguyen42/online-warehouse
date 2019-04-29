@@ -5,10 +5,10 @@ import mysql.connector
 def cursor_connect():
     cnx = mysql.connector.connect(
     user='root',
-    password='Chungu1234',
+    password='#R1k3rdf4t',
     host='localhost',
-    database='onlinewarehouse',
-    port='3000'
+    database='onlinewarehouse'
+    # port='3000'
     )
     cur = cnx.cursor(buffered=True)
     return cur, cnx
@@ -25,13 +25,16 @@ def add_account(name, email, password):
                        (name, email, password, "user"))
         cnx.commit()
         # print("executed")
+        cursor.close()
+        cnx.close()
         return True
     else:
         # email account already exists in database
         # print("account with that email already exists")
+        cursor.close()
+        cnx.close()
         return False
-    cursor.close()
-    cnx.close()
+    
 
 
 def authenticate_user(email, password):
@@ -39,8 +42,12 @@ def authenticate_user(email, password):
     cursor.execute("SELECT * FROM accounts WHERE email LIKE %s AND password LIKE %s", (email, password))
 
     if not cursor.fetchall():
+        cursor.close()
+        cnx.close()
         return False
     else:
+        cursor.close()
+        cnx.close()
         return True
 
 def get_id_by_email(email):
@@ -49,8 +56,12 @@ def get_id_by_email(email):
     id = cursor.fetchone()
 
     if not id:
+        cursor.close()
+        cnx.close()
         return False
     else:
+        cursor.close()
+        cnx.close()
         return id[0]
 
 def forgot_password(email):
@@ -58,11 +69,13 @@ def forgot_password(email):
     cursor.execute("""SELECT password FROM accounts WHERE email like %s""", (email,))
     pword = cursor.fetchone()
     if not pword:
+        cursor.close()
+        cnx.close()
         print("no password returned, account does not exist\n")
     else:
+        cursor.close()
+        cnx.close()
         return str(pword[0])
-    cursor.close()
-    cnx.close()
 
 
 # tests
