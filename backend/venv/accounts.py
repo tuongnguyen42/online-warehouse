@@ -1,18 +1,4 @@
-import mysql.connector
-
-# module for accounts #
-# replace with current user's information
-def cursor_connect():
-    cnx = mysql.connector.connect(
-    user='root',
-    password='Chungu1234',
-    host='localhost',
-    database='onlinewarehouse',
-    port='3000'
-    )
-    cur = cnx.cursor(buffered=True)
-    return cur, cnx
-
+from connect import cursor_connect
 
 def add_account(name, email, password):
     cursor, cnx  = cursor_connect()

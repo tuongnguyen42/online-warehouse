@@ -1,22 +1,7 @@
-import mysql.connector
 import random
 import decimal
 import math
-
-## module for warehouse table ##
-# replace with current user's information
-
-def cursor_connect():
-    cnx = mysql.connector.connect(
-    user='root',
-    password='Chungu1234',
-    host='localhost',
-    database='onlinewarehouse',
-    port='3000'
-    )
-    cur = cnx.cursor(buffered=True)
-    return cur, cnx
-
+from connect import cursor_connect
 
 # adds a warehouse, details include name, description, price, items in stock, and warehouse located
 def add_warehouse(name, latitude, longitude):
