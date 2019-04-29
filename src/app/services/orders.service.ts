@@ -28,6 +28,11 @@ export class OrdersService {
     .pipe(map(res => res.json()));
   }
 
+  //Searches orders by account (Edrees function)
+  searchAccount() {
+    
+  }
+
   // Searches tracking via orderId
   searchOrder(id){
     let headers = new Headers();

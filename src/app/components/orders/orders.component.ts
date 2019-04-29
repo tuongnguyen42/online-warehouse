@@ -11,6 +11,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 export class OrdersComponent implements OnInit {
   id: Number = null;
   searchResult:[Object];
+  orderByAccount:[Object];
 
   constructor(public nav: NavService,
     private ordersService: OrdersService,
@@ -27,6 +28,8 @@ export class OrdersComponent implements OnInit {
       this.searchResult = data.orders;
       // console.log(this.searchResult);
     })
+
+    
   }
 
 
