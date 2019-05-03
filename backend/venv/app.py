@@ -37,22 +37,25 @@ def login():
 	email = data.get('email')
 	password = data.get('password')
 
-	if authenticate_user(email, password):
-		id = get_id_by_email(email)
+	result = authenticate_user(email, password)
+
+	if result is None:
+		responseObject = {
+			"success": False,
+			"msg": "Incorrect password!"
+		}
+	else:
+		id = result["id"]
+		type = result["type"]
 		token = jwt.encode({'user': email, 'pass': password, 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours = 24)}, \
 			app.config['SECRET_KEY'])
 		responseObject = {
 			"success": True,
 			"token": token.decode('UTF-8'),
-			"user_id":id
-			}
-		return make_response(jsonify(responseObject))
-	else:
-		responseObject = {
-			"success": False,
-			"msg": "Incorrect password!"
+			"user_id":id,
+			"type":type
 		}
-		return make_response(jsonify(responseObject))
+	return make_response(jsonify(responseObject))
 
 
 @app.route('/search', methods = ['POST'])
