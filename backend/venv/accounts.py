@@ -25,16 +25,20 @@ def add_account(name, email, password):
 
 def authenticate_user(email, password):
     cursor, cnx  = cursor_connect()
-    cursor.execute("SELECT * FROM accounts WHERE email LIKE %s AND password LIKE %s", (email, password))
+    cursor.execute("SELECT * FROM accounts WHERE email = %s AND password = %s", (email, password))
 
-    if not cursor.fetchall():
+    user_info = cursor.fetchall()[0]
+    if not user_info:
         cursor.close()
         cnx.close()
-        return False
+        return None
     else:
+        info = {"id": user_info[0],
+                "type": user_info[4]}
         cursor.close()
         cnx.close()
-        return True
+        return info
+
 
 def get_id_by_email(email):
     cursor, cnx  = cursor_connect()

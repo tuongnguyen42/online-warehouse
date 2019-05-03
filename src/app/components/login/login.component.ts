@@ -35,47 +35,50 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginSubmit(){
-  const user = {
-    email: this.email,
-    password: this.password
-  }
-
-
-
-  if(!this.validateService.validateEmail(user.email)){
-    this.flashMessage.show('Please use a valid email', {cssClass: 'alert-danger', timeout: 3000});
-    return false;
-  }
-
-  if(!this.validateService.validateLogin(user)){
-    this.flashMessage.show('Please fill in all fields', {cssClass: 'alert-danger', timeout: 3000});
-    return false;
-  }
-
-   this.authService.authenticateUser(user).subscribe(data => {
-     if(data.success){
-       this.authService.storeUserData(data.token, data.user_id);
-       this.flashMessage.show("Logged in!",{
-         cssClass: 'alert-success',
-         timeout: 5000})
-    if(this.checkout === 'true'){
-      this.router.navigate(['/checkout']);
-    }
-    else{
-      this.router.navigate(['/']);
+    const user = {
+      email: this.email,
+      password: this.password
     }
 
 
 
-     } else{
-       this.flashMessage.show(data.msg,{
-         cssClass: 'alert-danger',
-         timeout: 5000
-       })
-       this.router.navigate(['/login']);
-     }
+    if(!this.validateService.validateEmail(user.email)){
+      this.flashMessage.show('Please use a valid email', {cssClass: 'alert-danger', timeout: 3000});
+      return false;
+    }
 
-   })
-}
+    if(!this.validateService.validateLogin(user)){
+      this.flashMessage.show('Please fill in all fields', {cssClass: 'alert-danger', timeout: 3000});
+      return false;
+    }
+
+    this.authService.authenticateUser(user).subscribe(data => {
+      if(data.success){
+        this.authService.storeUserData(data.token, data.user_id);
+        this.flashMessage.show("Logged in!",{
+          cssClass: 'alert-success',
+          timeout: 5000})
+        if (data.type === 'admin'){
+          this.router.navigate(['/admin']);
+        }
+        else {
+          if(this.checkout === 'true'){
+            this.router.navigate(['/checkout']);
+          }
+          else{
+            this.router.navigate(['/']);
+          }
+        }
+      } 
+      else {
+        this.flashMessage.show(data.msg,{
+          cssClass: 'alert-danger',
+          timeout: 5000
+        })
+        this.router.navigate(['/login']);
+      }
+    })
+
+  }
 
 }

@@ -169,7 +169,7 @@ export class CheckoutComponent implements OnInit {
     this.cartService.placeOrder(paymentInfo).subscribe(data => {
       if(data.success){
         this.flashMessage.show('Order placed!', {cssClass: 'alert-success', timeout: 3000});
-        localStorage.removeItem('cart');this.router.navigate(['/confirmation']);
+        localStorage.removeItem('cart');this.router.navigate(['/orders']);
       }
       else {
         this.flashMessage.show('Error processing your order', {cssClass: 'alert-danger', timeout: 3000});
