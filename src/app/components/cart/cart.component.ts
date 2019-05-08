@@ -74,7 +74,7 @@ export class CartComponent implements OnInit {
         timeout: 3000});
       // document.getElementById("qtyUpdate").innerHTML = temp[index].stock;
       // location.reload();
-    } 
+    }
     else if(updatedQty < 0) {
       this.flashMessage.show("Please enter a positive value!",{
         cssClass: 'alert-danger',

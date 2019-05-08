@@ -140,9 +140,13 @@ export class CheckoutComponent implements OnInit {
     for (let i = 0; i < cart.length; i++){
       items.push({
         id:cart[i].item_id,
-        qty:cart[i].qty
+        qty:cart[i].qty,
+        name:cart[i].name,
+        price:cart[i].price
       });
     }
+
+    // console.log(items);
 
 
     const paymentInfo = {

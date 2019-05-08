@@ -4,45 +4,45 @@
   </div>
   <div class="page-middle">
     <div class="card mb-3" *ngFor="let result of searchResult">
-      <div class="card-body">
-        <h4 class="card-title">Order #{{result.order_id}}</h4>
-        <p><b>Placed on {{result.purchase_time}}</b></p>
-      </div>
-      <div class="grid">
-        <div class="grid-item">
-          <a href="#">
-            <img
-              style="height: 100px; display: block; margin: 0px 0px 20px 20px;"
-              src="../../../assets/img/materials.jpg"
-              alt="Card image"
-          /></a>
-        </div>
-        <div class="grid-item">
-          <p><b>Total price: </b> ${{result.total_price}}</p>
-          <p><b>Total weight: </b> {{result.total_weight}} lbs</p>
-        </div>
-        <div class="grid-item">
-          <a [routerLink]="['/tracking']" [queryParams]="{ id: result.order_id}">
-            <button class="btn btn-primary" type="submit">Tracking</button>
-          </a>
-        </div>
-      </div>
-  </div>
+      <h4 class="card-title">Order #{{result.order_id}}</h4>
+      <p><b>Placed on {{result.purchase_time}}</b></p>
+      <div class="card-body" *ngFor="let item of result.items">
 
-  <div id="footer">
-    <div class="container-top">
-      <ul>
-        <li><a href="/about">About</a></li>
-        <li><a href="/contact">Contact</a></li>
-        <li><a href="/shipping">Shipping</a></li>
-        <li><a href="/faq">FAQ</a></li>
-      </ul>
+
+        <a [routerLink]="['/product']" [queryParams]="{ id: item.id}">
+          <p>{{item.name}}</p></a>
+          <p>${{item.price}}</p>
+        </div>
+        <div class="grid">
+          <div class="grid-item">
+
+          </div>
+          <div class="grid-item">
+            <p><b>Total price: </b> ${{result.total_price}}</p>
+            <p><b>Total weight: </b> {{result.total_weight}} lbs</p>
+          </div>
+          <div class="grid-item">
+            <a [routerLink]="['/tracking']" [queryParams]="{ id: result.order_id}">
+              <button class="btn btn-primary" type="submit">Tracking</button>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div id="footer">
+        <div class="container-top">
+          <ul>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/shipping">Shipping</a></li>
+            <li><a href="/faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="container-bottom">
+          <p class="muted credit">
+            Courtesy of <a href="https://unsplash.com/">Unsplash</a> and
+            <a href="https://www.pexels.com/">Pexels</a>.
+          </p>
+        </div>
+      </div>
     </div>
-    <div class="container-bottom">
-      <p class="muted credit">
-        Courtesy of <a href="https://unsplash.com/">Unsplash</a> and
-        <a href="https://www.pexels.com/">Pexels</a>.
-      </p>
-    </div>
-  </div>
-</div>

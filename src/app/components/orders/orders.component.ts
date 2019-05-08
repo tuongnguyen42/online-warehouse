@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavService } from '../../services/nav.service';
+import { SearchService } from '../../services/search.service';
 import { OrdersService } from '../../services/orders.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
@@ -16,7 +17,9 @@ export class OrdersComponent implements OnInit {
   constructor(public nav: NavService,
     private ordersService: OrdersService,
     private route: Router,
-    private router: ActivatedRoute) { }
+    private router: ActivatedRoute,
+    private searchSerivce: SearchService
+  ) { }
 
   ngOnInit() {
       this.router.queryParams.subscribe(params => {
@@ -25,11 +28,11 @@ export class OrdersComponent implements OnInit {
     });
 
     this.ordersService.searchUser().subscribe(data =>{
-      this.searchResult = data.orders;
-      // console.log(this.searchResult);
+      this.searchResult = data.orders.slice().reverse();
+      console.log(this.searchResult);
     })
 
-    
+
   }
 
 

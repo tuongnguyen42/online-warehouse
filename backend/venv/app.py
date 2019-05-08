@@ -205,7 +205,7 @@ def add_to_inventory():
 			"success" : False,
 			"msg" : "could not add item"
 		}
-	else: 
+	else:
 		responseObject = {
 			"success" : True,
 			"msg" : "added item"
