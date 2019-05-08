@@ -67,7 +67,6 @@ export class CartComponent implements OnInit {
     let temp = JSON.parse(localStorage.getItem('cart'));
     let index = temp.findIndex(temp => temp.name === product.name);
     let updatedQty = parseFloat((<HTMLInputElement>document.getElementById("qtyUpdate"+index)).value);
-    console.log(updatedQty);
 
     if (updatedQty > temp[index].stock){
       this.flashMessage.show("Out of stock!  Only " + temp[index].stock + " available.",{
@@ -75,7 +74,7 @@ export class CartComponent implements OnInit {
         timeout: 3000});
       // document.getElementById("qtyUpdate").innerHTML = temp[index].stock;
       // location.reload();
-    } 
+    }
     else if(updatedQty < 0) {
       this.flashMessage.show("Please enter a positive value!",{
         cssClass: 'alert-danger',

@@ -1,13 +1,13 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { AgmCoreModule } from "@agm/core";
+import { AgmCoreModule, MapsAPILoader } from "@agm/core";
+import { AgmDirectionModule } from 'agm-direction';
 import { HttpModule } from "@angular/http";
 import { FormsModule } from "@angular/forms";
 import { RouterModule, Routes } from "@angular/router";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./components/home/home.component";
-import { DashboardComponent } from "./components/dashboard/dashboard.component";
 import { LoginComponent } from "./components/login/login.component";
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { RegisterComponent } from "./components/register/register.component";
@@ -27,7 +27,6 @@ import { FaqComponent } from "./components/faq/faq.component";
 import { ShippingComponent } from "./components/shipping/shipping.component";
 import { ContactComponent } from "./components/contact/contact.component";
 import { SearchComponent } from "./components/search/search.component";
-import { BrowseComponent } from "./components/browse/browse.component";
 import { ProductComponent } from "./components/product/product.component";
 import { CheckoutComponent } from "./components/checkout/checkout.component";
 import { ConfirmationComponent } from "./components/confirmation/confirmation.component";
@@ -38,14 +37,13 @@ import { OrderDetailsComponent } from "./components/order-details/order-details.
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
   { path: "register", component: RegisterComponent, canActivate: [LoginGuard] },
-  { path: "dashboard", component: DashboardComponent },
   { path: "login", component: LoginComponent, canActivate: [LoginGuard] },
+  { path: "admin", component: AdminComponent, canActivate: [AuthGuard] },
   { path: "cart", component: CartComponent },
   { path: "orders", component: OrdersComponent, canActivate: [AuthGuard] },
   { path: "resetpwd", component: ResetpwdComponent },
   { path: "search", component: SearchComponent },
   { path: "product", component: ProductComponent },
-  { path: "browse/:category", component: BrowseComponent },
   { path: "checkout", component: CheckoutComponent, canActivate: [AuthGuard] },
   { path: "tracking", component: TrackingComponent },
   { path: "order-details", component: OrderDetailsComponent }
@@ -55,10 +53,10 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
-    DashboardComponent,
     LoginComponent,
     NavbarComponent,
     RegisterComponent,
+    AdminComponent,
     CartComponent,
     OrdersComponent,
     ResetpwdComponent,
@@ -67,7 +65,6 @@ const appRoutes: Routes = [
     ShippingComponent,
     ContactComponent,
     SearchComponent,
-    BrowseComponent,
     ProductComponent,
     CheckoutComponent,
     ConfirmationComponent,
@@ -85,8 +82,10 @@ const appRoutes: Routes = [
     FlashMessagesModule.forRoot(),
     FormsModule,
     AgmCoreModule.forRoot({
-      apiKey: "AIzaSyALPpI2grWR5poDZf4JMpHDLMcAHAwZ6R0"
-    })
+      apiKey: "AIzaSyALPpI2grWR5poDZf4JMpHDLMcAHAwZ6R0",
+      libraries: ['geometry', 'places']
+    }),
+    AgmDirectionModule
   ],
   providers: [
     SearchService,

@@ -1,90 +1,219 @@
-from flask_sqlalchemy import SQLAlchemy
-from flask import Flask
+import os
+import jwt
+import datetime
+import json
+from flask import Flask, request, make_response, jsonify
+from flask_cors import CORS, cross_origin
+from accounts import add_account, authenticate_user, get_id_by_email
+from inventory import get_all_items, get_items_by_category, get_item_by_id, get_total_pages, update_qty, add_item
+from orders import get_orders_by_user, get_tracking_by_order, new_order
 
 app = Flask(__name__)
+CORS(app)
+app.config['SECRET_KEY'] = 'tempsecretkey'
 
-# URI format for mysql: 'mysql://username:password@server/db'
-# edit URI w/ your local credentials
-app.config['SQLALCHEMY_DATABASE_URI']='mysql://root:Chungu1234@localhost/onlinewarehouse'
+@app.route('/receiver', methods = ['POST'])
+@cross_origin()
+def worker():
+	# read json + reply
+	data = request.get_json()
 
-db = SQLAlchemy(app)
+	if add_account(data.get('name'), data.get('email'), data.get('password')):
+		responseObject = {
+			"success": True,
+			"msg": "registered"
+		}
+	else:
+		responseObject = {
+		"success": False,
+		"msg": "account with that email exists"
+		}
+	return make_response(jsonify(responseObject))
 
-@app.route('/')
-def testdb():
-  try:
-    f = Account.query.all()
-    print(f)
-    print("query success")
-  except Exception as e:
-    print(e)
+@app.route('/authenticate', methods = ['POST'])
+@cross_origin()
+def login():
+	data = request.get_json()
+	email = data.get('email')
+	password = data.get('password')
+
+	result = authenticate_user(email, password)
+
+	if result is None:
+		responseObject = {
+			"success": False,
+			"msg": "Incorrect password!"
+		}
+	else:
+		id = result["id"]
+		type = result["type"]
+		token = jwt.encode({'user': email, 'pass': password, 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours = 24)}, \
+			app.config['SECRET_KEY'])
+		responseObject = {
+			"success": True,
+			"token": token.decode('UTF-8'),
+			"user_id":id,
+			"type":type
+		}
+	return make_response(jsonify(responseObject))
+
+
+@app.route('/search', methods = ['POST'])
+@cross_origin()
+def search():
+	data = request.get_json()
+	keyword = data.get('keyword')
+	page = data.get('page')
+	items = get_items_by_category(keyword, page)
+	totalPages = get_total_pages(keyword)
+	if not items:
+		responseObject = {
+			"success": False,
+			"msg": "no items in that category"
+		}
+	else:
+		responseObject = {
+			"success": True,
+			"inventory": items,
+			"pages":totalPages
+		}
+	return make_response(jsonify(responseObject))
+
+
+@app.route('/orders', methods = ['POST'])
+@cross_origin()
+def get_orders():
+	data = request.get_json()
+	user_id = data.get('id')
+	orders = get_orders_by_user(user_id)
+	if not orders:
+		responseObject = {
+			"success": False,
+			"msg": "no orders by this user"
+		}
+	else:
+		responseObject = {
+			"success": True,
+			"orders": orders,
+		}
+	return make_response(jsonify(responseObject))
+
+
+@app.route('/payment', methods = ['POST'])
+@cross_origin()
+def processOrder():
+	data = request.get_json()
+	#cart contains qty and item_id
+	cart = data.get('cart')
+	# print(cart)
+	#user_id used for adding to order history
+	user_id = data.get('user_id')
+	total = data.get('total')
+	weight = data.get('weight')
+	if update_qty(json.loads(cart)) and new_order(user_id, cart, total, weight):
+		responseObject = {
+		"success":True,
+		"msg": "Order placed"
+		}
+	else:
+		responseObject = {
+		"success": False,
+		"msg": "Failed to place order"
+		}
+
+	return make_response(jsonify(responseObject))
+
+
+@app.route('/search/id', methods = ['POST'])
+@cross_origin()
+def searchId():
+    data = request.get_json()
+    pid = data.get('productId')
+    item = get_item_by_id(pid)
+    if not item:
+        responseObject = {
+            "success": False,
+            "msg": "no item found for that user id"
+        }
+    else:
+        responseObject = {
+            "success": True,
+            "item": item
+        }
+    return make_response(jsonify(responseObject))
+
+
+@app.route('/orders/id', methods = ['POST'])
+@cross_origin()
+def get_tracking():
+    data = request.get_json()
+    oid = data.get('orderId')
+    trackingResult = get_tracking_by_order(oid)
+    if not trackingResult:
+        responseObject = {
+            "success": False,
+            "msg": "no tracking found for that order id"
+        }
+    else:
+        responseObject = {
+            "success": True,
+            "trackingResult": trackingResult
+        }
+    return make_response(jsonify(responseObject))
+
+
+@app.route('/admin', methods = ['POST'])
+@cross_origin()
+def get_all_inventory():
+	data = request.get_json()
+	inventory = get_all_items()
+
+	responseObject = {
+		"success" : True,
+		"inventory" : inventory
+	}
+	return make_response(jsonify(responseObject))
+
+
+@app.route('/admin/update', methods = ['POST'])
+@cross_origin()
+def update_inventory():
+	data = request.get_json()
+	inventory = data.get('inventory')
+	update_qty(inventory)
+	responseObject = {
+		"success" : True,
+		"inventory" : inventory
+	}
+	return make_response(jsonify(responseObject))
+
+
+@app.route('/admin/add', methods = ['POST'])
+@cross_origin()
+def add_to_inventory():
+	data = request.get_json()
+	print(data)
+	name = data.get('name')
+	category = data.get('category')
+	desc = data.get('description')
+	price = data.get('price')
+	stock = data.get('stock')
+	weight = data.get('weight')
+	w_id = data.get('warehouse_id')
+	if not add_item(name, category, desc, price, stock, weight, w_id):
+		responseObject = {
+			"success" : False,
+			"msg" : "could not add item"
+		}
+	else:
+		responseObject = {
+			"success" : True,
+			"msg" : "added item"
+		}
+	return make_response(jsonify(responseObject))
 
 
 if __name__ == '__main__':
-  app.run(debug=True)
-
-
-class Account(db.Model):
-  __tablename__ = 'accounts'
-  id = db.Column(db.Integer, primary_key=True, nullable=False)
-  name = db.Column(db.String(64))
-  email = db.Column(db.String(45), unique=True)
-  password = db.Column(db.String(32), nullable=False)
-  acc_type = db.Column(db.String(5))
-
-  def __repr__(self):
-    return f"Account('{self.name}', '{self.email}')"
-
-
-class Warehouse(db.Model):
-  __tablename__ = 'warehouses'
-  id = db.Column(db.Integer, primary_key=True, nullable=False)
-  name = db.Column(db.String(45), nullable=False)
-  longitude = db.Column(db.Float, nullable=False)
-  latitude = db.Column(db.Float, nullable=False)
-
-  def __repr__(self):
-    return f"Warehouse('{self.name}', '{self.longitude}', '{self.latitude}')"
-
-
-class Inventory(db.Model):
-  __tablename__ = 'inventory'
-  id = db.Column(db.Integer, primary_key=True, nullable=False)
-  name = db.Column(db.String(200), nullable=False)
-  price = db.Column(db.Float, nullable=False)
-  weight = db.Column(db.Integer, nullable=False)
-  description = db.Column(db.String(200))
-  category = db.Column(db.String(50))
-  stock = db.Column(db.Integer)
-  warehouse_id = db.Column(db.Integer, db.ForeignKey('warehouses.id'), nullable = False)
-
-  def __repr__(self):
-      return f"Inventory('{self.name}', '{self.category}', '{self.weight}')"
-
-
-class Order(db.Model):
-  __tablename__ = 'orders'
-  id = db.Column(db.Integer, primary_key=True, nullable=False)
-  account_id = db.Column(db.Integer, db.ForeignKey('accounts.id', ondelete='CASCADE'), primary_key=True, nullable=False)
-  purchase_time = db.Column(db.DateTime, nullable=False)
-
-  def __repr__(self):
-    return f"Order('{self.id}', '{self.purchase_time}')"
-
-
-class Tracking(db.Model):
-  __tablename__ = 'tracking'
-  id = db.Column(db.Integer, primary_key=True, nullable=False)
-  order_id = db.Column(db.Integer, db.ForeignKey('orders.id', ondelete ='Cascade'), nullable = False)
-  origin = db.Column(db.String(200), nullable=False)
-  destination = db.Column(db.String(200), nullable=False)
-  method = db.Column(db.String(45), nullable=False)
-  status = db.Column(db.String(45), nullable=False)
-
-  def __repr__(self):
-    return f"Tracking('{self.id}', '{self.order_id}', '{self.destination}', '{self.method}', '{self.status}')"
-
-
-db.drop_all()
-db.create_all()
-# tests db connection
-testdb()
+    app.run()
+    # To view scripts on a different computer on the same network
+    # app.run("0.0.0.0", "5010")

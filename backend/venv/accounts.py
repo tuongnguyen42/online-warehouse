@@ -1,18 +1,4 @@
-import mysql.connector
-
-# module for accounts #
-# replace with current user's information
-def cursor_connect():
-    cnx = mysql.connector.connect(
-    user='root',
-    password='Chungu1234',
-    host='localhost',
-    database='onlinewarehouse',
-    port='3000'
-    )
-    cur = cnx.cursor(buffered=True)
-    return cur, cnx
-
+from connect import cursor_connect
 
 def add_account(name, email, password):
     cursor, cnx  = cursor_connect()
@@ -25,23 +11,34 @@ def add_account(name, email, password):
                        (name, email, password, "user"))
         cnx.commit()
         # print("executed")
+        cursor.close()
+        cnx.close()
         return True
     else:
         # email account already exists in database
         # print("account with that email already exists")
+        cursor.close()
+        cnx.close()
         return False
-    cursor.close()
-    cnx.close()
+    
 
 
 def authenticate_user(email, password):
     cursor, cnx  = cursor_connect()
-    cursor.execute("SELECT * FROM accounts WHERE email LIKE %s AND password LIKE %s", (email, password))
+    cursor.execute("SELECT * FROM accounts WHERE email = %s AND password = %s", (email, password))
 
-    if not cursor.fetchall():
-        return False
+    user_info = cursor.fetchall()[0]
+    if not user_info:
+        cursor.close()
+        cnx.close()
+        return None
     else:
-        return True
+        info = {"id": user_info[0],
+                "type": user_info[4]}
+        cursor.close()
+        cnx.close()
+        return info
+
 
 def get_id_by_email(email):
     cursor, cnx  = cursor_connect()
@@ -49,8 +46,12 @@ def get_id_by_email(email):
     id = cursor.fetchone()
 
     if not id:
+        cursor.close()
+        cnx.close()
         return False
     else:
+        cursor.close()
+        cnx.close()
         return id[0]
 
 def forgot_password(email):
@@ -58,11 +59,13 @@ def forgot_password(email):
     cursor.execute("""SELECT password FROM accounts WHERE email like %s""", (email,))
     pword = cursor.fetchone()
     if not pword:
+        cursor.close()
+        cnx.close()
         print("no password returned, account does not exist\n")
     else:
+        cursor.close()
+        cnx.close()
         return str(pword[0])
-    cursor.close()
-    cnx.close()
 
 
 # tests

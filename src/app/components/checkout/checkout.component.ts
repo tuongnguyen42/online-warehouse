@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {CartService} from '../../services/cart.service';
 import {FlashMessagesService} from 'angular2-flash-messages';
+//import { totalmem } from 'os';
 
 
 
@@ -40,7 +42,6 @@ export class CheckoutComponent implements OnInit {
   price:any;
   shippingCost:any = 0;
   tax:any;
-  subtotal:any;
   total:any;
   weight:any;
   totalBeforeTax: any;
@@ -48,7 +49,8 @@ export class CheckoutComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private cartService: CartService,
-    private flashMessage:FlashMessagesService
+    private flashMessage:FlashMessagesService,
+    public router: Router
   ) { }
 
   ngOnInit() {
@@ -138,9 +140,13 @@ export class CheckoutComponent implements OnInit {
     for (let i = 0; i < cart.length; i++){
       items.push({
         id:cart[i].item_id,
-        qty:cart[i].qty
+        qty:cart[i].qty,
+        name:cart[i].name,
+        price:cart[i].price
       });
     }
+
+    // console.log(items);
 
 
     const paymentInfo = {
@@ -158,14 +164,16 @@ export class CheckoutComponent implements OnInit {
       pickup: this.pickup,
       truckDelivery:this.truckDelivery,
       sameDayDelivery:this.sameDayDelivery,
-      cart: items,
+      cart: JSON.stringify(items),
+      total:this.total,
+      weight:this.weight,
       user_id:localStorage.getItem('user_id')
-
     }
+
     this.cartService.placeOrder(paymentInfo).subscribe(data => {
       if(data.success){
         this.flashMessage.show('Order placed!', {cssClass: 'alert-success', timeout: 3000});
-        localStorage.removeItem('cart');
+        localStorage.removeItem('cart');this.router.navigate(['/orders']);
       }
       else {
         this.flashMessage.show('Error processing your order', {cssClass: 'alert-danger', timeout: 3000});
