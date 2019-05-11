@@ -149,6 +149,7 @@ def get_tracking():
     data = request.get_json()
     oid = data.get('orderId')
     trackingResult = get_tracking_by_order(oid)
+    print(trackingResult)
     if not trackingResult:
         responseObject = {
             "success": False,

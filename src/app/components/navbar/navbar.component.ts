@@ -27,7 +27,9 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     // this.searchService.keyword.subscribe(keyword => this.keyword = keyword);
-    this.cartCount = JSON.parse(localStorage.getItem('cart')).length;
+    if(localStorage.getItem('cart') != null){
+      this.cartCount = JSON.parse(localStorage.getItem('cart')).length;
+    }
     this.id = parseInt(localStorage.getItem('user_id'));
   }
 

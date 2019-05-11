@@ -1,48 +1,117 @@
 <div class="wrapper">
-  <div class="page-top">
+  <div class="page-top" *ngIf="haveOrders">
     <h1>Your Orders</h1>
   </div>
-  <div class="page-middle">
+  <div class="page-top" *ngIf="!haveOrders">
+    <h1>No Orders From This User</h1>
+  </div>
+  <div class="page-middle" *ngIf="haveOrders" >
+    <!--
     <div class="card mb-3" *ngFor="let result of searchResult">
-      <h4 class="card-title">Order #{{result.order_id}}</h4>
-      <p><b>Placed on {{result.purchase_time}}</b></p>
-      <div class="card-body" *ngFor="let item of result.items">
+    <h4 class="card-title">
+    Order
+    <p>result.order_id</p>
+  </h4>
+  <p>
+  result.purchase_time
+</p>
+<div class="card-body" *ngFor="let item of result.items">
+<a [routerLink]="['/product']" [queryParams]="{ id: item.id }">
+<p>{{ item.name }}</p></a
+>
+<p>${{ item.price }}</p>
+</div>
+<div class="grid">
+<div class="grid-item"></div>
+<div class="grid-item">
+<p><b>Total price: </b> ${{ result.total_price }}</p>
+<p><b>Total weight: </b> {{ result.total_weight }} lbs</p>
+</div>
+<div class="grid-item">
+<a
+[routerLink]="['/tracking']"
+[queryParams]="{ id: result.order_id }"
+>
+<button class="btn btn-primary" type="submit">Tracking</button>
+</a>
+</div>
+</div>
+</div>
+-->
+
+<!-- BEGIN CONFIRMATION TABLE -->
+<div class="shell" *ngFor="let result of searchResult">
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width:100%"><h4>Placed on {{result.purchase_time}}</h4></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let item of result.items">
+        <td data-th="Product">
+          <div class="row">
+            <div class="col-sm-2 hidden-xs">
+              <!-- <img
+              src="http://placehold.it/100x100"
+              alt="..."
+              class="img-responsive"
+              /> -->
+            </div>
+            <div class="col-sm-10">
+              <h5 class="nomargin">        <a [routerLink]="['/product']" [queryParams]="{ id: item.id }">
+                <p>{{ item.name }}</p></a
+                ></h5>
+              </div>
+            </div>
+          </td>
+
+          <td data-th="Price">${{item.price}}</td>
+
+          <td data-th="Quantity">Qty:{{item.qty}}</td>
+          <td class="actions" data-th=""></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th>
+            <h5>Total Weight: {{ result.total_weight }} lbs</h5>
+            <h5>Total Price: ${{ result.total_price }}</h5>
+          </th>
+          <a
+          [routerLink]="['/tracking']"
+          [queryParams]="{ id: result.order_id }"
+          >
+          <button class="btn btn-primary" type="submit">Tracking</button>
+        </a>
+      </tr>
+
+    </tfoot>
+  </table>
 
 
-        <a [routerLink]="['/product']" [queryParams]="{ id: item.id}">
-          <p>{{item.name}}</p></a>
-          <p>${{item.price}}</p>
-        </div>
-        <div class="grid">
-          <div class="grid-item">
 
-          </div>
-          <div class="grid-item">
-            <p><b>Total price: </b> ${{result.total_price}}</p>
-            <p><b>Total weight: </b> {{result.total_weight}} lbs</p>
-          </div>
-          <div class="grid-item">
-            <a [routerLink]="['/tracking']" [queryParams]="{ id: result.order_id}">
-              <button class="btn btn-primary" type="submit">Tracking</button>
-            </a>
-          </div>
-        </div>
-      </div>
+</div>
+</div>
+<!-- END CONFIRMATION TABLE -->
 
-      <div id="footer">
-        <div class="container-top">
-          <ul>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
-            <li><a href="/shipping">Shipping</a></li>
-            <li><a href="/faq">FAQ</a></li>
-          </ul>
-        </div>
-        <div class="container-bottom">
-          <p class="muted credit">
-            Courtesy of <a href="https://unsplash.com/">Unsplash</a> and
-            <a href="https://www.pexels.com/">Pexels</a>.
-          </p>
-        </div>
-      </div>
-    </div>
+
+<!-- <div class="page-bottom">
+<div id="footer">
+<div class="container-top">
+<ul>
+<li><a href="/about">About</a></li>
+<li><a href="/contact">Contact</a></li>
+<li><a href="/shipping">Shipping</a></li>
+<li><a href="/faq">FAQ</a></li>
+</ul>
+</div>
+<div class="container-bottom">
+<p class="muted credit">
+Courtesy of <a href="https://unsplash.com/">Unsplash</a> and
+<a href="https://www.pexels.com/">Pexels</a>.
+</p>
+</div>
+</div>
+</div> -->
+</div>

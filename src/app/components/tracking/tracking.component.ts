@@ -52,7 +52,6 @@ export class TrackingComponent implements OnInit {
     this.ordersService.searchOrder(query).subscribe(data =>{
       this.trackingResult = data.trackingResult;
       console.log(this.trackingResult);
-      console.log(this.trackingResult[0].origin);
 
       // Change this to query from database in future
       if (this.trackingResult[0].origin == 1) {
