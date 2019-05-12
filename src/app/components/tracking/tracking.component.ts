@@ -12,24 +12,13 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 export class TrackingComponent implements OnInit {
   orderId:String = "";
-  trackingResult:Object = {
-    tracking_id:0,
-    order_id:0,
-    origin:0,
-    stopover:false,
-    address:"",
-    city:"",
-    state:"",
-    zip:0,
-    delivery_method:"",
-    delivery_status:""
-  };
-  origin = { lat: 0, lng: 0 };
-  destination = { lat: 0, lng: 0 };
+  estimatedDelivery: Date;
+  displayDate: String;
+  origin = { lat: 37.3047208, lng: -121.8216308 };
+  destination = { lat: 37.35853300000001, lng: -121.862952 };
   lat: Number;
   lng: Number;
-  waypoints: object = [
-  ]
+  status:any;
 
   constructor(
     private ordersService:OrdersService,
@@ -51,49 +40,11 @@ export class TrackingComponent implements OnInit {
 
     this.ordersService.searchOrder(query).subscribe(data =>{
       this.trackingResult = data.trackingResult;
-      console.log(this.trackingResult);
-
-      // Change this to query from database in future
-      if (this.trackingResult[0].origin == 1) {
-        // Warehouse 1
-        console.log("the origin is warehouse1");
-        this.lat = 37.3047208;
-        this.lng = -121.862952;
-        this.origin = { lat: 37.3047208, lng: -121.862952 };
-      }
-      else {
-        // Warehouse 2
-        console.log("the origin is warehouse2");
-        this.lat = 37.3346377;
-        this.lng = -121.9819636;
-        this.origin = { lat: 37.3346377, lng: -121.9819636 };
-      }
-
-      // Set the stopover to be the non-origin warehouse
-      if (this.trackingResult[0].stopover == true) {
-        if (this.trackingResult[0].origin == 1) {
-          // Warehouse 2
-          console.log("the stopover is warehouse2");
-          this.waypoints = [
-            {
-                location: { lat: 37.3346377, lng: -121.9819636 },
-                stopover: true,
-            },
-          ]
-        }
-        else {
-          // Warehouse 1
-          console.log("the stopover is warehouse1");
-          this.waypoints = [
-            {
-                location: { lat: 37.3047208, lng: -121.862952 },
-                stopover: true,
-            },
-          ]
-        }
-      }
-
-      this.destination = { lat: 37.338888, lng: -121.881553 };
+      this.estimatedDelivery = new Date(this.trackingResult.purchase_time);
+      this.estimatedDelivery.setDate(this.estimatedDelivery.getDate() + 2);
+      this.displayDate = this.estimatedDelivery.toDateString();
+      this.status = this.trackingResult.delivery_status;
+      this.destination = { lat: +this.trackingResult.lat, lng: +this.trackingResult.lng };
     })
 
   }
