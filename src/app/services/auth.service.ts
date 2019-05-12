@@ -48,10 +48,11 @@ export class AuthService {
 
 
   loggedIn(){
-  let helper = new JwtHelperService();
-  let token = localStorage.getItem('id_token');
-  return helper.isTokenExpired(token);
-}
+    let helper = new JwtHelperService();
+    let token = localStorage.getItem('id_token');
+    return helper.isTokenExpired(token);
+  }
+
 
 
 

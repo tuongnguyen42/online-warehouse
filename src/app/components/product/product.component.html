@@ -11,7 +11,7 @@
   <form ngNativeValidate (submit)="onAddClick()">
     <div class="grid-item">
       <p><b>Product #: </b>{{productResult.id}}</p>
-      <p><b>Weight: </b>12oz</p>
+      <p><b>Weight: </b>{{productResult.weight}} lb</p>
       <header><h1>${{productResult.price}}</h1> <span><i>per unit</i></span></header>
       <p><b>How to receive it:</b>
         <br>Free pickup, or free 2-day delivery with qualifying $100 order.
