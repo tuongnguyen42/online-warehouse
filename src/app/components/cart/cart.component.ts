@@ -24,24 +24,30 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
     // localStorage.clear();
-    this.emptyCart = (JSON.parse(localStorage.getItem('cart')).length === 0);
-    let cart = JSON.parse(localStorage.getItem('cart'));
-    let totalPrice:number = 0;
-    let totalWeight:number = 0;
-    this.cart = cart;
-    console.log(cart);
+    if((localStorage.getItem('cart') != null) && !(JSON.parse(localStorage.getItem('cart')).length === 0)){
+      this.emptyCart = false;
+      let cart = JSON.parse(localStorage.getItem('cart'));
+      let totalPrice:number = 0;
+      let totalWeight:number = 0;
+      this.cart = cart;
+      console.log(cart);
 
-    for(let i = 0; i < cart.length; i++){
-      totalPrice += parseFloat(cart[i].price);
-      totalWeight += parseFloat(cart[i].weight);
+      for(let i = 0; i < cart.length; i++){
+        totalPrice += parseFloat(cart[i].price);
+        totalWeight += parseFloat(cart[i].weight);
+      }
+
+
+      this.totalPrice = parseFloat(totalPrice.toFixed(2));
+      this.totalWeight = parseFloat(totalWeight.toFixed(2));
+
+      this.cartService.setTotalPrice(this.totalPrice);
+      this.cartService.setTotalWeight(this.totalWeight);
+    } else {
+      this.emptyCart = true;
     }
 
 
-    this.totalPrice = parseFloat(totalPrice.toFixed(2));
-    this.totalWeight = parseFloat(totalWeight.toFixed(2));
-
-    this.cartService.setTotalPrice(this.totalPrice);
-    this.cartService.setTotalWeight(this.totalWeight);
 
 
 

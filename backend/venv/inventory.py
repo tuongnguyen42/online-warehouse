@@ -1,6 +1,7 @@
 import random
 import decimal
 import math
+import mysql
 from connect import cursor_connect
 
 # adds an item, details include name, description, price, items in stock, and warehouse located
@@ -21,7 +22,7 @@ def add_item(name, category, description, price, stock, weight, warehouse_id):
         cursor.close()
         cnx.close()
         return False
-    
+
 
 
 def delete_item(name):

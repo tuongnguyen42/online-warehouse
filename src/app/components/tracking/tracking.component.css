@@ -3,7 +3,7 @@
 }
 
 agm-map {
-  height: 300px; /* required */
+  height: 750px; /* required */
   display: block;
   margin-top: 30px;
 }

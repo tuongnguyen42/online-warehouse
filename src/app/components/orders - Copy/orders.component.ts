@@ -13,7 +13,6 @@ export class OrdersComponent implements OnInit {
   id: Number = null;
   searchResult:[Object];
   orderByAccount:[Object];
-  haveOrders:Boolean = false;
 
   constructor(public nav: NavService,
     private ordersService: OrdersService,
@@ -29,15 +28,8 @@ export class OrdersComponent implements OnInit {
     });
 
     this.ordersService.searchUser().subscribe(data =>{
-      if(data.success){
-        this.haveOrders = true;
-        this.searchResult = data.orders.slice().reverse();
-        console.log(this.searchResult);
-      }
-      else {
-        console.log(data.msg);
-      }
-
+      this.searchResult = data.orders.slice().reverse();
+      console.log(this.searchResult);
     })
 
 

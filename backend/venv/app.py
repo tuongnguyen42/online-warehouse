@@ -7,7 +7,6 @@ from flask_cors import CORS, cross_origin
 from accounts import add_account, authenticate_user, get_id_by_email
 from inventory import get_all_items, get_items_by_category, get_item_by_id, get_total_pages, update_qty, add_item
 from orders import get_orders_by_user, get_tracking_by_order, new_order
-
 app = Flask(__name__)
 CORS(app)
 app.config['SECRET_KEY'] = 'tempsecretkey'
@@ -110,17 +109,26 @@ def processOrder():
 	user_id = data.get('user_id')
 	total = data.get('total')
 	weight = data.get('weight')
-	if update_qty(json.loads(cart)) and new_order(user_id, cart, total, weight):
-		responseObject = {
-		"success":True,
-		"msg": "Order placed"
-		}
+	if(data.get('truckDelivery')):
+		delivery_method = "Truck"
+	else:
+		delivery_method = "Drone"
+
+	delivery_status = "Processing"
+
+	#find geocode for address
+	address = data.get('address') + " " + data.get('city')+ " " + data.get('state') + " " + data.get('zip')
+
+	if update_qty(json.loads(cart)) and new_order(user_id, cart, total, weight, address, delivery_status, delivery_method):
+			responseObject = {
+			"success":True,
+			"msg": "Order placed"
+			}
 	else:
 		responseObject = {
 		"success": False,
 		"msg": "Failed to place order"
 		}
-
 	return make_response(jsonify(responseObject))
 
 
@@ -149,6 +157,8 @@ def get_tracking():
     data = request.get_json()
     oid = data.get('orderId')
     trackingResult = get_tracking_by_order(oid)
+    print("tracking result is")
+    print(trackingResult)
     if not trackingResult:
         responseObject = {
             "success": False,

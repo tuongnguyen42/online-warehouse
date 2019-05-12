@@ -55,27 +55,10 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit() {
     this.emptyCart = (JSON.parse(localStorage.getItem('cart')).length === 0);
-    console.log(localStorage.getItem('user'));
 
     if(!this.emptyCart){
-      if(localStorage.getItem('shippingInfo')){
-        let shippingInfo = JSON.parse(localStorage.getItem('shippingInfo'));
-        this.name = shippingInfo.name;
-        this.email = shippingInfo.email;
-        this.address = shippingInfo.address;
-        this.city = shippingInfo.city;
-        this.state = shippingInfo.state;
-        this.zip = shippingInfo.zip;
-        // this.nameOnCard = shippingInfo.nameOnCard;
-        // this.cardNumber = shippingInfo.cardNumber;
-        // this.expMonth = shippingInfo.expMonth;
-        // this.expYear = shippingInfo.expYear;
-        // this.ccv = shippingInfo.ccv;
-      }
       this.price = this.cartService.getTotalPrice();
       this.weight = this.cartService.getTotalWeight();
-      this.pickup = (localStorage.getItem('pickup') === 'true');
-      this.sameDayDelivery = (localStorage.getItem('delivery') === 'true');
 
 
 
@@ -84,6 +67,7 @@ export class CheckoutComponent implements OnInit {
       if(this.pickup){
         this.sameDayDelivery = false;
         this.truckDelivery = false;
+        this.shippingCost = 0;
       }
       if(!this.pickup){
         //free delivery for orders over 100
@@ -128,12 +112,6 @@ export class CheckoutComponent implements OnInit {
   }
   onOrderPlace(){
 
-    // let f = document.getElementsByTagName('form')[0];
-  //   if(f.checkValidity()) {
-  //   f.submit();
-  // }else {
-  //       this.flashMessage.show('Please fill in all fields', {cssClass: 'alert-danger', timeout: 3000});
-  // }
     let cart = JSON.parse(localStorage.getItem('cart'));
     let items: Object[] = [];
 
@@ -183,46 +161,75 @@ export class CheckoutComponent implements OnInit {
   }
 
   pickupCheck(event: any){
-   localStorage.setItem('pickup', String(this.pickup));
 
-   let shippingInfo ={
-     name:this.name,
-     email:this.email,
-     address:this.address,
-     city:this.city,
-     state:this.state,
-     zip:this.zip
-     // nameOnCard:this.nameOnCard,
-     // cardNumber:this.cardNumber,
-     // expMonth:this.expMonth,
-     // expYear:this.expYear,
-     // ccv:this.ccv
+   if(this.pickup){
+     this.sameDayDelivery = false;
+     this.truckDelivery = false;
+     this.shippingCost = 0;
+
+   }
+   if(!this.pickup){
+     //free delivery for orders over 100
+     if(this.price > 100){
+
+       if(this.sameDayDelivery){
+         this.shippingCost = 25.00;
+       }
+     }
+     //orders over 100 and less than 15lbs is free delivery by drone
+     if(this.price > 100 && this.weight < 15){
+       this.shippingCost = 0.00;
+       this.truckDelivery = false;
+     }
+
+     //if order is under 100 can request delivery method
+     if(this.price < 100){
+       this.deliveryChoice = true;
+         this.shippingCost = 20;
+     }
 
    }
 
-   localStorage.setItem('shippingInfo', JSON.stringify(shippingInfo));
-   location.reload();
+   this.totalBeforeTax = (this.shippingCost+this.price);
+   this.tax = ((this.shippingCost+this.price)*.075).toFixed(2);
+   this.total = (parseFloat(this.tax)+parseFloat(this.totalBeforeTax)).toFixed(2);
+
+
 }
 
   shippingSpeed(event: any){
-    let shippingInfo ={
-      name:this.name,
-      email:this.email,
-      address:this.address,
-      city:this.city,
-      state:this.state,
-      zip:this.zip,
-      nameOnCard:this.nameOnCard,
-      cardNumber:this.cardNumber,
-      expMonth:this.expMonth,
-      expYear:this.expYear,
-      ccv:this.ccv
+    console.log("same day " + this.sameDayDelivery);
+    if(this.pickup){
+      this.sameDayDelivery = false;
+      this.truckDelivery = false;
+      this.shippingCost = 0;
+    }
+    if(!this.pickup){
+      //free delivery for orders over 100
+      if(this.price > 100){
+        this.shippingCost = 0;
+        if(this.sameDayDelivery){
+          this.shippingCost = 25.00;
+        }
+      }
+      //orders over 100 and less than 15lbs is free delivery by drone
+      if(this.price > 100 && this.weight < 15){
+        this.shippingCost = 0.00;
+        this.truckDelivery = false;
+      }
+
+      //if order is under 100 can request delivery method
+      if(this.price < 100){
+        this.deliveryChoice = true;
+          this.shippingCost = 20;
+      }
 
     }
 
-    localStorage.setItem('shippingInfo', JSON.stringify(shippingInfo));
-    localStorage.setItem('delivery', String(this.sameDayDelivery));
-    location.reload();
+    this.totalBeforeTax = (this.shippingCost+this.price);
+    this.tax = ((this.shippingCost+this.price)*.075).toFixed(2);
+    this.total = (parseFloat(this.tax)+parseFloat(this.totalBeforeTax)).toFixed(2);
+
   }
 
 
