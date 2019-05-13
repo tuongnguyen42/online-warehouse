@@ -22,6 +22,9 @@ export class AdminComponent implements OnInit {
   weight:number;
   warehouse_id:number;
 
+  itemID:number;
+  quantity:number;
+
   constructor(
     public nav: NavService,
     private searchService:SearchService,
@@ -30,7 +33,7 @@ export class AdminComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.nav.hide();
+    this.nav.show();
   }
 
   onAddSubmit() {
@@ -56,6 +59,22 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  onUpdateSubmit() {
+    const item = {
+      id: this.itemID,
+      quantity: this.quantity
+    }
+
+    this.adminService.updateItem(item).subscribe(data =>{
+      if (data.success) {
+        this.flashMessage.show(data.msg, {cssClass: 'alert-success', timeout: 3000});
+        location.reload();
+      }
+      else {
+        this.flashMessage.show(data.msg, {cssClass: 'alert-danger', timeout: 3000});
+      }
+    });
+  }
   /*updateItem(product){
     let index = 
     let updatedQty = parseFloat((<HTMLInputElement>document.getElementById("qtyUpdate"+index)).value);

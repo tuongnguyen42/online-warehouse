@@ -83,6 +83,19 @@ def update_qty(cart):
     return True
 
 
+def admin_update_quantity(item_id, quantity):
+    cursor, cnx = cursor_connect()
+    try:
+        cursor.execute("""UPDATE inventory SET stock = %s WHERE inventory_id = %s""", (quantity, item_id))
+        cnx.commit()
+    except mysql.connector.DataError as err:
+        cursor.close()
+        cnx.close()
+        return False
+    cursor.close()
+    cnx.close()
+    return True
+
 
 def get_items_by_category(category, page):
     cursor, cnx = cursor_connect()
@@ -151,7 +164,7 @@ def get_all_items():
 
 def populateInventory():
     categories =["paper", "scissors", "staplers", "binders", "pens", "organizers", "furniture"]
-    for i in range(500):
+    for i in range(300):
         price = round(random.uniform(0,999), 2)
         add_item("item " + str(i),
                  categories[i%7],
