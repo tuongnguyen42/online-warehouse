@@ -119,7 +119,7 @@ def processOrder():
 	#find geocode for address
 	address = data.get('address') + " " + data.get('city')+ " " + data.get('state') + " " + data.get('zip')
 
-	if update_qty(json.loads(cart)) and new_order(user_id, cart, total, weight, address, delivery_status, delivery_method):
+	if update_qty(json.loads(cart)) and new_order(user_id, cart, total, weight, address, delivery_method, delivery_status):
 			responseObject = {
 			"success":True,
 			"msg": "Order placed"
