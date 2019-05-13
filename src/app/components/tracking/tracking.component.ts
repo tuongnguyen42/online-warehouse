@@ -19,6 +19,7 @@ export class TrackingComponent implements OnInit {
   lat: Number;
   lng: Number;
   status:any;
+  trackingResult: any;
 
   constructor(
     private ordersService:OrdersService,
@@ -31,8 +32,8 @@ export class TrackingComponent implements OnInit {
 
   ngOnInit() {
     this.router.queryParams.subscribe(params => {
-    this.orderId = params['id'];
-  });
+      this.orderId = params['id'];
+    });
 
     const query = {
       orderId:this.orderId
