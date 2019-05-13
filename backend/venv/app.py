@@ -5,7 +5,7 @@ import json
 from flask import Flask, request, make_response, jsonify
 from flask_cors import CORS, cross_origin
 from accounts import add_account, authenticate_user, get_id_by_email
-from inventory import get_all_items, get_items_by_category, get_item_by_id, get_total_pages, update_qty, add_item
+from inventory import get_all_items, get_items_by_category, get_item_by_id, get_total_pages, update_qty, add_item, admin_update_quantity
 from orders import get_orders_by_user, get_tracking_by_order, new_order
 app = Flask(__name__)
 CORS(app)
@@ -189,12 +189,18 @@ def get_all_inventory():
 @cross_origin()
 def update_inventory():
 	data = request.get_json()
-	inventory = data.get('inventory')
-	update_qty(inventory)
-	responseObject = {
-		"success" : True,
-		"inventory" : inventory
-	}
+	id = data.get('id')
+	quantity = data.get('quantity')
+	if admin_update_quantity(id, quantity): 
+		responseObject = {
+			"success" : True,
+			"msg" : "Item quantity successfully updated."
+		}
+	else:
+		responseObject = {
+			"success" : False,
+			"msg" : "Could not update item quantity. Item may not exist."
+		}
 	return make_response(jsonify(responseObject))
 
 
