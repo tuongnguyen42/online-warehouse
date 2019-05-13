@@ -111,53 +111,52 @@ export class CheckoutComponent implements OnInit {
     return (this.price > 100);
   }
   onOrderPlace(){
+    if (this.validateExpDate()) {
+      
+      let cart = JSON.parse(localStorage.getItem('cart'));
+      let items: Object[] = [];
 
-    let cart = JSON.parse(localStorage.getItem('cart'));
-    let items: Object[] = [];
+      for (let i = 0; i < cart.length; i++){
+        items.push({
+          id:cart[i].item_id,
+          qty:cart[i].qty,
+          name:cart[i].name,
+          price:cart[i].price
+        });
+      }
 
-    for (let i = 0; i < cart.length; i++){
-      items.push({
-        id:cart[i].item_id,
-        qty:cart[i].qty,
-        name:cart[i].name,
-        price:cart[i].price
+      const paymentInfo = {
+        name:this.name,
+        email:this.email,
+        address: this.address,
+        city: this.city,
+        state: this.state,
+        zip:this.zip,
+        nameOnCard:this.nameOnCard,
+        cardNumber:this.cardNumber,
+        expMonth:this.expMonth,
+        expYear:this.expYear,
+        ccv:this.ccv,
+        pickup: this.pickup,
+        truckDelivery:this.truckDelivery,
+        sameDayDelivery:this.sameDayDelivery,
+        cart: JSON.stringify(items),
+        total:this.total,
+        weight:this.weight,
+        user_id:localStorage.getItem('user_id')
+      }
+
+      this.cartService.placeOrder(paymentInfo).subscribe(data => {
+        if(data.success){
+          this.flashMessage.show('Order placed!', {cssClass: 'alert-success', timeout: 3000});
+          localStorage.removeItem('cart');this.router.navigate(['/orders']);
+        }
+        else {
+          this.flashMessage.show('Error processing your order', {cssClass: 'alert-danger', timeout: 3000});
+        }
       });
+      console.log(paymentInfo);
     }
-
-    // console.log(items);
-
-
-    const paymentInfo = {
-      name:this.name,
-      email:this.email,
-      address: this.address,
-      city: this.city,
-      state: this.state,
-      zip:this.zip,
-      nameOnCard:this.nameOnCard,
-      cardNumber:this.cardNumber,
-      expMonth:this.expMonth,
-      expYear:this.expYear,
-      ccv:this.ccv,
-      pickup: this.pickup,
-      truckDelivery:this.truckDelivery,
-      sameDayDelivery:this.sameDayDelivery,
-      cart: JSON.stringify(items),
-      total:this.total,
-      weight:this.weight,
-      user_id:localStorage.getItem('user_id')
-    }
-
-    this.cartService.placeOrder(paymentInfo).subscribe(data => {
-      if(data.success){
-        this.flashMessage.show('Order placed!', {cssClass: 'alert-success', timeout: 3000});
-        localStorage.removeItem('cart');this.router.navigate(['/orders']);
-      }
-      else {
-        this.flashMessage.show('Error processing your order', {cssClass: 'alert-danger', timeout: 3000});
-      }
-    });
-    console.log(paymentInfo);
   }
 
   pickupCheck(event: any){
@@ -232,7 +231,18 @@ export class CheckoutComponent implements OnInit {
 
   }
 
-
+  validateExpDate(){
+    let curDate = new Date();
+    if (this.expYear < curDate.getFullYear()) {
+      this.flashMessage.show('Card is expired. Please enter info for a different card.', {cssClass: 'alert-danger', timeout: 3000});
+      return false;
+    }
+    else if (this.expYear == curDate.getFullYear() && this.expMonth < curDate.getMonth()) {
+      this.flashMessage.show('Card is expired. Please enter info for a different card.', {cssClass: 'alert-danger', timeout: 3000});
+      return false;
+    }
+    return true;
+  }
 
 
 
